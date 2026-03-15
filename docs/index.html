@@ -702,7 +702,7 @@ async function loadPolymarket(force) {
   document.getElementById('pmMarkets').innerHTML = '<div class="loading-row"><span class="spinner"></span>Scanning Polymarket... (~30 seconds)</div>';
   document.getElementById('pmSummary').innerHTML = '';
   try {
-    const res = await fetch('http://localhost:8000/polymarket/scan', {method:'POST'});
+    const res = await fetch('https://web-production-acfba.up.railway.app/polymarket/scan', {method:'POST'});
     pmData = await res.json();
     renderPolymarket(pmData);
   } catch(e) {
