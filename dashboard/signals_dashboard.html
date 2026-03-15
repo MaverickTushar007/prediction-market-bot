@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>QUANT SIGNALS</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -110,6 +110,81 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--border2);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
 .error-box{padding:20px;background:rgba(255,71,87,.05);border:1px solid rgba(255,71,87,.2);border-radius:4px;color:var(--red);font-family:var(--mono);font-size:11px;line-height:1.6;margin:16px}
+
+/* ── RESPONSIVE ── */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  .statbar { grid-template-columns: repeat(3, 1fr); }
+  .stat-cell:nth-child(4) { border-top: 1px solid var(--border); }
+  .stat-cell:nth-child(5) { border-top: 1px solid var(--border); grid-column: span 2; }
+  .layout { grid-template-columns: 260px 1fr; }
+  .quant-grid { grid-template-columns: repeat(2, 1fr); }
+  .ml-grid { grid-template-columns: 1fr; }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 768px) {
+  .topbar { padding: 0 12px; }
+  .brand-name { font-size: 9px; letter-spacing: 2px; }
+  .clock { display: none; }
+
+  .statbar { grid-template-columns: repeat(2, 1fr); }
+  .stat-cell { padding: 8px 12px; }
+  .stat-cell:nth-child(5) { display: none; }
+  .stat-value { font-size: 16px; }
+
+  .layout { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: auto; }
+
+  .signal-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    max-height: 40vh;
+  }
+
+  .filter-bar { gap: 3px; padding: 8px; }
+  .filter-btn { font-size: 8px; padding: 3px 6px; }
+
+  .signal-row { padding: 8px 10px; }
+  .sig-icon { width: 28px; height: 28px; font-size: 10px; }
+  .sig-sym { font-size: 11px; }
+
+  .detail-panel { min-height: 60vh; }
+
+  .d-header { padding: 14px 16px 12px; flex-wrap: wrap; gap: 10px; }
+  .d-icon { width: 36px; height: 36px; font-size: 13px; }
+  .d-sym { font-size: 20px; }
+  .d-price { font-size: 22px; }
+
+  .d-body { padding: 0 16px 24px; }
+  .section { margin-top: 16px; }
+
+  .levels-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .levels-grid .level-card:first-child { grid-column: span 2; }
+  .level-val { font-size: 15px; }
+
+  .quant-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .quant-val { font-size: 16px; }
+
+  .ml-grid { grid-template-columns: 1fr; }
+
+  .chart-wrap canvas { height: 160px !important; }
+
+  .conf-row { flex-wrap: wrap; gap: 4px; }
+  .conf-val { font-size: 10px; }
+}
+
+/* Small mobile (< 480px) */
+@media (max-width: 480px) {
+  .statbar { grid-template-columns: repeat(2, 1fr); }
+  .stat-value { font-size: 14px; }
+  .quant-grid { grid-template-columns: 1fr 1fr; }
+  .levels-grid { grid-template-columns: 1fr; }
+  .levels-grid .level-card:first-child { grid-column: span 1; }
+  .d-title-group { flex-wrap: wrap; }
+  .d-header { flex-direction: column; }
+  .d-price-group { text-align: left; }
+}
 </style>
 </head>
 <body>
