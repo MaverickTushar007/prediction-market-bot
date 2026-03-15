@@ -60,6 +60,38 @@ def get_signals():
     return JSONResponse({"signals": signals, "generated_at": _cache.get("generated_at")})
 
 
+@router.get("/backtest")
+def get_backtest():
+    """Run backtest on top 10 tickers and return results."""
+    from signals.backtest import run_backtest
+    from signals.signal_generator import TICKERS
+    import json
+    from pathlib import Path
+
+    cache_file = Path("data/backtest_cache.json")
+    # Use cache if less than 24 hours old
+    if cache_file.exists():
+        import time
+        age_hours = (time.time() - cache_file.stat().st_mtime) / 3600
+        if age_hours < 24:
+            return json.loads(cache_file.read_text())
+
+    # Run backtest on mix of asset types
+    symbols = [
+        "BTC-USD","ETH-USD","SOL-USD",
+        "AAPL","NVDA","TSLA","MSFT",
+        "GC=F","CL=F",
+        "EURUSD=X",
+    ]
+    results = run_backtest(symbols, max_tickers=10)
+    output = {
+        "results": results,
+        "generated_at": __import__("datetime").datetime.now().isoformat()
+    }
+    cache_file.write_text(json.dumps(output, indent=2))
+    return output
+
+
 @router.post("/refresh")
 def refresh_signals(background_tasks: BackgroundTasks):
     background_tasks.add_task(_refresh_signals)

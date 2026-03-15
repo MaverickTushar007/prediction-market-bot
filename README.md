@@ -182,10 +182,3 @@ prediction-market-bot/
 
 
 
-
-
-'''
-GROQ_API_KEY = YOUR_GROQ_API_KEY
-
-OPENROUTER_API_KEY = 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
-'''

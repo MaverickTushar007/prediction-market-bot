@@ -1,88 +1,85 @@
 """
 ML Signal Model — LightGBM + XGBoost ensemble for swing trading direction prediction.
-Trained on 1-year of historical OHLCV data per ticker, predicts 5-day forward return.
+Models are cached to disk and only retrained if data is >7 days old.
 """
 import numpy as np
-import warnings
-warnings.filterwarnings('ignore', category=UserWarning)
 import pandas as pd
 import yfinance as yf
 import logging
+import pickle
+import hashlib
+import warnings
 from typing import Optional
 from dataclasses import dataclass
+from pathlib import Path
+from datetime import datetime, timezone
+
+warnings.filterwarnings('ignore', category=UserWarning)
+warnings.filterwarnings('ignore', category=FutureWarning)
 
 logger = logging.getLogger(__name__)
-
+MODELS_DIR = Path("models")
+MODELS_DIR.mkdir(exist_ok=True)
+RETRAIN_DAYS = 7  # retrain every 7 days
 
 @dataclass
 class MLSignal:
-    direction: str        # BUY / SELL
-    ml_probability: float # 0-1, probability of BUY
-    ml_confidence: str    # HIGH / MEDIUM / LOW
-    feature_importance: dict  # top features driving prediction
-    model_agreement: float    # how much XGB and LGBM agree
+    direction: str
+    ml_probability: float
+    ml_confidence: str
+    feature_importance: dict
+    model_agreement: float
+    was_cached: bool = False
 
 
 def _compute_features(df: pd.DataFrame) -> pd.DataFrame:
-    """Compute 20+ technical features from OHLCV data."""
-    close = df["Close"]
-    high  = df["High"]
-    low   = df["Low"]
-    vol   = df["Volume"]
+    close = df["Close"].astype(float)
+    high  = df["High"].astype(float)
+    low   = df["Low"].astype(float)
+    vol   = df["Volume"].astype(float)
 
-    # Price momentum
     df["ret_1d"]  = close.pct_change(1)
     df["ret_3d"]  = close.pct_change(3)
     df["ret_5d"]  = close.pct_change(5)
     df["ret_10d"] = close.pct_change(10)
     df["ret_20d"] = close.pct_change(20)
 
-    # RSI-14
     delta = close.diff()
     gain  = delta.clip(lower=0).rolling(14).mean()
     loss  = (-delta.clip(upper=0)).rolling(14).mean()
     rs    = gain / loss.replace(0, np.nan)
     df["rsi"] = 100 - (100 / (1 + rs))
 
-    # MACD
     ema12 = close.ewm(span=12, adjust=False).mean()
     ema26 = close.ewm(span=26, adjust=False).mean()
     df["macd"]        = ema12 - ema26
     df["macd_signal"] = df["macd"].ewm(span=9, adjust=False).mean()
     df["macd_hist"]   = df["macd"] - df["macd_signal"]
 
-    # Bollinger Bands
     sma20 = close.rolling(20).mean()
     std20 = close.rolling(20).std()
     df["bb_upper"] = sma20 + 2 * std20
     df["bb_lower"] = sma20 - 2 * std20
     df["bb_pct"]   = (close - df["bb_lower"]) / (df["bb_upper"] - df["bb_lower"] + 1e-9)
-    df["bb_width"] = (df["bb_upper"] - df["bb_lower"]) / sma20
+    df["bb_width"] = (df["bb_upper"] - df["bb_lower"]) / (sma20 + 1e-9)
 
-    # ATR-14
     tr = pd.concat([
         high - low,
         (high - close.shift()).abs(),
         (low  - close.shift()).abs()
     ], axis=1).max(axis=1)
     df["atr"]     = tr.rolling(14).mean()
-    df["atr_pct"] = df["atr"] / close  # normalised ATR
+    df["atr_pct"] = df["atr"] / (close + 1e-9)
 
-    # Volume
-    df["vol_ratio"]  = vol / vol.rolling(20).mean()
-    df["vol_trend"]  = vol.rolling(5).mean() / vol.rolling(20).mean()
+    df["vol_ratio"]  = vol / (vol.rolling(20).mean() + 1e-9)
+    df["vol_trend"]  = vol.rolling(5).mean() / (vol.rolling(20).mean() + 1e-9)
+    df["dist_sma20"] = (close - sma20) / (sma20 + 1e-9)
+    df["dist_sma50"] = (close - close.rolling(50).mean()) / (close.rolling(50).mean() + 1e-9)
+    df["high_52w"]   = close / (close.rolling(252).max() + 1e-9)
+    df["low_52w"]    = close / (close.rolling(252).min() + 1e-9)
+    df["roc_5"]      = close.pct_change(5)
+    df["roc_10"]     = close.pct_change(10)
 
-    # Price position
-    df["dist_sma20"] = (close - sma20) / sma20
-    df["dist_sma50"] = (close - close.rolling(50).mean()) / close.rolling(50).mean()
-    df["high_52w"]   = close / close.rolling(252).max()
-    df["low_52w"]    = close / close.rolling(252).min()
-
-    # Momentum / rate of change
-    df["roc_5"]  = close.pct_change(5)
-    df["roc_10"] = close.pct_change(10)
-
-    # Stochastic %K
     low14  = low.rolling(14).min()
     high14 = high.rolling(14).max()
     df["stoch_k"] = (close - low14) / (high14 - low14 + 1e-9) * 100
@@ -99,12 +96,40 @@ FEATURE_COLS = [
     "roc_5","roc_10","stoch_k",
 ]
 
-FORWARD_DAYS  = 5      # predict 5-day return
-RETURN_THRESH = 0.02   # 2% threshold for BUY label
+FORWARD_DAYS  = 5
+RETURN_THRESH = 0.02
+
+
+def _model_path(symbol: str) -> Path:
+    safe = symbol.replace("=","_").replace("^","_").replace("-","_")
+    return MODELS_DIR / f"{safe}.pkl"
+
+
+def _is_stale(model_path: Path) -> bool:
+    if not model_path.exists():
+        return True
+    age_days = (datetime.now().timestamp() - model_path.stat().st_mtime) / 86400
+    return age_days > RETRAIN_DAYS
+
+
+def _save_model(symbol: str, ensemble: dict):
+    path = _model_path(symbol)
+    with open(path, "wb") as f:
+        pickle.dump(ensemble, f)
+
+
+def _load_model(symbol: str) -> Optional[dict]:
+    path = _model_path(symbol)
+    if not path.exists():
+        return None
+    try:
+        with open(path, "rb") as f:
+            return pickle.load(f)
+    except Exception:
+        return None
 
 
 def fetch_training_data(symbol: str, period: str = "2y") -> Optional[pd.DataFrame]:
-    """Fetch historical data and engineer features + labels."""
     try:
         tk   = yf.Ticker(symbol)
         hist = tk.history(period=period, interval="1d")
@@ -112,7 +137,6 @@ def fetch_training_data(symbol: str, period: str = "2y") -> Optional[pd.DataFram
             return None
         hist = hist.copy()
         hist = _compute_features(hist)
-        # Label: 1 if price rises >2% in next 5 days
         hist["future_ret"] = hist["Close"].pct_change(FORWARD_DAYS).shift(-FORWARD_DAYS)
         hist["label"]      = (hist["future_ret"] > RETURN_THRESH).astype(int)
         hist.dropna(inplace=True)
@@ -123,13 +147,10 @@ def fetch_training_data(symbol: str, period: str = "2y") -> Optional[pd.DataFram
 
 
 def train_ensemble(symbol: str) -> Optional[dict]:
-    """Train XGBoost + LightGBM ensemble on historical data."""
     try:
         import xgboost as xgb
         import lightgbm as lgb
-        from sklearn.model_selection import TimeSeriesSplit
         from sklearn.metrics import roc_auc_score
-        from sklearn.preprocessing import StandardScaler
 
         df = fetch_training_data(symbol)
         if df is None or len(df) < 80:
@@ -137,8 +158,6 @@ def train_ensemble(symbol: str) -> Optional[dict]:
 
         X = df[FEATURE_COLS].values
         y = df["label"].values
-
-        # Time-series aware split (no lookahead)
         split = int(len(X) * 0.8)
         X_train, X_test = X[:split], X[split:]
         y_train, y_test = y[:split], y[split:]
@@ -146,65 +165,79 @@ def train_ensemble(symbol: str) -> Optional[dict]:
         if len(np.unique(y_train)) < 2:
             return None
 
-        # XGBoost
         xgb_model = xgb.XGBClassifier(
             n_estimators=200, max_depth=4, learning_rate=0.05,
             subsample=0.8, colsample_bytree=0.8,
-            use_label_encoder=False, eval_metric="logloss",
-            random_state=42, verbosity=0,
+            eval_metric="logloss", random_state=42, verbosity=0,
         )
         xgb_model.fit(X_train, y_train)
         xgb_prob = xgb_model.predict_proba(X_test)[:,1]
         xgb_auc  = roc_auc_score(y_test, xgb_prob) if len(np.unique(y_test)) > 1 else 0.5
 
-        # LightGBM
         lgb_model = lgb.LGBMClassifier(
             n_estimators=200, max_depth=4, learning_rate=0.05,
             subsample=0.8, colsample_bytree=0.8,
             random_state=42, verbose=-1,
         )
-        lgb_model.fit(X_train, y_train)
+        lgb_model.fit(
+            X_train, y_train,
+            feature_name=FEATURE_COLS,
+        )
         lgb_prob = lgb_model.predict_proba(X_test)[:,1]
         lgb_auc  = roc_auc_score(y_test, lgb_prob) if len(np.unique(y_test)) > 1 else 0.5
 
-        # Feature importance from XGBoost
         importance = dict(zip(FEATURE_COLS, xgb_model.feature_importances_))
         top_features = dict(sorted(importance.items(), key=lambda x: x[1], reverse=True)[:5])
 
-        return {
+        ensemble = {
             "xgb": xgb_model,
             "lgb": lgb_model,
             "xgb_auc": round(xgb_auc, 3),
             "lgb_auc": round(lgb_auc, 3),
             "top_features": top_features,
+            "trained_at": datetime.now(timezone.utc).isoformat(),
+            "feature_cols": FEATURE_COLS,
         }
+        _save_model(symbol, ensemble)
+        logger.info(f"Trained & saved model for {symbol} (AUC: XGB={xgb_auc:.3f} LGB={lgb_auc:.3f})")
+        return ensemble
+
     except Exception as e:
         logger.warning(f"Training failed for {symbol}: {e}")
         return None
 
 
 def predict(symbol: str, sentiment_score: float = 0.0) -> Optional[MLSignal]:
-    """Train model + predict on latest data point."""
     try:
-        import xgboost as xgb
-        import lightgbm as lgb
+        path = _model_path(symbol)
+        was_cached = False
 
-        df = fetch_training_data(symbol)
-        if df is None or len(df) < 80:
-            return None
+        if _is_stale(path):
+            logger.info(f"Training fresh model for {symbol}...")
+            ensemble = train_ensemble(symbol)
+        else:
+            ensemble = _load_model(symbol)
+            if ensemble is None:
+                ensemble = train_ensemble(symbol)
+            else:
+                was_cached = True
+                logger.info(f"Loaded cached model for {symbol}")
 
-        ensemble = train_ensemble(symbol)
         if ensemble is None:
             return None
 
-        # Latest feature row
+        # Get latest features
+        df = fetch_training_data(symbol)
+        if df is None or len(df) < 10:
+            return None
+
         latest = df[FEATURE_COLS].iloc[-1].values.reshape(1, -1)
+        latest_df = pd.DataFrame(latest, columns=FEATURE_COLS)
 
-        xgb_prob = float(ensemble["xgb"].predict_proba(latest)[0][1])
-        lgb_prob = float(ensemble["lgb"].predict_proba(latest)[0][1])
+        xgb_prob = float(ensemble["xgb"].predict_proba(latest)[:,1])
+        lgb_prob = float(ensemble["lgb"].predict_proba(latest_df)[:,1])
 
-        # Blend with sentiment score (10% weight)
-        sentiment_adj = (sentiment_score + 1) / 2  # -1..1 → 0..1
+        sentiment_adj = (sentiment_score + 1) / 2
         final_prob = 0.45 * xgb_prob + 0.45 * lgb_prob + 0.10 * sentiment_adj
 
         direction = "BUY" if final_prob > 0.52 else "SELL"
@@ -223,6 +256,7 @@ def predict(symbol: str, sentiment_score: float = 0.0) -> Optional[MLSignal]:
             ml_confidence=confidence,
             feature_importance=ensemble["top_features"],
             model_agreement=round(agreement, 3),
+            was_cached=was_cached,
         )
     except Exception as e:
         logger.warning(f"ML prediction failed for {symbol}: {e}")
