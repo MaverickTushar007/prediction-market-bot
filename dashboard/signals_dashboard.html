@@ -31,6 +31,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 .signal-list{overflow-y:auto;flex:1}
 .signal-list::-webkit-scrollbar{width:4px}
 .signal-list::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.search-bar{padding:8px 12px;border-bottom:1px solid var(--border);background:var(--surface)}
+.search-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:3px;padding:6px 10px;color:var(--text);font-family:var(--mono);font-size:11px;outline:none;transition:border .15s}
+.search-input:focus{border-color:var(--blue)}
+.search-input::placeholder{color:var(--muted2)}
 .signal-row{display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:10px 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;gap:8px}
 .signal-row:hover{background:var(--surface2)}
 .signal-row.active{background:var(--surface2);border-left:2px solid var(--blue)}
@@ -218,6 +222,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       <button class="filter-btn" onclick="setF('FOREX',this)">Forex</button>
       <button class="filter-btn" onclick="setF('BUY',this)">Buy only</button>
       <button class="filter-btn" onclick="setF('SELL',this)">Sell only</button>
+    </div>
+    <div class="search-bar">
+      <input class="search-input" id="searchInput" type="text" placeholder="Search ticker or name..." oninput="renderList()">
     </div>
     <div class="signal-list" id="sigList"><div class="loading-row"><span class="spinner"></span>Loading...</div></div>
   </div>
@@ -410,9 +417,16 @@ async function loadSignals(forceRefresh){
 }
 
 function getFiltered(){
-  if(activeFilter==='all')return all;
-  if(activeFilter==='BUY'||activeFilter==='SELL')return all.filter(s=>s.direction===activeFilter);
-  return all.filter(s=>s.type===activeFilter);
+  const query = (document.getElementById('searchInput')?.value||'').toLowerCase().trim();
+  let filtered = all;
+  if(activeFilter==='BUY'||activeFilter==='SELL') filtered=all.filter(s=>s.direction===activeFilter);
+  else if(activeFilter!=='all') filtered=all.filter(s=>s.type===activeFilter);
+  if(query) filtered=filtered.filter(s=>
+    s.display.toLowerCase().includes(query)||
+    s.name.toLowerCase().includes(query)||
+    s.type.toLowerCase().includes(query)
+  );
+  return filtered;
 }
 function setF(f,btn){activeFilter=f;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderList()}
 
