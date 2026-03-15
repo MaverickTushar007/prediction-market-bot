@@ -1,0 +1,525 @@
+{
+  "signals": [
+    {
+      "symbol": "BTC-USD",
+      "display": "BTC/USD",
+      "name": "Bitcoin",
+      "type": "CRYPTO",
+      "icon": "\u20bf",
+      "direction": "SELL",
+      "entry": 71852.25,
+      "target": 64472.19629,
+      "stop_loss": 76280.282226,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The recent news of Bitcoin beating major indices and large wallets resuming accumulation suggests a bullish sentiment. However, the RSI is at 65, indicating a neutral signal, and we need to wait for further confirmation before making a trade.",
+      "news": [
+        {
+          "headline": "Bitcoin beat the S&P 500, Nasdaq Composite and gold since the start of the Iran war",
+          "source": "CNBC",
+          "sentiment": "BULLISH"
+        },
+        {
+          "headline": "Large Bitcoin Wallets Resume Accumulation as BTC Holds $71K: Santiment",
+          "source": "CryptoNews",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "65",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.8953568175076398,
+      "volume_vs_avg": 0.4739188011686274,
+      "generated_at": "2026-03-15T10:32:27.520204+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.331,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.967,
+      "ml_note": "ML confirms SELL (33%, HIGH)",
+      "top_features": [
+        "rsi",
+        "bb_pct",
+        "dist_sma50"
+      ]
+    },
+    {
+      "symbol": "ETH-USD",
+      "display": "ETH/USD",
+      "name": "Ethereum",
+      "type": "CRYPTO",
+      "icon": "\u039e",
+      "direction": "SELL",
+      "entry": 2119.78955078125,
+      "target": 1858.643833,
+      "stop_loss": 2276.476981,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The recent news about BlackRock launching a staked ETH ETF and the RSI being at 64 indicate a bullish sentiment. However, the RSI is not overbought, suggesting that the price may still have room to grow.",
+      "news": [
+        {
+          "headline": "China\u2019s Alibaba AI Predicts the Price of XRP, Bitcoin and Ethereum by The End of 2026",
+          "source": "CryptoNews",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Ethereum Price Prediction: BlackRock Just Launched a Staked ETH ETF \u2014 Is Wall Street About to Pile In?",
+          "source": "CryptoNews",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "64",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 1.0825914438825162,
+      "volume_vs_avg": 0.46116951548875706,
+      "generated_at": "2026-03-15T10:32:35.011624+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.197,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.879,
+      "ml_note": "ML confirms SELL (20%, HIGH)",
+      "top_features": [
+        "low_52w",
+        "atr_pct",
+        "macd_signal"
+      ]
+    },
+    {
+      "symbol": "SOL-USD",
+      "display": "SOL/USD",
+      "name": "Solana",
+      "type": "CRYPTO",
+      "icon": "\u25ce",
+      "direction": "BUY",
+      "entry": 88.5973892211914,
+      "target": 99.542452,
+      "stop_loss": 82.030352,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The recent news about Solana's potential growth due to Mastercard's partnership and increased buying pressure suggests a bullish trend. However, the RSI is at 61, indicating a neutral signal, which may indicate a potential reversal.",
+      "news": [
+        {
+          "headline": "Solana Price Prediction: Buying Pressure Just Doubled \u2014 Is SOL About to Explode Past $100?",
+          "source": "CryptoNews",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Solana Price Prediction: Mastercard Just Picked Solana for a Global Crypto Program \u2014 Is SOL About to Explode?",
+          "source": "CryptoNews",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "61",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.5980456185205986,
+      "volume_vs_avg": 0.5220547372843215,
+      "generated_at": "2026-03-15T10:32:44.811930+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.654,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.827,
+      "ml_note": "ML confirms BUY (65%, HIGH)",
+      "top_features": [
+        "high_52w",
+        "atr_pct",
+        "ret_20d"
+      ]
+    },
+    {
+      "symbol": "BNB-USD",
+      "display": "BNB/USD",
+      "name": "BNB",
+      "type": "CRYPTO",
+      "icon": "B",
+      "direction": "BUY",
+      "entry": 663.285400390625,
+      "target": 714.63989,
+      "stop_loss": 632.472706,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The price is above SMA20, indicating a bullish trend. However, the RSI is at 66, which suggests a neutral signal.",
+      "news": [
+        {
+          "headline": "Is Your Business Developing New Products? It Could Qualify for Tax Breaks.",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Truist Trims PT on Veeva (VEEV) Following Strong Q4 Results",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "66",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.8290566086402813,
+      "volume_vs_avg": 0.7550765166981689,
+      "generated_at": "2026-03-15T10:32:54.989662+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.643,
+      "ml_confidence": "MEDIUM",
+      "ml_agreement": 0.822,
+      "ml_note": "ML confirms BUY (64%, MEDIUM)",
+      "top_features": [
+        "macd",
+        "atr_pct",
+        "low_52w"
+      ]
+    },
+    {
+      "symbol": "XRP-USD",
+      "display": "XRP/USD",
+      "name": "XRP",
+      "type": "CRYPTO",
+      "icon": "X",
+      "direction": "SELL",
+      "entry": 1.4166337251663208,
+      "target": 1.288709,
+      "stop_loss": 1.493389,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The recent price increase of 0.67% and the RSI of 61 indicate a neutral trend, but the price is above the SMA20, suggesting a bullish trend. This could be a good opportunity to buy XRP/USD.",
+      "news": [
+        {
+          "headline": "XRP Price Prediction: Ripple Says Big Companies May Start Using Crypto for Payroll and Payments \u2013 Is XRP About to Explod",
+          "source": "CryptoNews",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Crypto Price Prediction Today 13 March \u2013 XRP, Pi Coin, TRUMP",
+          "source": "CryptoNews",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "61",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.6654537371702972,
+      "volume_vs_avg": 0.4966017757283922,
+      "generated_at": "2026-03-15T10:33:02.050821+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.476,
+      "ml_confidence": "LOW",
+      "ml_agreement": 0.941,
+      "ml_note": "ML confirms SELL (48%, LOW)",
+      "top_features": [
+        "dist_sma20",
+        "roc_10",
+        "low_52w"
+      ]
+    },
+    {
+      "symbol": "DOGE-USD",
+      "display": "DOGE/USD",
+      "name": "Dogecoin",
+      "type": "CRYPTO",
+      "icon": "D",
+      "direction": "BUY",
+      "entry": 0.0962253138422966,
+      "target": 0.109415,
+      "stop_loss": 0.088311,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current market conditions and technical indicators suggest a bullish trend for DOGE/USD. However, the recent news about Meta's workforce cut and soaring AI infrastructure costs may have a negative impact on the cryptocurrency market.",
+      "news": [
+        {
+          "headline": "Meta eyes massive 20% workforce cut as AI infrastructure costs continue to soar across operations: report",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "ServiceNow (NOW) Launches New AI-Powered Government Solutions to Automate Public Sector Workflows",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "56",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.2440992466912052,
+      "volume_vs_avg": 0.5308764030538407,
+      "generated_at": "2026-03-15T10:33:12.408784+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.765,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.83,
+      "ml_note": "ML confirms BUY (76%, HIGH)",
+      "top_features": [
+        "macd",
+        "low_52w",
+        "rsi"
+      ]
+    },
+    {
+      "symbol": "ADA-USD",
+      "display": "ADA/USD",
+      "name": "Cardano",
+      "type": "CRYPTO",
+      "icon": "A",
+      "direction": "SELL",
+      "entry": 0.2655700147151947,
+      "target": 0.232985,
+      "stop_loss": 0.285121,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The price is above the SMA20, indicating a bullish trend. However, the RSI is at 45, suggesting a neutral signal, which may indicate a potential reversal or consolidation. The news articles do not directly impact ADA/USD. The confluences are a bullish trend and a neutral RSI signal.",
+      "news": [
+        {
+          "headline": "Is Your Business Developing New Products? It Could Qualify for Tax Breaks.",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Truist Trims PT on Veeva (VEEV) Following Strong Q4 Results",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "45",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": 0.8070057470185122,
+      "volume_vs_avg": 0.64375606149088,
+      "generated_at": "2026-03-15T10:33:21.988029+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.417,
+      "ml_confidence": "MEDIUM",
+      "ml_agreement": 0.858,
+      "ml_note": "ML confirms SELL (42%, MEDIUM)",
+      "top_features": [
+        "high_52w",
+        "roc_10",
+        "vol_trend"
+      ]
+    },
+    {
+      "symbol": "AVAX-USD",
+      "display": "AVAX/USD",
+      "name": "Avalanche",
+      "type": "CRYPTO",
+      "icon": "A",
+      "direction": "BUY",
+      "entry": 9.824965476989746,
+      "target": 10.885555,
+      "stop_loss": 9.188611,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current price movement of +1.07% suggests a slight upward trend, and the RSI of 69 indicates a neutral signal. However, the price is above the SMA20, which is a bullish signal, indicating a potential buying opportunity.",
+      "news": [
+        {
+          "headline": "Coherus Oncology Pivots to Immuno-Oncology, Touts LOQTORZI Growth and New Pipeline at Citizens Conf.",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Japan, South Korea ready to act against FX volatility, ministers say",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "69",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 1.0723919506833914,
+      "volume_vs_avg": 0.5792683635068526,
+      "generated_at": "2026-03-15T10:33:31.528354+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.636,
+      "ml_confidence": "MEDIUM",
+      "ml_agreement": 0.951,
+      "ml_note": "ML confirms BUY (64%, MEDIUM)",
+      "top_features": [
+        "high_52w",
+        "atr_pct",
+        "macd"
+      ]
+    },
+    {
+      "symbol": "MATIC-USD",
+      "display": "MATIC",
+      "name": "Polygon",
+      "type": "CRYPTO",
+      "icon": "M",
+      "direction": "SELL",
+      "entry": 0.21823609,
+      "target": 0.207324,
+      "stop_loss": 0.224783,
+      "confidence": 80,
+      "sentiment": "NEUTRAL",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current price of MATIC is stable, but the RSI is at 50, indicating a neutral trend. The price is above the SMA20, but the news and volume do not provide a clear direction for the trade.",
+      "news": [
+        {
+          "headline": "Coherus Oncology Pivots to Immuno-Oncology, Touts LOQTORZI Growth and New Pipeline at Citizens Conf.",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Japan, South Korea ready to act against FX volatility, ministers say",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "50",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.0,
+      "volume_vs_avg": 1.0,
+      "generated_at": "2026-03-15T10:33:39.696888+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.095,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.964,
+      "ml_note": "ML confirms SELL (10%, HIGH)",
+      "top_features": [
+        "high_52w",
+        "low_52w",
+        "bb_width"
+      ]
+    },
+    {
+      "symbol": "DOT-USD",
+      "display": "DOT/USD",
+      "name": "Polkadot",
+      "type": "CRYPTO",
+      "icon": "D",
+      "direction": "BUY",
+      "entry": 1.4318835735321045,
+      "target": 1.602446,
+      "stop_loss": 1.329546,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current price of DOT/USD is above its SMA20, indicating a bullish trend. However, the RSI is at 36, suggesting a potential neutral signal, but the overall sentiment remains bullish due to the strong trend and low volume.",
+      "news": [
+        {
+          "headline": "Coherus Oncology Pivots to Immuno-Oncology, Touts LOQTORZI Growth and New Pipeline at Citizens Conf.",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Iran-Israel Conflict Driven Fuel Cost Spike Hits United Airlines (UAL) Results",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "36",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": 1.2605223728537218,
+      "volume_vs_avg": 0.8588656714538108,
+      "generated_at": "2026-03-15T10:33:49.945999+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.879,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.987,
+      "ml_note": "ML confirms BUY (88%, HIGH)",
+      "top_features": [
+        "bb_width",
+        "high_52w",
+        "dist_sma50"
+      ]
+    }
+  ],
+  "generated_at": "2026-03-15T16:03:51.022159"
+}
