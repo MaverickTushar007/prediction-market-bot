@@ -7,13 +7,13 @@
       "type": "CRYPTO",
       "icon": "\u20bf",
       "direction": "SELL",
-      "entry": 71852.25,
-      "target": 64472.19629,
-      "stop_loss": 76280.282226,
+      "entry": 71528.578125,
+      "target": 64138.811803,
+      "stop_loss": 75962.437918,
       "confidence": 80,
       "sentiment": "BULLISH",
       "sentiment_score": 0.5,
-      "ai_reasoning": "The recent news of Bitcoin beating major indices and large wallets resuming accumulation suggests a bullish sentiment. However, the RSI is at 65, indicating a neutral signal, and we need to wait for further confirmation before making a trade.",
+      "ai_reasoning": "The recent news of Bitcoin beating major indices and large wallets resuming accumulation suggests a bullish sentiment. However, the RSI is at 64, indicating a neutral signal, and the trend is above SMA20, which is a bullish signal.",
       "news": [
         {
           "headline": "Bitcoin beat the S&P 500, Nasdaq Composite and gold since the start of the Iran war",
@@ -21,7 +21,7 @@
           "sentiment": "BULLISH"
         },
         {
-          "headline": "Large Bitcoin Wallets Resume Accumulation as BTC Holds $71K: Santiment",
+          "headline": "Crypto Leaders Push Back After Boris Johnson Calls Bitcoin a Ponzi",
           "source": "CryptoNews",
           "sentiment": "NEUTRAL"
         }
@@ -29,7 +29,7 @@
       "confluences": [
         {
           "name": "RSI",
-          "value": "65",
+          "value": "64",
           "signal": "NEUTRAL"
         },
         {
@@ -38,9 +38,9 @@
           "signal": "BULLISH"
         }
       ],
-      "price_change_pct": 0.8953568175076398,
-      "volume_vs_avg": 0.4739188011686274,
-      "generated_at": "2026-03-15T10:32:27.520204+00:00",
+      "price_change_pct": 0.44085484547591175,
+      "volume_vs_avg": 0.5076515096534922,
+      "generated_at": "2026-03-15T19:36:02.128737+00:00",
       "risk_reward": 1.7,
       "ml_probability": 0.331,
       "ml_confidence": "HIGH",
@@ -59,13 +59,13 @@
       "type": "CRYPTO",
       "icon": "\u039e",
       "direction": "SELL",
-      "entry": 2119.78955078125,
-      "target": 1858.643833,
-      "stop_loss": 2276.476981,
+      "entry": 2111.49560546875,
+      "target": 1850.349888,
+      "stop_loss": 2268.183036,
       "confidence": 80,
       "sentiment": "BULLISH",
       "sentiment_score": 0.5,
-      "ai_reasoning": "The recent news about BlackRock launching a staked ETH ETF and the RSI being at 64 indicate a bullish sentiment. However, the RSI is not overbought, suggesting that the price may still have room to grow.",
+      "ai_reasoning": "The recent news about BlackRock launching a staked ETH ETF and the overall bullish sentiment in the market suggest that Ethereum's price may continue to rise. However, the RSI value of 63 indicates a neutral signal, which may indicate a potential reversal in the near future.",
       "news": [
         {
           "headline": "China\u2019s Alibaba AI Predicts the Price of XRP, Bitcoin and Ethereum by The End of 2026",
@@ -81,7 +81,7 @@
       "confluences": [
         {
           "name": "RSI",
-          "value": "64",
+          "value": "63",
           "signal": "NEUTRAL"
         },
         {
@@ -90,9 +90,9 @@
           "signal": "BULLISH"
         }
       ],
-      "price_change_pct": 1.0825914438825162,
-      "volume_vs_avg": 0.46116951548875706,
-      "generated_at": "2026-03-15T10:32:35.011624+00:00",
+      "price_change_pct": 0.6870929920799025,
+      "volume_vs_avg": 0.5411149373373025,
+      "generated_at": "2026-03-15T19:36:08.680584+00:00",
       "risk_reward": 1.7,
       "ml_probability": 0.197,
       "ml_confidence": "HIGH",
@@ -111,13 +111,13 @@
       "type": "CRYPTO",
       "icon": "\u25ce",
       "direction": "BUY",
-      "entry": 88.5973892211914,
-      "target": 99.542452,
-      "stop_loss": 82.030352,
+      "entry": 88.2094955444336,
+      "target": 99.176808,
+      "stop_loss": 81.629108,
       "confidence": 90,
       "sentiment": "BULLISH",
       "sentiment_score": 0.5,
-      "ai_reasoning": "The recent news about Solana's potential growth due to Mastercard's partnership and increased buying pressure suggests a bullish trend. However, the RSI is at 61, indicating a neutral signal, which may indicate a potential reversal.",
+      "ai_reasoning": "The recent news about Solana's potential for growth, combined with its current price movement above the SMA20, suggests a bullish trend. However, the RSI value of 60 indicates a neutral signal, indicating that the market may be due for a correction.",
       "news": [
         {
           "headline": "Solana Price Prediction: Buying Pressure Just Doubled \u2014 Is SOL About to Explode Past $100?",
@@ -133,7 +133,7 @@
       "confluences": [
         {
           "name": "RSI",
-          "value": "61",
+          "value": "60",
           "signal": "NEUTRAL"
         },
         {
@@ -142,9 +142,9 @@
           "signal": "BULLISH"
         }
       ],
-      "price_change_pct": 0.5980456185205986,
-      "volume_vs_avg": 0.5220547372843215,
-      "generated_at": "2026-03-15T10:32:44.811930+00:00",
+      "price_change_pct": 0.1576111301837269,
+      "volume_vs_avg": 0.5600064233655241,
+      "generated_at": "2026-03-15T19:36:16.719872+00:00",
       "risk_reward": 1.7,
       "ml_probability": 0.654,
       "ml_confidence": "HIGH",
@@ -163,21 +163,21 @@
       "type": "CRYPTO",
       "icon": "B",
       "direction": "BUY",
-      "entry": 663.285400390625,
-      "target": 714.63989,
-      "stop_loss": 632.472706,
+      "entry": 660.1370239257812,
+      "target": 711.491514,
+      "stop_loss": 629.32433,
       "confidence": 90,
       "sentiment": "BULLISH",
       "sentiment_score": 0.5,
-      "ai_reasoning": "The price is above SMA20, indicating a bullish trend. However, the RSI is at 66, which suggests a neutral signal.",
+      "ai_reasoning": "The current market sentiment is bullish due to the price being above SMA20. However, the RSI is at 65, indicating a neutral signal, and the news suggests a potential market downturn.",
       "news": [
         {
-          "headline": "Is Your Business Developing New Products? It Could Qualify for Tax Breaks.",
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
           "source": "Yahoo Finance",
           "sentiment": "NEUTRAL"
         },
         {
-          "headline": "Truist Trims PT on Veeva (VEEV) Following Strong Q4 Results",
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
           "source": "Yahoo Finance",
           "sentiment": "NEUTRAL"
         }
@@ -185,7 +185,7 @@
       "confluences": [
         {
           "name": "RSI",
-          "value": "66",
+          "value": "65",
           "signal": "NEUTRAL"
         },
         {
@@ -194,9 +194,9 @@
           "signal": "BULLISH"
         }
       ],
-      "price_change_pct": 0.8290566086402813,
-      "volume_vs_avg": 0.7550765166981689,
-      "generated_at": "2026-03-15T10:32:54.989662+00:00",
+      "price_change_pct": 0.35045745869353373,
+      "volume_vs_avg": 0.8181395450121961,
+      "generated_at": "2026-03-15T19:36:26.504812+00:00",
       "risk_reward": 1.7,
       "ml_probability": 0.643,
       "ml_confidence": "MEDIUM",
@@ -215,13 +215,13 @@
       "type": "CRYPTO",
       "icon": "X",
       "direction": "SELL",
-      "entry": 1.4166337251663208,
-      "target": 1.288709,
-      "stop_loss": 1.493389,
+      "entry": 1.4141851663589478,
+      "target": 1.284773,
+      "stop_loss": 1.491833,
       "confidence": 80,
       "sentiment": "BULLISH",
       "sentiment_score": 0.5,
-      "ai_reasoning": "The recent price increase of 0.67% and the RSI of 61 indicate a neutral trend, but the price is above the SMA20, suggesting a bullish trend. This could be a good opportunity to buy XRP/USD.",
+      "ai_reasoning": "The recent news about Ripple and big companies using crypto for payroll and payments may positively impact XRP's price. The RSI is at 60, indicating a neutral signal, but the trend is above the SMA20, which is a bullish sign. ",
       "news": [
         {
           "headline": "XRP Price Prediction: Ripple Says Big Companies May Start Using Crypto for Payroll and Payments \u2013 Is XRP About to Explod",
@@ -237,7 +237,7 @@
       "confluences": [
         {
           "name": "RSI",
-          "value": "61",
+          "value": "60",
           "signal": "NEUTRAL"
         },
         {
@@ -246,9 +246,9 @@
           "signal": "BULLISH"
         }
       ],
-      "price_change_pct": 0.6654537371702972,
-      "volume_vs_avg": 0.4966017757283922,
-      "generated_at": "2026-03-15T10:33:02.050821+00:00",
+      "price_change_pct": 0.49146007955254317,
+      "volume_vs_avg": 0.6144521905707704,
+      "generated_at": "2026-03-15T19:36:34.347667+00:00",
       "risk_reward": 1.7,
       "ml_probability": 0.476,
       "ml_confidence": "LOW",
@@ -267,21 +267,21 @@
       "type": "CRYPTO",
       "icon": "D",
       "direction": "BUY",
-      "entry": 0.0962253138422966,
-      "target": 0.109415,
-      "stop_loss": 0.088311,
-      "confidence": 90,
-      "sentiment": "BULLISH",
+      "entry": 0.09528820961713791,
+      "target": 0.108636,
+      "stop_loss": 0.08728,
+      "confidence": 60,
+      "sentiment": "NEUTRAL",
       "sentiment_score": 0.5,
-      "ai_reasoning": "The current market conditions and technical indicators suggest a bullish trend for DOGE/USD. However, the recent news about Meta's workforce cut and soaring AI infrastructure costs may have a negative impact on the cryptocurrency market.",
+      "ai_reasoning": "The current price movement of DOGE/USD is neutral due to the 0.73% change. The RSI is at 55, indicating a neutral signal, and the price is above the SMA20, but the overall market sentiment is uncertain.",
       "news": [
         {
-          "headline": "Meta eyes massive 20% workforce cut as AI infrastructure costs continue to soar across operations: report",
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
           "source": "Yahoo Finance",
           "sentiment": "NEUTRAL"
         },
         {
-          "headline": "ServiceNow (NOW) Launches New AI-Powered Government Solutions to Automate Public Sector Workflows",
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
           "source": "Yahoo Finance",
           "sentiment": "NEUTRAL"
         }
@@ -289,18 +289,23 @@
       "confluences": [
         {
           "name": "RSI",
-          "value": "56",
+          "value": "55",
           "signal": "NEUTRAL"
         },
         {
           "name": "Trend",
           "value": "above SMA20",
           "signal": "BULLISH"
+        },
+        {
+          "name": "Volatility",
+          "value": "0.6x",
+          "signal": "NEUTRAL"
         }
       ],
-      "price_change_pct": 0.2440992466912052,
-      "volume_vs_avg": 0.5308764030538407,
-      "generated_at": "2026-03-15T10:33:12.408784+00:00",
+      "price_change_pct": -0.7321425050920954,
+      "volume_vs_avg": 0.5536140310187592,
+      "generated_at": "2026-03-15T19:36:43.348502+00:00",
       "risk_reward": 1.7,
       "ml_probability": 0.765,
       "ml_confidence": "HIGH",
@@ -319,21 +324,21 @@
       "type": "CRYPTO",
       "icon": "A",
       "direction": "SELL",
-      "entry": 0.2655700147151947,
-      "target": 0.232985,
-      "stop_loss": 0.285121,
-      "confidence": 80,
-      "sentiment": "BULLISH",
+      "entry": 0.2639615535736084,
+      "target": 0.231377,
+      "stop_loss": 0.283513,
+      "confidence": 60,
+      "sentiment": "NEUTRAL",
       "sentiment_score": 0.5,
-      "ai_reasoning": "The price is above the SMA20, indicating a bullish trend. However, the RSI is at 45, suggesting a neutral signal, which may indicate a potential reversal or consolidation. The news articles do not directly impact ADA/USD. The confluences are a bullish trend and a neutral RSI signal.",
+      "ai_reasoning": "The current price movement is neutral, with a slight increase of 0.20%. However, the RSI is at 44, indicating a neutral signal. The SMA20 is below the current price, suggesting a bearish trend. Considering the news and confluences, it's best to wait for a clearer signal.",
       "news": [
         {
-          "headline": "Is Your Business Developing New Products? It Could Qualify for Tax Breaks.",
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
           "source": "Yahoo Finance",
           "sentiment": "NEUTRAL"
         },
         {
-          "headline": "Truist Trims PT on Veeva (VEEV) Following Strong Q4 Results",
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
           "source": "Yahoo Finance",
           "sentiment": "NEUTRAL"
         }
@@ -341,7 +346,7 @@
       "confluences": [
         {
           "name": "RSI",
-          "value": "45",
+          "value": "44",
           "signal": "NEUTRAL"
         },
         {
@@ -350,9 +355,9 @@
           "signal": "BEARISH"
         }
       ],
-      "price_change_pct": 0.8070057470185122,
-      "volume_vs_avg": 0.64375606149088,
-      "generated_at": "2026-03-15T10:33:21.988029+00:00",
+      "price_change_pct": 0.1964543196759533,
+      "volume_vs_avg": 0.6070163283111379,
+      "generated_at": "2026-03-15T19:36:52.056443+00:00",
       "risk_reward": 1.7,
       "ml_probability": 0.417,
       "ml_confidence": "MEDIUM",
@@ -371,21 +376,21 @@
       "type": "CRYPTO",
       "icon": "A",
       "direction": "BUY",
-      "entry": 9.824965476989746,
-      "target": 10.885555,
-      "stop_loss": 9.188611,
+      "entry": 9.73799991607666,
+      "target": 10.801665,
+      "stop_loss": 9.099801,
       "confidence": 90,
       "sentiment": "BULLISH",
       "sentiment_score": 0.5,
-      "ai_reasoning": "The current price movement of +1.07% suggests a slight upward trend, and the RSI of 69 indicates a neutral signal. However, the price is above the SMA20, which is a bullish signal, indicating a potential buying opportunity.",
+      "ai_reasoning": "The current market sentiment is bullish due to the price being above the SMA20. However, the RSI is at 67, indicating a neutral signal, and the news suggests a potential market downturn.",
       "news": [
         {
-          "headline": "Coherus Oncology Pivots to Immuno-Oncology, Touts LOQTORZI Growth and New Pipeline at Citizens Conf.",
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
           "source": "Yahoo Finance",
           "sentiment": "NEUTRAL"
         },
         {
-          "headline": "Japan, South Korea ready to act against FX volatility, ministers say",
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
           "source": "Yahoo Finance",
           "sentiment": "NEUTRAL"
         }
@@ -393,7 +398,7 @@
       "confluences": [
         {
           "name": "RSI",
-          "value": "69",
+          "value": "67",
           "signal": "NEUTRAL"
         },
         {
@@ -402,9 +407,9 @@
           "signal": "BULLISH"
         }
       ],
-      "price_change_pct": 1.0723919506833914,
-      "volume_vs_avg": 0.5792683635068526,
-      "generated_at": "2026-03-15T10:33:31.528354+00:00",
+      "price_change_pct": 0.1777509181622725,
+      "volume_vs_avg": 0.639360336890352,
+      "generated_at": "2026-03-15T19:36:59.486210+00:00",
       "risk_reward": 1.7,
       "ml_probability": 0.636,
       "ml_confidence": "MEDIUM",
@@ -426,18 +431,18 @@
       "entry": 0.21823609,
       "target": 0.207324,
       "stop_loss": 0.224783,
-      "confidence": 80,
+      "confidence": 60,
       "sentiment": "NEUTRAL",
       "sentiment_score": 0.5,
-      "ai_reasoning": "The current price of MATIC is stable, but the RSI is at 50, indicating a neutral trend. The price is above the SMA20, but the news and volume do not provide a clear direction for the trade.",
+      "ai_reasoning": "The current market sentiment is neutral due to the news of a potential stock market downturn. However, the RSI is at 50, indicating a neutral signal, and the price is above the SMA20, suggesting a bullish trend.",
       "news": [
         {
-          "headline": "Coherus Oncology Pivots to Immuno-Oncology, Touts LOQTORZI Growth and New Pipeline at Citizens Conf.",
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
           "source": "Yahoo Finance",
           "sentiment": "NEUTRAL"
         },
         {
-          "headline": "Japan, South Korea ready to act against FX volatility, ministers say",
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
           "source": "Yahoo Finance",
           "sentiment": "NEUTRAL"
         }
@@ -456,7 +461,7 @@
       ],
       "price_change_pct": 0.0,
       "volume_vs_avg": 1.0,
-      "generated_at": "2026-03-15T10:33:39.696888+00:00",
+      "generated_at": "2026-03-15T19:37:08.391403+00:00",
       "risk_reward": 1.7,
       "ml_probability": 0.095,
       "ml_confidence": "HIGH",
@@ -475,21 +480,3167 @@
       "type": "CRYPTO",
       "icon": "D",
       "direction": "BUY",
-      "entry": 1.4318835735321045,
-      "target": 1.602446,
-      "stop_loss": 1.329546,
+      "entry": 1.4185550212860107,
+      "target": 1.590633,
+      "stop_loss": 1.315309,
       "confidence": 90,
       "sentiment": "BULLISH",
       "sentiment_score": 0.5,
-      "ai_reasoning": "The current price of DOT/USD is above its SMA20, indicating a bullish trend. However, the RSI is at 36, suggesting a potential neutral signal, but the overall sentiment remains bullish due to the strong trend and low volume.",
+      "ai_reasoning": "The current price is above SMA20, indicating a bullish trend. However, the RSI value of 33 suggests a neutral signal, which may indicate a potential reversal.",
       "news": [
         {
-          "headline": "Coherus Oncology Pivots to Immuno-Oncology, Touts LOQTORZI Growth and New Pipeline at Citizens Conf.",
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
           "source": "Yahoo Finance",
           "sentiment": "NEUTRAL"
         },
         {
-          "headline": "Iran-Israel Conflict Driven Fuel Cost Spike Hits United Airlines (UAL) Results",
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "33",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": 0.31794841791682965,
+      "volume_vs_avg": 0.9032358772428566,
+      "generated_at": "2026-03-15T19:37:16.321380+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.879,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.987,
+      "ml_note": "ML confirms BUY (88%, HIGH)",
+      "top_features": [
+        "bb_width",
+        "high_52w",
+        "dist_sma50"
+      ]
+    },
+    {
+      "symbol": "LINK-USD",
+      "display": "LINK/USD",
+      "name": "Chainlink",
+      "type": "CRYPTO",
+      "icon": "L",
+      "direction": "BUY",
+      "entry": 9.195394515991211,
+      "target": 10.223077,
+      "stop_loss": 8.578785,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The market is experiencing a downturn, but the RSI is still in a neutral zone, indicating a potential buying opportunity. The price is above the SMA20, which is a bullish signal.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "61",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.37004027055785643,
+      "volume_vs_avg": 0.7513448833656503,
+      "generated_at": "2026-03-15T19:37:24.563538+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.88,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.952,
+      "ml_note": "ML confirms BUY (88%, HIGH)",
+      "top_features": [
+        "dist_sma20",
+        "high_52w",
+        "macd_hist"
+      ]
+    },
+    {
+      "symbol": "LTC-USD",
+      "display": "LTC/USD",
+      "name": "Litecoin",
+      "type": "CRYPTO",
+      "icon": "L",
+      "direction": "BUY",
+      "entry": 55.21208572387695,
+      "target": 59.768618,
+      "stop_loss": 52.478166,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current price of LTC/USD is above the SMA20, indicating a bullish trend. However, the RSI is at 59, which is neutral and may indicate a potential reversal.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "59",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.38416917814637086,
+      "volume_vs_avg": 0.7765006907512811,
+      "generated_at": "2026-03-15T19:37:33.541473+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.756,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.816,
+      "ml_note": "ML confirms BUY (76%, HIGH)",
+      "top_features": [
+        "low_52w",
+        "macd",
+        "high_52w"
+      ]
+    },
+    {
+      "symbol": "ATOM-USD",
+      "display": "ATOM/USD",
+      "name": "Cosmos",
+      "type": "CRYPTO",
+      "icon": "A",
+      "direction": "BUY",
+      "entry": 1.853745698928833,
+      "target": 2.017793,
+      "stop_loss": 1.755317,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current price of ATOM/USD is above the SMA20, indicating a bullish trend. However, the RSI is at 56, which suggests a neutral signal, but the overall market sentiment is still bullish.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "56",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": -0.9045587476960026,
+      "volume_vs_avg": 0.7979779149808399,
+      "generated_at": "2026-03-15T19:37:42.560436+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.914,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.966,
+      "ml_note": "ML confirms BUY (91%, HIGH)",
+      "top_features": [
+        "roc_10",
+        "high_52w",
+        "dist_sma20"
+      ]
+    },
+    {
+      "symbol": "NEAR-USD",
+      "display": "NEAR/USD",
+      "name": "NEAR Protocol",
+      "type": "CRYPTO",
+      "icon": "N",
+      "direction": "SELL",
+      "entry": 1.340056300163269,
+      "target": 1.121076,
+      "stop_loss": 1.471444,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current price movement of +1.07% suggests a bullish trend. However, the news and overall market sentiment indicate a potential for selling, which may impact the trade.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "66",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 1.0695771339709623,
+      "volume_vs_avg": 0.6935698072362854,
+      "generated_at": "2026-03-15T19:37:50.539900+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.352,
+      "ml_confidence": "MEDIUM",
+      "ml_agreement": 0.865,
+      "ml_note": "ML confirms SELL (35%, MEDIUM)",
+      "top_features": [
+        "high_52w",
+        "vol_trend",
+        "macd"
+      ]
+    },
+    {
+      "symbol": "APT-USD",
+      "display": "APT/USD",
+      "name": "Aptos",
+      "type": "CRYPTO",
+      "icon": "A",
+      "direction": "SELL",
+      "entry": 0.0001311141,
+      "target": 0.000125,
+      "stop_loss": 0.000135,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current market sentiment is bullish due to the RSI being at 50, indicating a neutral signal, and the trend being above the SMA20, which is a bullish signal. However, the news suggests a potential market downturn, which may impact the trade.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "50",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.0,
+      "volume_vs_avg": 1.0,
+      "generated_at": "2026-03-15T19:37:58.791506+00:00",
+      "risk_reward": 1.6,
+      "ml_probability": 0.078,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.997,
+      "ml_note": "ML confirms SELL (8%, HIGH)",
+      "top_features": [
+        "atr_pct",
+        "bb_width",
+        "low_52w"
+      ]
+    },
+    {
+      "symbol": "ARB-USD",
+      "display": "ARB/USD",
+      "name": "Arbitrum",
+      "type": "CRYPTO",
+      "icon": "A",
+      "direction": "SELL",
+      "entry": 0.0008992253569886088,
+      "target": 0.000845,
+      "stop_loss": 0.000932,
+      "confidence": 90,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current market sentiment is bearish due to the news of panic gripping the stock market and AI selloff being seen as overdone. The RSI is at 100, indicating a potential reversal in the trend.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "100",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.02507008552188317,
+      "volume_vs_avg": 1.0,
+      "generated_at": "2026-03-15T19:38:06.501840+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.347,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.945,
+      "ml_note": "ML confirms SELL (35%, HIGH)",
+      "top_features": [
+        "high_52w",
+        "ret_3d",
+        "ret_1d"
+      ]
+    },
+    {
+      "symbol": "OP-USD",
+      "display": "OP/USD",
+      "name": "Optimism",
+      "type": "CRYPTO",
+      "icon": "O",
+      "direction": "BUY",
+      "entry": 0.1274407058954239,
+      "target": 0.143088,
+      "stop_loss": 0.118052,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The price is increasing with a 2.93% change, indicating a bullish trend. However, the RSI is at 59, which is neutral, suggesting caution.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "59",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 2.9299851365094267,
+      "volume_vs_avg": 0.9395422994886743,
+      "generated_at": "2026-03-15T19:38:14.869514+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.911,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.919,
+      "ml_note": "ML confirms BUY (91%, HIGH)",
+      "top_features": [
+        "macd_hist",
+        "high_52w",
+        "stoch_k"
+      ]
+    },
+    {
+      "symbol": "INJ-USD",
+      "display": "INJ/USD",
+      "name": "Injective",
+      "type": "CRYPTO",
+      "icon": "I",
+      "direction": "BUY",
+      "entry": 3.0832736492156982,
+      "target": 3.402819,
+      "stop_loss": 2.891547,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The price increase of 1.35% and the RSI value of 55 indicate a neutral sentiment, but the above SMA20 trend suggests a bullish outlook. Considering the news and confluences, the overall sentiment is bullish.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "55",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 1.3499600664047373,
+      "volume_vs_avg": 0.7540537523435891,
+      "generated_at": "2026-03-15T19:38:22.657046+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.766,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.967,
+      "ml_note": "ML confirms BUY (77%, HIGH)",
+      "top_features": [
+        "macd",
+        "high_52w",
+        "dist_sma50"
+      ]
+    },
+    {
+      "symbol": "FET-USD",
+      "display": "FET/USD",
+      "name": "Fetch.ai",
+      "type": "CRYPTO",
+      "icon": "F",
+      "direction": "BUY",
+      "entry": 0.20031385123729706,
+      "target": 0.229546,
+      "stop_loss": 0.182774,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The price increase of 11.79% and RSI value of 79 indicate a strong bullish momentum. However, the RSI signal is neutral, suggesting caution and potential for a pullback.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "79",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 11.785400995029509,
+      "volume_vs_avg": 1.325658950698209,
+      "generated_at": "2026-03-15T19:38:31.427832+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.567,
+      "ml_confidence": "MEDIUM",
+      "ml_agreement": 0.984,
+      "ml_note": "ML confirms BUY (57%, MEDIUM)",
+      "top_features": [
+        "high_52w",
+        "dist_sma20",
+        "atr_pct"
+      ]
+    },
+    {
+      "symbol": "RENDER-USD",
+      "display": "RNDR",
+      "name": "Render",
+      "type": "CRYPTO",
+      "icon": "R",
+      "direction": "BUY",
+      "entry": 1.8813648223876953,
+      "target": 2.18469,
+      "stop_loss": 1.69937,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The RSI is at 86, indicating a neutral signal, but the price is above the SMA20, suggesting a bullish trend. However, the overall market sentiment is bearish due to recent news and market conditions.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "86",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": -0.7375545763089666,
+      "volume_vs_avg": 1.0085890248133784,
+      "generated_at": "2026-03-15T19:38:40.813828+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.592,
+      "ml_confidence": "MEDIUM",
+      "ml_agreement": 0.979,
+      "ml_note": "ML confirms BUY (59%, MEDIUM)",
+      "top_features": [
+        "high_52w",
+        "dist_sma50",
+        "dist_sma20"
+      ]
+    },
+    {
+      "symbol": "^GSPC",
+      "display": "S&P 500",
+      "name": "S&P 500",
+      "type": "INDEX",
+      "icon": "S",
+      "direction": "SELL",
+      "entry": 6632.18994140625,
+      "target": 6378.732996,
+      "stop_loss": 6784.264108,
+      "confidence": 90,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The S&P 500 is experiencing a decline in price and RSI is at 34, indicating a potential sell signal. The news that Bitcoin beat the S&P 500 may also contribute to a bearish sentiment.",
+      "news": [
+        {
+          "headline": "Bitcoin beat the S&P 500, Nasdaq Composite and gold since the start of the Iran war",
+          "source": "CNBC",
+          "sentiment": "BULLISH"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "34",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.6059115470564397,
+      "volume_vs_avg": 0.489944543505382,
+      "generated_at": "2026-03-15T19:38:49.389937+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.446,
+      "ml_confidence": "MEDIUM",
+      "ml_agreement": 0.92,
+      "ml_note": "ML confirms SELL (45%, MEDIUM)",
+      "top_features": [
+        "roc_5",
+        "low_52w",
+        "high_52w"
+      ]
+    },
+    {
+      "symbol": "^IXIC",
+      "display": "NASDAQ",
+      "name": "Nasdaq",
+      "type": "INDEX",
+      "icon": "N",
+      "direction": "SELL",
+      "entry": 22105.359375,
+      "target": 21048.416015,
+      "stop_loss": 22739.525391,
+      "confidence": 90,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current price is below the SMA20, indicating a bearish trend. The RSI is at 41, which is a neutral signal, but the overall market sentiment is bearish due to the news about Bitcoin beating the S&P 500, Nasdaq Composite and gold since the start of the Iran war.",
+      "news": [
+        {
+          "headline": "Bitcoin beat the S&P 500, Nasdaq Composite and gold since the start of the Iran war",
+          "source": "CNBC",
+          "sentiment": "BULLISH"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "41",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.9260544757082054,
+      "volume_vs_avg": 0.7308954185662466,
+      "generated_at": "2026-03-15T19:38:57.908065+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.234,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.839,
+      "ml_note": "ML confirms SELL (23%, HIGH)",
+      "top_features": [
+        "macd_hist",
+        "bb_width",
+        "macd"
+      ]
+    },
+    {
+      "symbol": "^DJI",
+      "display": "DOW",
+      "name": "Dow Jones",
+      "type": "INDEX",
+      "icon": "D",
+      "direction": "SELL",
+      "entry": 46558.46875,
+      "target": 44629.441128,
+      "stop_loss": 47715.885323,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The DOW is experiencing a low RSI value of 26, indicating a potential buying opportunity. Additionally, the trend is above the SMA20, further supporting a bullish sentiment.",
+      "news": [
+        {
+          "headline": "Dow Jones Futures Due, Oil Prices Eye $100 Amid Iran War; Nvidia GTC, Micron Earnings Ahead",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Petr\u00f3leo Brasileiro S.A. (PBR) Gets Downgraded to Hold From Buy by Jefferies \u2013 Here\u2019s Why",
+          "source": "Yahoo Finance",
+          "sentiment": "BEARISH"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "26",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.255759013115997,
+      "volume_vs_avg": 0.8895654824287671,
+      "generated_at": "2026-03-15T19:39:01.042063+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.451,
+      "ml_confidence": "LOW",
+      "ml_agreement": 0.922,
+      "ml_note": "ML confirms SELL (45%, LOW)",
+      "top_features": [
+        "macd",
+        "high_52w",
+        "ret_20d"
+      ]
+    },
+    {
+      "symbol": "^RUT",
+      "display": "RUT",
+      "name": "Russell 2000",
+      "type": "INDEX",
+      "icon": "R",
+      "direction": "SELL",
+      "entry": 2480.05078125,
+      "target": 2338.586199,
+      "stop_loss": 2564.929531,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "Despite the current market panic, the RUT index is still above its SMA20, indicating a bullish trend. However, the RSI is at 33, suggesting a neutral signal, and the news is bearish, which may impact the trade.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "33",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.3591500576317401,
+      "volume_vs_avg": 0.0,
+      "generated_at": "2026-03-15T19:39:09.908894+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.261,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.876,
+      "ml_note": "ML confirms SELL (26%, HIGH)",
+      "top_features": [
+        "macd",
+        "high_52w",
+        "low_52w"
+      ]
+    },
+    {
+      "symbol": "^VIX",
+      "display": "VIX",
+      "name": "Volatility",
+      "type": "INDEX",
+      "icon": "V",
+      "direction": "BUY",
+      "entry": 27.190000534057617,
+      "target": 38.504286,
+      "stop_loss": 20.40143,
+      "confidence": 70,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The VIX is currently above its 20-day SMA, indicating a bullish trend. However, the RSI is at 61, suggesting a neutral signal as it's not overbought or oversold.",
+      "news": [
+        {
+          "headline": "Here\u2019s why UBS thinks market volatility is no reason to exit equities",
+          "source": "Investing.com",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "61",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": -0.3664359769692378,
+      "volume_vs_avg": 1.0,
+      "generated_at": "2026-03-15T19:39:17.040245+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.0,
+      "ml_confidence": "",
+      "ml_agreement": 0.0,
+      "ml_note": "",
+      "top_features": []
+    },
+    {
+      "symbol": "^FTSE",
+      "display": "FTSE 100",
+      "name": "FTSE 100",
+      "type": "INDEX",
+      "icon": "F",
+      "direction": "SELL",
+      "entry": 10261.150390625,
+      "target": 9841.498641,
+      "stop_loss": 10512.941441,
+      "confidence": 90,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The FTSE 100 is experiencing a decline in price and RSI is at 35, indicating a potential sell signal. The news and market sentiment also suggest a bearish trend.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "35",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.42745219745984964,
+      "volume_vs_avg": 0.0,
+      "generated_at": "2026-03-15T19:39:24.890076+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.472,
+      "ml_confidence": "LOW",
+      "ml_agreement": 0.642,
+      "ml_note": "ML confirms SELL (47%, LOW)",
+      "top_features": [
+        "dist_sma50",
+        "dist_sma20",
+        "macd"
+      ]
+    },
+    {
+      "symbol": "^N225",
+      "display": "NIKKEI",
+      "name": "Nikkei 225",
+      "type": "INDEX",
+      "icon": "N",
+      "direction": "SELL",
+      "entry": 53819.609375,
+      "target": 49605.03697,
+      "stop_loss": 56348.352818,
+      "confidence": 90,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The NIKKEI is showing a bearish trend with a 1.16% price drop and an RSI of 40, indicating a neutral signal. Additionally, the price is below the SMA20, further supporting a bearish sentiment.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "40",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -1.163116847267402,
+      "volume_vs_avg": 0.0,
+      "generated_at": "2026-03-15T19:39:34.831653+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.098,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.976,
+      "ml_note": "ML confirms SELL (10%, HIGH)",
+      "top_features": [
+        "bb_pct",
+        "low_52w",
+        "high_52w"
+      ]
+    },
+    {
+      "symbol": "^GDAXI",
+      "display": "DAX",
+      "name": "German DAX",
+      "type": "INDEX",
+      "icon": "D",
+      "direction": "BUY",
+      "entry": 23447.2890625,
+      "target": 24680.80678,
+      "stop_loss": 22707.178432,
+      "confidence": 80,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current RSI of 31 indicates a neutral signal, but the price change of -0.60% and the fact that the SMA20 is below the current price suggest a bearish trend. Considering the news about Warren Buffett's warning and the lack of any bullish news, it's likely that the market will continue to decline.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "31",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.6034906230809476,
+      "volume_vs_avg": 0.0,
+      "generated_at": "2026-03-15T19:39:43.072719+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.617,
+      "ml_confidence": "MEDIUM",
+      "ml_agreement": 0.964,
+      "ml_note": "ML confirms BUY (62%, MEDIUM)",
+      "top_features": [
+        "high_52w",
+        "atr_pct",
+        "dist_sma20"
+      ]
+    },
+    {
+      "symbol": "^HSI",
+      "display": "HANG SENG",
+      "name": "Hang Seng",
+      "type": "INDEX",
+      "icon": "H",
+      "direction": "BUY",
+      "entry": 25465.599609375,
+      "target": 26784.776507,
+      "stop_loss": 24674.093471,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current market sentiment is bullish despite the news of a potential AI selloff being seen as overdone. The RSI is at 32, indicating a neutral signal, and the trend is above the SMA20, which is a bullish signal. However, the overall market is expected to see increased selling this week, which may impact the trade. The lack of volume and the price decrease of 0.98% also suggest caution. Despite these factors, the overall sentiment remains bullish, and a buy signal is generated based on the trend and RSI analysis.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "32",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.9766399754051441,
+      "volume_vs_avg": 0.0,
+      "generated_at": "2026-03-15T19:39:51.647125+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.881,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.938,
+      "ml_note": "ML confirms BUY (88%, HIGH)",
+      "top_features": [
+        "high_52w",
+        "roc_10",
+        "dist_sma50"
+      ]
+    },
+    {
+      "symbol": "SPY",
+      "display": "SPY",
+      "name": "S&P 500 ETF",
+      "type": "ETF",
+      "icon": "S",
+      "direction": "SELL",
+      "entry": 662.2899780273438,
+      "target": 636.958721,
+      "stop_loss": 677.488733,
+      "confidence": 90,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current price is below the SMA20, indicating a bearish trend. However, the RSI is at 34, which is a neutral signal, suggesting a potential reversal.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "34",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        },
+        {
+          "name": "Volatility",
+          "value": "0.9x",
+          "signal": "NEUTRAL"
+        }
+      ],
+      "price_change_pct": -0.5660180081477343,
+      "volume_vs_avg": 0.8987062292736723,
+      "generated_at": "2026-03-15T19:40:00.412932+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.333,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.759,
+      "ml_note": "ML confirms SELL (33%, HIGH)",
+      "top_features": [
+        "roc_5",
+        "high_52w",
+        "low_52w"
+      ]
+    },
+    {
+      "symbol": "QQQ",
+      "display": "QQQ",
+      "name": "Nasdaq ETF",
+      "type": "ETF",
+      "icon": "Q",
+      "direction": "SELL",
+      "entry": 593.719970703125,
+      "target": 566.330706,
+      "stop_loss": 610.15353,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The QQQ ETF is experiencing a slight decline in price with a low RSI of 45, indicating a potential buying opportunity. However, the news about Warren Buffett's warning and Oracle's cloud growth may impact the market, making it essential to monitor the situation closely.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "45",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.5927132244948347,
+      "volume_vs_avg": 0.8410409620863888,
+      "generated_at": "2026-03-15T19:40:08.906831+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.243,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.934,
+      "ml_note": "ML confirms SELL (24%, HIGH)",
+      "top_features": [
+        "high_52w",
+        "roc_5",
+        "macd_hist"
+      ]
+    },
+    {
+      "symbol": "IWM",
+      "display": "IWM",
+      "name": "Russell ETF",
+      "type": "ETF",
+      "icon": "I",
+      "direction": "SELL",
+      "entry": 246.58999633789062,
+      "target": 231.648029,
+      "stop_loss": 255.555177,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current market sentiment is bullish despite the recent news of target lowerings and market panic. The RSI is at 33, indicating a neutral signal, but the trend is above SMA20, which is a bullish signal.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "33",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.33143660809230785,
+      "volume_vs_avg": 0.8970466966514996,
+      "generated_at": "2026-03-15T19:40:17.748497+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.465,
+      "ml_confidence": "LOW",
+      "ml_agreement": 0.675,
+      "ml_note": "ML confirms SELL (46%, LOW)",
+      "top_features": [
+        "macd",
+        "high_52w",
+        "macd_signal"
+      ]
+    },
+    {
+      "symbol": "GLD",
+      "display": "GLD",
+      "name": "Gold ETF",
+      "type": "ETF",
+      "icon": "G",
+      "direction": "SELL",
+      "entry": 460.8399963378906,
+      "target": 430.882514,
+      "stop_loss": 478.814486,
+      "confidence": 90,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The recent price drop of -1.29% and RSI of 38 indicates a potential sell signal. However, the news about JPMorgan Flags Sharp Divergence Between Bitcoin and Gold ETF Flows Since Iran War may impact the market, but the current trend is below SMA20, suggesting a bearish trend.",
+      "news": [
+        {
+          "headline": "JPMorgan Flags Sharp Divergence Between Bitcoin and Gold ETF Flows Since Iran War",
+          "source": "CryptoNews",
+          "sentiment": "BEARISH"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "38",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -1.2936961278600752,
+      "volume_vs_avg": 1.2103389378389946,
+      "generated_at": "2026-03-15T19:40:27.145653+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.087,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.988,
+      "ml_note": "ML confirms SELL (9%, HIGH)",
+      "top_features": [
+        "macd_hist",
+        "macd_signal",
+        "low_52w"
+      ]
+    },
+    {
+      "symbol": "SLV",
+      "display": "SLV",
+      "name": "Silver ETF",
+      "type": "ETF",
+      "icon": "S",
+      "direction": "SELL",
+      "entry": 72.69000244140625,
+      "target": 61.92661,
+      "stop_loss": 79.148038,
+      "confidence": 90,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "SLV is experiencing a significant price drop of -4.96% and the RSI is at 38, indicating a potential sell signal. The news about Warren Buffett's warning and the lack of bullish news from other sectors also supports a bearish sentiment.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "38",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        },
+        {
+          "name": "Volatility",
+          "value": "1.3x",
+          "signal": "HIGH"
+        }
+      ],
+      "price_change_pct": -4.9555449126215905,
+      "volume_vs_avg": 1.290631924883714,
+      "generated_at": "2026-03-15T19:40:36.789485+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.189,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.968,
+      "ml_note": "ML confirms SELL (19%, HIGH)",
+      "top_features": [
+        "vol_trend",
+        "bb_pct",
+        "stoch_k"
+      ]
+    },
+    {
+      "symbol": "TLT",
+      "display": "TLT",
+      "name": "20Y Treasury",
+      "type": "ETF",
+      "icon": "T",
+      "direction": "SELL",
+      "entry": 86.54000091552734,
+      "target": 84.775993,
+      "stop_loss": 87.598405,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current market sentiment is BULLISH due to the low RSI value of 28, indicating a potential oversold condition. However, the news suggests a potential market downturn, which may impact the trade.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "28",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.4944237083365937,
+      "volume_vs_avg": 0.8264742092772056,
+      "generated_at": "2026-03-15T19:40:45.437425+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.076,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.998,
+      "ml_note": "ML confirms SELL (8%, HIGH)",
+      "top_features": [
+        "ret_20d",
+        "macd",
+        "dist_sma20"
+      ]
+    },
+    {
+      "symbol": "XLE",
+      "display": "XLE",
+      "name": "Energy ETF",
+      "type": "ETF",
+      "icon": "E",
+      "direction": "SELL",
+      "entry": 57.70000076293945,
+      "target": 54.555356,
+      "stop_loss": 59.586788,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The XLE ETF is showing a bullish trend as it is above the SMA20. However, the RSI is at 69, indicating a neutral signal, suggesting caution in the trade.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "69",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.3303815805105114,
+      "volume_vs_avg": 0.5853923762533778,
+      "generated_at": "2026-03-15T19:40:53.890930+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.085,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.984,
+      "ml_note": "ML confirms SELL (8%, HIGH)",
+      "top_features": [
+        "macd_signal",
+        "macd_hist",
+        "high_52w"
+      ]
+    },
+    {
+      "symbol": "XLF",
+      "display": "XLF",
+      "name": "Financials ETF",
+      "type": "ETF",
+      "icon": "F",
+      "direction": "BUY",
+      "entry": 48.88999938964844,
+      "target": 51.468569,
+      "stop_loss": 47.342857,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The market is experiencing a downturn, but the RSI is low, indicating a potential buying opportunity. The SMA20 is below the current price, suggesting a possible trend reversal.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "35",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": 0.12287027717372113,
+      "volume_vs_avg": 0.6730630256136071,
+      "generated_at": "2026-03-15T19:41:02.590653+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.873,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.862,
+      "ml_note": "ML confirms BUY (87%, HIGH)",
+      "top_features": [
+        "high_52w",
+        "macd",
+        "dist_sma50"
+      ]
+    },
+    {
+      "symbol": "XLK",
+      "display": "XLK",
+      "name": "Tech ETF",
+      "type": "ETF",
+      "icon": "T",
+      "direction": "SELL",
+      "entry": 136.8000030517578,
+      "target": 128.695546,
+      "stop_loss": 141.662678,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The RSI is at 46, indicating a neutral signal, but the trend is above the SMA20, suggesting a bullish trend. Considering the recent news about cloud growth and AI pipeline, it may be a good time to buy XLK.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "46",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.7544931179361402,
+      "volume_vs_avg": 0.6905419473199562,
+      "generated_at": "2026-03-15T19:41:10.835945+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.338,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.735,
+      "ml_note": "ML confirms SELL (34%, HIGH)",
+      "top_features": [
+        "low_52w",
+        "macd_signal",
+        "high_52w"
+      ]
+    },
+    {
+      "symbol": "XLV",
+      "display": "XLV",
+      "name": "Healthcare ETF",
+      "type": "ETF",
+      "icon": "H",
+      "direction": "SELL",
+      "entry": 149.7899932861328,
+      "target": 143.539991,
+      "stop_loss": 153.539995,
+      "confidence": 90,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The RSI is at 26, indicating a potential oversold condition. However, the price is below the SMA20, suggesting a bearish trend. The news about Warren Buffett's warning and Oracle's update may also contribute to a bearish sentiment.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "26",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        },
+        {
+          "name": "Volume",
+          "value": "0.9x",
+          "signal": "NEUTRAL"
+        }
+      ],
+      "price_change_pct": -0.2464107398459854,
+      "volume_vs_avg": 0.9148826142710416,
+      "generated_at": "2026-03-15T19:41:20.013975+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.195,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.939,
+      "ml_note": "ML confirms SELL (20%, HIGH)",
+      "top_features": [
+        "stoch_k",
+        "dist_sma20",
+        "macd_hist"
+      ]
+    },
+    {
+      "symbol": "ARKK",
+      "display": "ARKK",
+      "name": "ARK Innovation",
+      "type": "ETF",
+      "icon": "A",
+      "direction": "SELL",
+      "entry": 70.25,
+      "target": 63.749105,
+      "stop_loss": 74.150537,
+      "confidence": 90,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "ARKK's price is decreasing with a negative change of -0.55% and the RSI is at 51, indicating a neutral signal. However, the news about Warren Buffett's warning and Jefferies' update on Oracle Corporation may affect the market negatively.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "51",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        },
+        {
+          "name": "Volume",
+          "value": "1.4x",
+          "signal": "HIGH"
+        }
+      ],
+      "price_change_pct": -0.552094270977001,
+      "volume_vs_avg": 1.4018943584948371,
+      "generated_at": "2026-03-15T19:41:28.552584+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.309,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.839,
+      "ml_note": "ML confirms SELL (31%, HIGH)",
+      "top_features": [
+        "macd_hist",
+        "low_52w",
+        "vol_trend"
+      ]
+    },
+    {
+      "symbol": "IEMG",
+      "display": "IEMG",
+      "name": "Emerging Markets",
+      "type": "ETF",
+      "icon": "E",
+      "direction": "BUY",
+      "entry": 69.7300033569336,
+      "target": 74.655006,
+      "stop_loss": 66.775002,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current RSI of 30 indicates a potential oversold condition, and the price being below the SMA20 suggests a bearish trend. However, the news articles suggest a bullish sentiment in emerging markets, which could lead to a potential reversal.",
+      "news": [
+        {
+          "headline": "Northern Funds Multi-Manager Emerging Markets Debt Opportunity Fund Q4 2025 Commentary",
+          "source": "SeekingAlpha",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Emerging Markets: How Investors Are Responding To Shifting Global Paradigm",
+          "source": "SeekingAlpha",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "30",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.34300108558311604,
+      "volume_vs_avg": 0.6924451353488664,
+      "generated_at": "2026-03-15T19:41:38.203694+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.545,
+      "ml_confidence": "LOW",
+      "ml_agreement": 0.706,
+      "ml_note": "ML confirms BUY (55%, LOW)",
+      "top_features": [
+        "high_52w",
+        "stoch_k",
+        "dist_sma50"
+      ]
+    },
+    {
+      "symbol": "HYG",
+      "display": "HYG",
+      "name": "High Yield Bond",
+      "type": "ETF",
+      "icon": "H",
+      "direction": "SELL",
+      "entry": 79.19999694824219,
+      "target": 78.303299,
+      "stop_loss": 79.738015,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current market sentiment is BULLISH due to the low RSI value of 29, indicating a potential oversold condition. However, the news and overall market sentiment suggest caution, as panic is gripping the stock market.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "29",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.1890378434321296,
+      "volume_vs_avg": 0.8921802260625977,
+      "generated_at": "2026-03-15T19:41:47.442315+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.077,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.995,
+      "ml_note": "ML confirms SELL (8%, HIGH)",
+      "top_features": [
+        "ret_1d",
+        "ret_3d",
+        "ret_5d"
+      ]
+    },
+    {
+      "symbol": "AAPL",
+      "display": "AAPL",
+      "name": "Apple",
+      "type": "STOCK",
+      "icon": "A",
+      "direction": "BUY",
+      "entry": 250.1199951171875,
+      "target": 265.239638,
+      "stop_loss": 241.04821,
+      "confidence": 80,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is decreasing by 2.21% and the RSI is at 30, indicating a potential sell signal. The news about Warren Buffett's warning and the bearish sentiment score also support a sell decision.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "30",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        },
+        {
+          "name": "Volatility",
+          "value": "1.0x",
+          "signal": "NEUTRAL"
+        }
+      ],
+      "price_change_pct": -2.2051921765652414,
+      "volume_vs_avg": 1.0435607786045387,
+      "generated_at": "2026-03-15T19:41:56.462988+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.666,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.994,
+      "ml_note": "ML confirms BUY (67%, HIGH)",
+      "top_features": [
+        "rsi",
+        "ret_5d",
+        "high_52w"
+      ]
+    },
+    {
+      "symbol": "MSFT",
+      "display": "MSFT",
+      "name": "Microsoft",
+      "type": "STOCK",
+      "icon": "M",
+      "direction": "SELL",
+      "entry": 395.54998779296875,
+      "target": 373.38392,
+      "stop_loss": 408.849628,
+      "confidence": 65,
+      "sentiment": "BEARISH",
+      "sentiment_score": -1.0,
+      "ai_reasoning": "RSI at 59 (neutral), price is below 20-day SMA, 24h change -1.57%. Technical setup favours sell with 0/3 bullish signals.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI (14)",
+          "value": "59",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "vs 20-day SMA",
+          "value": "below",
+          "signal": "BEARISH"
+        },
+        {
+          "name": "24h Change",
+          "value": "-1.57%",
+          "signal": "BEARISH"
+        },
+        {
+          "name": "Source",
+          "value": "Rule-based (LLM unavailable)",
+          "signal": "NEUTRAL"
+        }
+      ],
+      "price_change_pct": -1.57019802632838,
+      "volume_vs_avg": 0.9040268440257943,
+      "generated_at": "2026-03-15T19:42:05.500033+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.021,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.99,
+      "ml_note": "ML confirms SELL (2%, HIGH)",
+      "top_features": [
+        "low_52w",
+        "macd_signal",
+        "dist_sma20"
+      ]
+    },
+    {
+      "symbol": "GOOGL",
+      "display": "GOOGL",
+      "name": "Alphabet",
+      "type": "STOCK",
+      "icon": "G",
+      "direction": "BUY",
+      "entry": 302.2799987792969,
+      "target": 320.690479,
+      "stop_loss": 291.233711,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current market news suggests a potential AI selloff being overdone, which could be a bullish sign for GOOGL. However, the overall market sentiment is bearish, and the RSI is in a neutral zone, indicating a need for caution.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "39",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.41837887160056486,
+      "volume_vs_avg": 0.9314589169753433,
+      "generated_at": "2026-03-15T19:42:14.161065+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.706,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.662,
+      "ml_note": "ML confirms BUY (71%, HIGH)",
+      "top_features": [
+        "high_52w",
+        "ret_5d",
+        "macd"
+      ]
+    },
+    {
+      "symbol": "AMZN",
+      "display": "AMZN",
+      "name": "Amazon",
+      "type": "STOCK",
+      "icon": "A",
+      "direction": "SELL",
+      "entry": 207.6699981689453,
+      "target": 193.611071,
+      "stop_loss": 216.105355,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The price is below SMA20, indicating a potential bullish trend. However, the RSI is at 53, which is neutral, suggesting caution.",
+      "news": [
+        {
+          "headline": "27-year-old Amazon employee relocated from India to Ireland and spends up to $2,927 a month: 'My quality of life has imp",
+          "source": "CNBC",
+          "sentiment": "BULLISH"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "53",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.8877013416636094,
+      "volume_vs_avg": 0.8104176514113057,
+      "generated_at": "2026-03-15T19:42:23.766048+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.277,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.72,
+      "ml_note": "ML confirms SELL (28%, HIGH)",
+      "top_features": [
+        "low_52w",
+        "macd_hist",
+        "high_52w"
+      ]
+    },
+    {
+      "symbol": "NVDA",
+      "display": "NVDA",
+      "name": "Nvidia",
+      "type": "STOCK",
+      "icon": "N",
+      "direction": "SELL",
+      "entry": 180.25,
+      "target": 164.53465,
+      "stop_loss": 189.67921,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The recent news about Together AI leveraging NVIDIA-Powered GPUs and the upcoming Nvidia's GTC event, which marks an AI chip pivot, indicate a positive sentiment for NVDA. The RSI of 39 and the trend above SMA20 also support a bullish direction. ",
+      "news": [
+        {
+          "headline": "Together AI Leverages NVIDIA-Powered GPUs as It Eyes $7.5B Valuation in New Round",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Dow Jones Futures Due, Oil Prices Eye $100 Amid Iran War; Nvidia GTC, Micron Earnings Ahead",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "39",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -1.5780274103308685,
+      "volume_vs_avg": 0.9510218312420966,
+      "generated_at": "2026-03-15T19:42:28.974430+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.455,
+      "ml_confidence": "LOW",
+      "ml_agreement": 0.733,
+      "ml_note": "ML confirms SELL (46%, LOW)",
+      "top_features": [
+        "low_52w",
+        "dist_sma50",
+        "macd"
+      ]
+    },
+    {
+      "symbol": "TSLA",
+      "display": "TSLA",
+      "name": "Tesla",
+      "type": "STOCK",
+      "icon": "T",
+      "direction": "BUY",
+      "entry": 391.20001220703125,
+      "target": 424.792862,
+      "stop_loss": 371.044302,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "Despite the current market panic and negative news about other stocks, TSLA's RSI is at a neutral level and its trend is still above the SMA20, indicating a potential buying opportunity. However, the stock's price movement is uncertain and may be affected by the overall market conditions.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "45",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.9645319015724112,
+      "volume_vs_avg": 0.9319918315433439,
+      "generated_at": "2026-03-15T19:42:37.542321+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.937,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.993,
+      "ml_note": "ML confirms BUY (94%, HIGH)",
+      "top_features": [
+        "rsi",
+        "low_52w",
+        "dist_sma20"
+      ]
+    },
+    {
+      "symbol": "META",
+      "display": "META",
+      "name": "Meta",
+      "type": "STOCK",
+      "icon": "M",
+      "direction": "BUY",
+      "entry": 613.7100219726562,
+      "target": 659.872512,
+      "stop_loss": 586.012528,
+      "confidence": 40,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price has decreased by 3.83% and the RSI is at 40, indicating a potential sell signal. The news about Warren Buffett's warning and Oracle's update may also contribute to a bearish sentiment.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "40",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -3.834336861694227,
+      "volume_vs_avg": 1.6599481464228738,
+      "generated_at": "2026-03-15T19:42:46.300273+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.639,
+      "ml_confidence": "MEDIUM",
+      "ml_agreement": 0.921,
+      "ml_note": "ML confirms BUY (64%, MEDIUM)",
+      "top_features": [
+        "low_52w",
+        "high_52w",
+        "ret_20d"
+      ]
+    },
+    {
+      "symbol": "NFLX",
+      "display": "NFLX",
+      "name": "Netflix",
+      "type": "STOCK",
+      "icon": "N",
+      "direction": "SELL",
+      "entry": 95.30999755859375,
+      "target": 86.702908,
+      "stop_loss": 100.474252,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "NFLX is showing a bullish trend above SMA20, and its RSI is at 83, indicating a neutral signal. However, considering the recent news about Warren Buffett's warning and its potential impact on the market, it's essential to monitor the stock's performance closely.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "83",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 1.0603329719934635,
+      "volume_vs_avg": 0.7507365981798381,
+      "generated_at": "2026-03-15T19:42:54.725080+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.101,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.97,
+      "ml_note": "ML confirms SELL (10%, HIGH)",
+      "top_features": [
+        "atr_pct",
+        "macd_hist",
+        "low_52w"
+      ]
+    },
+    {
+      "symbol": "AMD",
+      "display": "AMD",
+      "name": "AMD",
+      "type": "STOCK",
+      "icon": "A",
+      "direction": "SELL",
+      "entry": 193.38999938964844,
+      "target": 169.675719,
+      "stop_loss": 207.618567,
+      "confidence": 90,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is decreasing by 2.20% and the RSI is at 48, indicating a neutral signal. However, the news about free parking may be history could have a negative impact on the stock price, but the trend is above SMA20, which is a bullish signal. ",
+      "news": [
+        {
+          "headline": "As New York Mayor Zohran Mamdani faces $7 billion budget hole, free parking may be history",
+          "source": "CNBC",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "48",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -2.1998614254443347,
+      "volume_vs_avg": 0.8954857742529736,
+      "generated_at": "2026-03-15T19:43:02.534929+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.123,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.986,
+      "ml_note": "ML confirms SELL (12%, HIGH)",
+      "top_features": [
+        "dist_sma20",
+        "ret_5d",
+        "high_52w"
+      ]
+    },
+    {
+      "symbol": "CRM",
+      "display": "CRM",
+      "name": "Salesforce",
+      "type": "STOCK",
+      "icon": "C",
+      "direction": "BUY",
+      "entry": 192.8300018310547,
+      "target": 214.904989,
+      "stop_loss": 179.585009,
+      "confidence": 80,
+      "sentiment": "NEUTRAL",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current market sentiment is neutral due to the recent price drop and the news of a potential market downturn. However, the stock's RSI is at 62, indicating a neutral signal, and the trend is above the SMA20, which is a bullish signal.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "62",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": -3.236650435443637,
+      "volume_vs_avg": 1.0351352210633706,
+      "generated_at": "2026-03-15T19:43:11.645884+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.689,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.919,
+      "ml_note": "ML confirms BUY (69%, HIGH)",
+      "top_features": [
+        "macd",
+        "dist_sma20",
+        "bb_width"
+      ]
+    },
+    {
+      "symbol": "ORCL",
+      "display": "ORCL",
+      "name": "Oracle",
+      "type": "STOCK",
+      "icon": "O",
+      "direction": "SELL",
+      "entry": 155.11000061035156,
+      "target": 134.037673,
+      "stop_loss": 167.753397,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The recent news from Jefferies citing cloud growth and AI pipeline in Oracle Corporation (ORCL) is a positive indicator for the stock. The RSI of 64 suggests a neutral signal, but the overall trend is bullish due to the stock being above the SMA20.",
+      "news": [
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "BULLISH"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "64",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": -2.5446110571571827,
+      "volume_vs_avg": 0.5435831371145322,
+      "generated_at": "2026-03-15T19:43:19.808268+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.189,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 1.0,
+      "ml_note": "ML confirms SELL (19%, HIGH)",
+      "top_features": [
+        "macd",
+        "low_52w",
+        "dist_sma20"
+      ]
+    },
+    {
+      "symbol": "INTC",
+      "display": "INTC",
+      "name": "Intel",
+      "type": "STOCK",
+      "icon": "I",
+      "direction": "BUY",
+      "entry": 45.77000045776367,
+      "target": 52.080715,
+      "stop_loss": 41.983571,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "Based on the given data, INTC is showing a bullish trend with the price above SMA20. The RSI is at 55, indicating a neutral signal, but the overall sentiment is bullish due to the trend and news article suggesting an AI stock to buy.",
+      "news": [
+        {
+          "headline": "Got $1,000? Here's the Artificial Intelligence (AI) Stock I'd Buy First",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "55",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 1.149172282350656,
+      "volume_vs_avg": 0.8383526885844721,
+      "generated_at": "2026-03-15T19:43:28.574204+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.894,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.924,
+      "ml_note": "ML confirms BUY (89%, HIGH)",
+      "top_features": [
+        "vol_trend",
+        "macd",
+        "macd_signal"
+      ]
+    },
+    {
+      "symbol": "QCOM",
+      "display": "QCOM",
+      "name": "Qualcomm",
+      "type": "STOCK",
+      "icon": "Q",
+      "direction": "BUY",
+      "entry": 129.82000732421875,
+      "target": 140.446932,
+      "stop_loss": 123.443852,
+      "confidence": 80,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is decreasing with a negative change of 1.01% and RSI of 33, indicating a potential sell signal. The news about Warren Buffett's warning and Jefferies' update on Oracle Corporation may also contribute to the bearish sentiment.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "33",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -1.014095794251712,
+      "volume_vs_avg": 0.7955040844097732,
+      "generated_at": "2026-03-15T19:43:37.003862+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.605,
+      "ml_confidence": "MEDIUM",
+      "ml_agreement": 0.987,
+      "ml_note": "ML confirms BUY (60%, MEDIUM)",
+      "top_features": [
+        "dist_sma20",
+        "macd",
+        "rsi"
+      ]
+    },
+    {
+      "symbol": "PYPL",
+      "display": "PYPL",
+      "name": "PayPal",
+      "type": "STOCK",
+      "icon": "P",
+      "direction": "BUY",
+      "entry": 44.900001525878906,
+      "target": 49.686044,
+      "stop_loss": 42.028376,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock's price increase and above SMA20 trend suggest a bullish sentiment. However, the RSI is neutral, indicating a need for further confirmation.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "54",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 1.2173149416083024,
+      "volume_vs_avg": 0.8568919806312637,
+      "generated_at": "2026-03-15T19:43:46.770785+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.752,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 1.0,
+      "ml_note": "ML confirms BUY (75%, HIGH)",
+      "top_features": [
+        "macd_hist",
+        "ret_20d",
+        "macd"
+      ]
+    },
+    {
+      "symbol": "SHOP",
+      "display": "SHOP",
+      "name": "Shopify",
+      "type": "STOCK",
+      "icon": "S",
+      "direction": "SELL",
+      "entry": 122.95999908447266,
+      "target": 105.371784,
+      "stop_loss": 133.512928,
+      "confidence": 90,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is decreasing by 2.54% and the RSI is 56, indicating a neutral signal. However, the news about Warren Buffett's warning and the bearish sentiment may suggest a sell opportunity.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "56",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -2.5441857264469276,
+      "volume_vs_avg": 0.8893877347296681,
+      "generated_at": "2026-03-15T19:43:57.398383+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.228,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.992,
+      "ml_note": "ML confirms SELL (23%, HIGH)",
+      "top_features": [
+        "dist_sma50",
+        "roc_10",
+        "ret_10d"
+      ]
+    },
+    {
+      "symbol": "UBER",
+      "display": "UBER",
+      "name": "Uber",
+      "type": "STOCK",
+      "icon": "U",
+      "direction": "SELL",
+      "entry": 73.33000183105469,
+      "target": 66.852502,
+      "stop_loss": 77.216502,
+      "confidence": 60,
+      "sentiment": "NEUTRAL",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is stable with a slight increase, but the RSI is at 59, indicating a neutral signal. The news about Uber's ex-CEO Kalanick rebranding Atoms and expanding into mining and transport could have a positive impact on the stock, but the current trend is below SMA20, indicating a bearish signal.",
+      "news": [
+        {
+          "headline": "Uber ex-CEO Kalanick rebrands latest venture Atoms, expands into mining and transport",
+          "source": "CNBC",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "59",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        },
+        {
+          "name": "Volatility",
+          "value": "0.9x",
+          "signal": "NEUTRAL"
+        }
+      ],
+      "price_change_pct": 0.49335426110616915,
+      "volume_vs_avg": 0.8932463659960003,
+      "generated_at": "2026-03-15T19:44:05.616997+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.102,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.999,
+      "ml_note": "ML confirms SELL (10%, HIGH)",
+      "top_features": [
+        "low_52w",
+        "dist_sma20",
+        "roc_10"
+      ]
+    },
+    {
+      "symbol": "COIN",
+      "display": "COIN",
+      "name": "Coinbase",
+      "type": "STOCK",
+      "icon": "C",
+      "direction": "SELL",
+      "entry": 195.52999877929688,
+      "target": 162.285351,
+      "stop_loss": 215.476787,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is increasing with a positive RSI and above SMA20, indicating a bullish trend. However, the RSI is at 68, which is a neutral signal, suggesting caution before making a strong buy decision. ",
+      "news": [
+        {
+          "headline": "Bitcoin beat the S&P 500, Nasdaq Composite and gold since the start of the Iran war",
+          "source": "CNBC",
+          "sentiment": "BULLISH"
+        },
+        {
+          "headline": "Crypto Leaders Push Back After Boris Johnson Calls Bitcoin a Ponzi",
+          "source": "CryptoNews",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "68",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 1.1902929682826757,
+      "volume_vs_avg": 1.1689550490807945,
+      "generated_at": "2026-03-15T19:44:12.209184+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.265,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.874,
+      "ml_note": "ML confirms SELL (26%, HIGH)",
+      "top_features": [
+        "atr_pct",
+        "macd",
+        "ret_20d"
+      ]
+    },
+    {
+      "symbol": "PLTR",
+      "display": "PLTR",
+      "name": "Palantir",
+      "type": "STOCK",
+      "icon": "P",
+      "direction": "SELL",
+      "entry": 150.9499969482422,
+      "target": 134.581079,
+      "stop_loss": 160.771347,
+      "confidence": 90,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is decreasing by 1.66% and the RSI is at 74, indicating a potential overbought condition. The news about Warren Buffett's warning and Oracle's cloud growth update may also contribute to a bearish sentiment.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "74",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        },
+        {
+          "name": "Volatility",
+          "value": "0.8x",
+          "signal": "NEUTRAL"
+        }
+      ],
+      "price_change_pct": -1.6612397731321256,
+      "volume_vs_avg": 0.821534914570033,
+      "generated_at": "2026-03-15T19:44:21.050806+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.123,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.987,
+      "ml_note": "ML confirms SELL (12%, HIGH)",
+      "top_features": [
+        "atr_pct",
+        "ret_20d",
+        "macd"
+      ]
+    },
+    {
+      "symbol": "MSTR",
+      "display": "MSTR",
+      "name": "MicroStrategy",
+      "type": "STOCK",
+      "icon": "M",
+      "direction": "SELL",
+      "entry": 139.6699981689453,
+      "target": 116.907503,
+      "stop_loss": 153.327495,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is above its 20-day SMA, indicating a bullish trend. However, the RSI is at 62, which is neutral and may indicate a potential reversal.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "62",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 1.6965209648923407,
+      "volume_vs_avg": 1.328195747601605,
+      "generated_at": "2026-03-15T19:44:30.186522+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.081,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.993,
+      "ml_note": "ML confirms SELL (8%, HIGH)",
+      "top_features": [
+        "high_52w",
+        "atr_pct",
+        "low_52w"
+      ]
+    },
+    {
+      "symbol": "JPM",
+      "display": "JPM",
+      "name": "JPMorgan",
+      "type": "STOCK",
+      "icon": "J",
+      "direction": "BUY",
+      "entry": 283.44000244140625,
+      "target": 303.222145,
+      "stop_loss": 271.570717,
+      "confidence": 81,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.3333333333333333,
+      "ai_reasoning": "RSI at 32 (oversold), price is below 20-day SMA, 24h change +0.19%. Technical setup favours buy with 2/3 bullish signals.",
+      "news": [
+        {
+          "headline": "Target Corporation (TGT) PT Lifted to $120 at JPMorgan After Q4 Results",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "JPMorgan Flags Sharp Divergence Between Bitcoin and Gold ETF Flows Since Iran War",
+          "source": "CryptoNews",
+          "sentiment": "BEARISH"
+        },
+        {
+          "headline": "Target Corporation (TGT) PT Lifted to $120 at JPMorgan After Q4 Results",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "JPMorgan Flags Sharp Divergence Between Bitcoin and Gold ETF Flows Since Iran War",
+          "source": "CryptoNews",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI (14)",
+          "value": "32",
+          "signal": "BULLISH"
+        },
+        {
+          "name": "vs 20-day SMA",
+          "value": "below",
+          "signal": "BEARISH"
+        },
+        {
+          "name": "24h Change",
+          "value": "+0.19%",
+          "signal": "BULLISH"
+        },
+        {
+          "name": "Source",
+          "value": "Rule-based (LLM unavailable)",
+          "signal": "NEUTRAL"
+        }
+      ],
+      "price_change_pct": 0.19441753490389158,
+      "volume_vs_avg": 0.782362355292172,
+      "generated_at": "2026-03-15T19:44:37.956416+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.813,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.995,
+      "ml_note": "ML confirms BUY (81%, HIGH)",
+      "top_features": [
+        "roc_10",
+        "low_52w",
+        "atr_pct"
+      ]
+    },
+    {
+      "symbol": "GS",
+      "display": "GS",
+      "name": "Goldman Sachs",
+      "type": "STOCK",
+      "icon": "G",
+      "direction": "BUY",
+      "entry": 782.2100219726562,
+      "target": 864.823497,
+      "stop_loss": 732.641937,
+      "confidence": 80,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is decreasing with a low RSI value of 27, indicating a potential sell signal. The news about AI disruption concerns in the industry also supports a bearish sentiment.",
+      "news": [
+        {
+          "headline": "Ryan Specialty Holdings (RYAN) PT Lowered From $52 to $45 at Barclays Amid AI Disruption Concerns",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Hippo Holdings Inc. (HIPO) PT Trimmed From $34 to $33 at KBW Amid Growth Challenges",
+          "source": "Yahoo Finance",
+          "sentiment": "BULLISH"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "27",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.6742682632695969,
+      "volume_vs_avg": 0.9588018498701648,
+      "generated_at": "2026-03-15T19:44:40.809482+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.825,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.966,
+      "ml_note": "ML confirms BUY (82%, HIGH)",
+      "top_features": [
+        "macd",
+        "macd_signal",
+        "low_52w"
+      ]
+    },
+    {
+      "symbol": "BAC",
+      "display": "BAC",
+      "name": "Bank of America",
+      "type": "STOCK",
+      "icon": "B",
+      "direction": "BUY",
+      "entry": 46.720001220703125,
+      "target": 50.682691,
+      "stop_loss": 44.342387,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is below its 20-day SMA, indicating a potential buying opportunity. The news about Berkshire Hathaway resuming share buybacks may also contribute to a bullish sentiment.",
+      "news": [
+        {
+          "headline": "Berkshire Hathaway filing provides glimpse of share buyback resumption",
+          "source": "CNBC",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Berkshire Hathaway will start repurchasing its own shares\u2014what buybacks mean for investors",
+          "source": "CNBC",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "30",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": -0.8699338810104245,
+      "volume_vs_avg": 0.6397427548217401,
+      "generated_at": "2026-03-15T19:44:49.027697+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.904,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.964,
+      "ml_note": "ML confirms BUY (90%, HIGH)",
+      "top_features": [
+        "macd_signal",
+        "dist_sma50",
+        "macd"
+      ]
+    },
+    {
+      "symbol": "V",
+      "display": "VISA",
+      "name": "Visa",
+      "type": "STOCK",
+      "icon": "V",
+      "direction": "SELL",
+      "entry": 307.1400146484375,
+      "target": 290.488245,
+      "stop_loss": 317.131077,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is slightly increasing with a low volume, indicating a potential buying opportunity. However, the overall market sentiment is bearish due to recent news and market trends.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "51",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": 0.20881391466150082,
+      "volume_vs_avg": 0.7079275308158816,
+      "generated_at": "2026-03-15T19:44:58.592216+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.442,
+      "ml_confidence": "MEDIUM",
+      "ml_agreement": 0.924,
+      "ml_note": "ML confirms SELL (44%, MEDIUM)",
+      "top_features": [
+        "ret_20d",
+        "roc_10",
+        "ret_10d"
+      ]
+    },
+    {
+      "symbol": "MA",
+      "display": "MA",
+      "name": "Mastercard",
+      "type": "STOCK",
+      "icon": "M",
+      "direction": "BUY",
+      "entry": 497.989990234375,
+      "target": 526.005155,
+      "stop_loss": 481.180891,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock is showing a bullish trend despite the RSI being neutral. The news suggests a potential warning, but the overall sentiment remains bullish based on the confluences.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "BEARISH"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "52",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": 0.13673416563501364,
+      "volume_vs_avg": 0.7898834293459844,
+      "generated_at": "2026-03-15T19:45:01.504719+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.951,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.995,
+      "ml_note": "ML confirms BUY (95%, HIGH)",
+      "top_features": [
+        "atr_pct",
+        "high_52w",
+        "low_52w"
+      ]
+    },
+    {
+      "symbol": "DIS",
+      "display": "DIS",
+      "name": "Disney",
+      "type": "STOCK",
+      "icon": "D",
+      "direction": "SELL",
+      "entry": 99.29000091552734,
+      "target": 93.645358,
+      "stop_loss": 102.676786,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The recent price drop and low RSI value of 26 indicate a potential buying opportunity. However, the news about AI disruption concerns in the insurance industry may impact DIS's stock price.",
+      "news": [
+        {
+          "headline": "Arthur J. Gallagher & Co. (AJG) Gets Barclays Upgrade as AI Disruption Fears Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Ryan Specialty Holdings (RYAN) PT Lowered From $52 to $45 at Barclays Amid AI Disruption Concerns",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "26",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": -0.14080196039298404,
+      "volume_vs_avg": 0.9851393961905941,
+      "generated_at": "2026-03-15T19:45:08.393104+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.231,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.981,
+      "ml_note": "ML confirms SELL (23%, HIGH)",
+      "top_features": [
+        "bb_width",
+        "low_52w",
+        "dist_sma50"
+      ]
+    },
+    {
+      "symbol": "BABA",
+      "display": "BABA",
+      "name": "Alibaba",
+      "type": "STOCK",
+      "icon": "A",
+      "direction": "BUY",
+      "entry": 135.2100067138672,
+      "target": 146.092864,
+      "stop_loss": 128.680292,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is below its 20-day moving average, indicating a potential buying opportunity. However, the RSI is at 24, which is a neutral signal and may indicate a need for caution.",
+      "news": [
+        {
+          "headline": "China\u2019s Alibaba AI Predicts the Price of XRP, Bitcoin and Ethereum by The End of 2026",
+          "source": "CryptoNews",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "24",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": 0.752615341723545,
+      "volume_vs_avg": 0.6330352022716756,
+      "generated_at": "2026-03-15T19:45:17.807655+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.963,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.991,
+      "ml_note": "ML confirms BUY (96%, HIGH)",
+      "top_features": [
+        "bb_width",
+        "low_52w",
+        "dist_sma20"
+      ]
+    },
+    {
+      "symbol": "TSM",
+      "display": "TSM",
+      "name": "TSMC",
+      "type": "STOCK",
+      "icon": "T",
+      "direction": "BUY",
+      "entry": 338.30999755859375,
+      "target": 372.20845,
+      "stop_loss": 317.970926,
+      "confidence": 80,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is below its 20-day moving average, indicating a bearish trend. The RSI value of 36 suggests a neutral sentiment, but the overall market conditions and news suggest a potential sell opportunity.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "36",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        },
+        {
+          "name": "Vol",
+          "value": "1.2x",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": 0.4751881869027009,
+      "volume_vs_avg": 1.1634969631058123,
+      "generated_at": "2026-03-15T19:45:26.541357+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.653,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.976,
+      "ml_note": "ML confirms BUY (65%, HIGH)",
+      "top_features": [
+        "low_52w",
+        "bb_width",
+        "dist_sma50"
+      ]
+    },
+    {
+      "symbol": "ASML",
+      "display": "ASML",
+      "name": "ASML",
+      "type": "STOCK",
+      "icon": "A",
+      "direction": "SELL",
+      "entry": 1345.68994140625,
+      "target": 1200.502389,
+      "stop_loss": 1432.802473,
+      "confidence": 50,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is decreasing with a negative change of -0.44% and RSI is 36, indicating a potential sell signal. However, the news about Warren Buffett's warning and Jefferies' update on Oracle Corporation could impact the market, but the current trend is below SMA20, suggesting a bearish sentiment.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
           "source": "Yahoo Finance",
           "sentiment": "NEUTRAL"
         }
@@ -506,20 +3657,844 @@
           "signal": "BEARISH"
         }
       ],
-      "price_change_pct": 1.2605223728537218,
-      "volume_vs_avg": 0.8588656714538108,
-      "generated_at": "2026-03-15T10:33:49.945999+00:00",
+      "price_change_pct": -0.4357873629341673,
+      "volume_vs_avg": 0.7098515316443502,
+      "generated_at": "2026-03-15T19:45:36.600887+00:00",
       "risk_reward": 1.7,
-      "ml_probability": 0.879,
-      "ml_confidence": "HIGH",
-      "ml_agreement": 0.987,
-      "ml_note": "ML confirms BUY (88%, HIGH)",
+      "ml_probability": 0.506,
+      "ml_confidence": "LOW",
+      "ml_agreement": 0.658,
+      "ml_note": "ML confirms SELL (51%, LOW)",
       "top_features": [
-        "bb_width",
+        "dist_sma50",
         "high_52w",
-        "dist_sma50"
+        "low_52w"
       ]
+    },
+    {
+      "symbol": "ABNB",
+      "display": "ABNB",
+      "name": "Airbnb",
+      "type": "STOCK",
+      "icon": "A",
+      "direction": "SELL",
+      "entry": 126.30000305175781,
+      "target": 113.777686,
+      "stop_loss": 133.813394,
+      "confidence": 65,
+      "sentiment": "BEARISH",
+      "sentiment_score": -1.0,
+      "ai_reasoning": "RSI at 55 (neutral), price is below 20-day SMA, 24h change -1.10%. Technical setup favours sell with 0/3 bullish signals.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI (14)",
+          "value": "55",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "vs 20-day SMA",
+          "value": "below",
+          "signal": "BEARISH"
+        },
+        {
+          "name": "24h Change",
+          "value": "-1.10%",
+          "signal": "BEARISH"
+        },
+        {
+          "name": "Source",
+          "value": "Rule-based (LLM unavailable)",
+          "signal": "NEUTRAL"
+        }
+      ],
+      "price_change_pct": -1.0963147454512496,
+      "volume_vs_avg": 0.7982237472071497,
+      "generated_at": "2026-03-15T19:45:45.669065+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.147,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.996,
+      "ml_note": "ML confirms SELL (15%, HIGH)",
+      "top_features": [
+        "low_52w",
+        "high_52w",
+        "macd"
+      ]
+    },
+    {
+      "symbol": "SNOW",
+      "display": "SNOW",
+      "name": "Snowflake",
+      "type": "STOCK",
+      "icon": "S",
+      "direction": "BUY",
+      "entry": 178.66000366210938,
+      "target": 202.068931,
+      "stop_loss": 164.614647,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is above the SMA20, indicating a bullish trend. However, the RSI is at 68, which is neutral and may indicate a potential reversal.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "68",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.7954886669164316,
+      "volume_vs_avg": 0.8616066980287727,
+      "generated_at": "2026-03-15T19:45:53.730186+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.818,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.854,
+      "ml_note": "ML confirms BUY (82%, HIGH)",
+      "top_features": [
+        "low_52w",
+        "rsi",
+        "vol_trend"
+      ]
+    },
+    {
+      "symbol": "NET",
+      "display": "NET",
+      "name": "Cloudflare",
+      "type": "STOCK",
+      "icon": "C",
+      "direction": "BUY",
+      "entry": 212.4499969482422,
+      "target": 236.061787,
+      "stop_loss": 198.282923,
+      "confidence": 90,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The stock price is slightly increasing with a high RSI value, indicating a potential overbought condition. However, the trend is above the SMA20, suggesting a bullish trend. ",
+      "news": [
+        {
+          "headline": "DOJ and Europol Dismantle Crypto-Linked Proxy Network SocksEscort in Joint Action",
+          "source": "CryptoNews",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "What does ChatGPT\u2019s Agentic  pivot mean for internet stocks?",
+          "source": "Investing.com",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "91",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.16029246000295955,
+      "volume_vs_avg": 0.6278400892037256,
+      "generated_at": "2026-03-15T19:46:00.585293+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.711,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.699,
+      "ml_note": "ML confirms BUY (71%, HIGH)",
+      "top_features": [
+        "low_52w",
+        "macd",
+        "high_52w"
+      ]
+    },
+    {
+      "symbol": "GC=F",
+      "display": "GOLD",
+      "name": "Gold Futures",
+      "type": "COMMODITY",
+      "icon": "G",
+      "direction": "SELL",
+      "entry": 5061.7001953125,
+      "target": 4796.414375,
+      "stop_loss": 5220.871687,
+      "confidence": 90,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The market is showing a bearish trend due to the recent news of Bitcoin outperforming gold and the sharp divergence between Bitcoin and gold ETF flows. Additionally, the oil spike may push inflation higher, which could negatively impact gold prices.",
+      "news": [
+        {
+          "headline": "Bitcoin beat the S&P 500, Nasdaq Composite and gold since the start of the Iran war",
+          "source": "CNBC",
+          "sentiment": "BULLISH"
+        },
+        {
+          "headline": "JPMorgan Flags Sharp Divergence Between Bitcoin and Gold ETF Flows Since Iran War",
+          "source": "CryptoNews",
+          "sentiment": "BEARISH"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "42",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -1.057500516838631,
+      "volume_vs_avg": 126.63866231647634,
+      "generated_at": "2026-03-15T19:46:09.396962+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.162,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.922,
+      "ml_note": "ML confirms SELL (16%, HIGH)",
+      "top_features": [
+        "macd_signal",
+        "low_52w",
+        "rsi"
+      ]
+    },
+    {
+      "symbol": "CL=F",
+      "display": "OIL",
+      "name": "Crude Oil",
+      "type": "COMMODITY",
+      "icon": "O",
+      "direction": "SELL",
+      "entry": 98.70999908447266,
+      "target": 75.206427,
+      "stop_loss": 112.812143,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The current price movement is influenced by the news of Iran war and the release of emergency oil stockpiles, indicating a bullish sentiment. The RSI is at 78, which is neutral, but the trend is above the SMA20, confirming the bullish signal.",
+      "news": [
+        {
+          "headline": "Dow Jones Futures Due, Oil Prices Eye $100 Amid Iran War; Nvidia GTC, Micron Earnings Ahead",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Trump weighing options to strike Iran's critical oil hub, UN Ambassador Waltz says",
+          "source": "CNBC",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "78",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 3.112917186922072,
+      "volume_vs_avg": 0.5094767645609611,
+      "generated_at": "2026-03-15T19:46:12.880267+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.115,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.996,
+      "ml_note": "ML confirms SELL (12%, HIGH)",
+      "top_features": [
+        "high_52w",
+        "ret_20d",
+        "low_52w"
+      ]
+    },
+    {
+      "symbol": "SI=F",
+      "display": "SILVER",
+      "name": "Silver Futures",
+      "type": "COMMODITY",
+      "icon": "S",
+      "direction": "SELL",
+      "entry": 81.34300231933594,
+      "target": 68.283537,
+      "stop_loss": 89.178681,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "Given the current market sentiment and the news about the stock market, it seems like the selling pressure is expected to increase. However, the RSI and trend indicators suggest a bullish signal for SILVER, making it a potential buying opportunity.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "44",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -3.929368042468705,
+      "volume_vs_avg": 89.52743902439025,
+      "generated_at": "2026-03-15T19:46:22.716349+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.511,
+      "ml_confidence": "LOW",
+      "ml_agreement": 0.833,
+      "ml_note": "ML confirms SELL (51%, LOW)",
+      "top_features": [
+        "dist_sma20",
+        "bb_width",
+        "atr_pct"
+      ]
+    },
+    {
+      "symbol": "NG=F",
+      "display": "NAT GAS",
+      "name": "Natural Gas",
+      "type": "COMMODITY",
+      "icon": "N",
+      "direction": "BUY",
+      "entry": 3.13100004196167,
+      "target": 3.632073,
+      "stop_loss": 2.830357,
+      "confidence": 80,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The market sentiment is bearish due to news of a potential stock market downturn and the price decrease of -3.15%. The RSI is at 55, indicating a neutral signal, but the overall market trend is bearish.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "55",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": -3.1549643312388436,
+      "volume_vs_avg": 0.6602956106750935,
+      "generated_at": "2026-03-15T19:46:31.382790+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.608,
+      "ml_confidence": "MEDIUM",
+      "ml_agreement": 0.804,
+      "ml_note": "ML confirms BUY (61%, MEDIUM)",
+      "top_features": [
+        "vol_trend",
+        "vol_ratio",
+        "low_52w"
+      ]
+    },
+    {
+      "symbol": "HG=F",
+      "display": "COPPER",
+      "name": "Copper",
+      "type": "COMMODITY",
+      "icon": "C",
+      "direction": "BUY",
+      "entry": 5.756999969482422,
+      "target": 6.082625,
+      "stop_loss": 5.561625,
+      "confidence": 80,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The copper price is decreasing with a negative change of 1.16% and the RSI is at 49, indicating a neutral signal. However, the trend is below SMA20, which could be a bullish sign, but the overall market sentiment is bearish due to the news and market panic.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "49",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": -1.1588997075857264,
+      "volume_vs_avg": 40.92081650964558,
+      "generated_at": "2026-03-15T19:46:40.399807+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.659,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.877,
+      "ml_note": "ML confirms BUY (66%, HIGH)",
+      "top_features": [
+        "macd",
+        "high_52w",
+        "stoch_k"
+      ]
+    },
+    {
+      "symbol": "ZW=F",
+      "display": "WHEAT",
+      "name": "Wheat",
+      "type": "COMMODITY",
+      "icon": "W",
+      "direction": "SELL",
+      "entry": 613.75,
+      "target": 573.839285,
+      "stop_loss": 637.696429,
+      "confidence": 80,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The WHEAT commodity is experiencing a bullish trend, with the price above its 20-day Simple Moving Average (SMA20). The RSI value of 64 indicates a neutral signal, but the overall market sentiment is bullish.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "64",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 3.6302237230899115,
+      "volume_vs_avg": 1723.3116883116882,
+      "generated_at": "2026-03-15T19:46:48.546332+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.086,
+      "ml_confidence": "HIGH",
+      "ml_agreement": 0.997,
+      "ml_note": "ML confirms SELL (9%, HIGH)",
+      "top_features": [
+        "low_52w",
+        "roc_10",
+        "atr_pct"
+      ]
+    },
+    {
+      "symbol": "EURUSD=X",
+      "display": "EUR/USD",
+      "name": "Euro/Dollar",
+      "type": "FOREX",
+      "icon": "\u20ac",
+      "direction": "SELL",
+      "entry": 1.1425960063934326,
+      "target": 1.117269,
+      "stop_loss": 1.157793,
+      "confidence": 70,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The EUR/USD price is experiencing a decline of -0.83% and the RSI is at 23, indicating a potential sell signal. However, the trend is below SMA20, suggesting a bearish trend, but the overall market sentiment is bearish due to the news about Warren Buffett's warning.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "23",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.830660996491077,
+      "volume_vs_avg": 1.0,
+      "generated_at": "2026-03-15T19:46:56.381130+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.0,
+      "ml_confidence": "",
+      "ml_agreement": 0.0,
+      "ml_note": "",
+      "top_features": []
+    },
+    {
+      "symbol": "GBPUSD=X",
+      "display": "GBP/USD",
+      "name": "Pound/Dollar",
+      "type": "FOREX",
+      "icon": "\u00a3",
+      "direction": "SELL",
+      "entry": 1.3234883546829224,
+      "target": 1.294991,
+      "stop_loss": 1.340587,
+      "confidence": 70,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The market is experiencing a downturn due to panic in the stock market and AI selloff. The RSI is at 30, indicating a neutral signal, but the overall trend is bearish.",
+      "news": [
+        {
+          "headline": "BMO Trims The Progressive Corporation (PGR) Price Target as Pricing Outlook Softens",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Marsh & McLennan Companies, Inc. (MRSH) Target Lowered by Barclays as AI Selloff Seen Overdone",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "30",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -0.8809117485700919,
+      "volume_vs_avg": 1.0,
+      "generated_at": "2026-03-15T19:47:04.719712+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.0,
+      "ml_confidence": "",
+      "ml_agreement": 0.0,
+      "ml_note": "",
+      "top_features": []
+    },
+    {
+      "symbol": "USDJPY=X",
+      "display": "USD/JPY",
+      "name": "Dollar/Yen",
+      "type": "FOREX",
+      "icon": "\u00a5",
+      "direction": "BUY",
+      "entry": 159.53599548339844,
+      "target": 162.347788,
+      "stop_loss": 157.84892,
+      "confidence": 70,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The USD/JPY is showing a bullish trend with the price above the SMA20, and the RSI is at 79, indicating a potential overbought condition. However, the confluence of the bullish trend and the RSI's neutral signal suggests that the price may continue to rise.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "79",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.20727977853353224,
+      "volume_vs_avg": 1.0,
+      "generated_at": "2026-03-15T19:47:12.105584+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.0,
+      "ml_confidence": "",
+      "ml_agreement": 0.0,
+      "ml_note": "",
+      "top_features": []
+    },
+    {
+      "symbol": "AUDUSD=X",
+      "display": "AUD/USD",
+      "name": "Aussie/Dollar",
+      "type": "FOREX",
+      "icon": "A",
+      "direction": "SELL",
+      "entry": 0.6988266706466675,
+      "target": 0.672904,
+      "stop_loss": 0.71438,
+      "confidence": 70,
+      "sentiment": "BEARISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The price is decreasing by 1.23% and the RSI is at 45, indicating a neutral signal. However, the trend is below SMA20, which is bearish. Considering the news about Warren Buffett's warning and the overall market sentiment, it's likely that the AUD/USD will continue to decline.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "45",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "below SMA20",
+          "signal": "BEARISH"
+        }
+      ],
+      "price_change_pct": -1.2300784616770093,
+      "volume_vs_avg": 1.0,
+      "generated_at": "2026-03-15T19:47:20.498276+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.0,
+      "ml_confidence": "",
+      "ml_agreement": 0.0,
+      "ml_note": "",
+      "top_features": []
+    },
+    {
+      "symbol": "USDCAD=X",
+      "display": "USD/CAD",
+      "name": "Dollar/CAD",
+      "type": "FOREX",
+      "icon": "C",
+      "direction": "BUY",
+      "entry": 1.371500015258789,
+      "target": 1.390553,
+      "stop_loss": 1.360069,
+      "confidence": 70,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The USD/CAD is showing a bullish trend with the price above the SMA20, and the RSI is at 53, indicating a neutral signal. However, considering the recent news and the overall market sentiment, it's possible that the price may continue to rise.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "53",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.6044323406017601,
+      "volume_vs_avg": 1.0,
+      "generated_at": "2026-03-15T19:47:27.998060+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.0,
+      "ml_confidence": "",
+      "ml_agreement": 0.0,
+      "ml_note": "",
+      "top_features": []
+    },
+    {
+      "symbol": "USDCHF=X",
+      "display": "USD/CHF",
+      "name": "Dollar/Franc",
+      "type": "FOREX",
+      "icon": "F",
+      "direction": "BUY",
+      "entry": 0.7899900078773499,
+      "target": 0.807325,
+      "stop_loss": 0.779589,
+      "confidence": 70,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The USD/CHF is showing a bullish trend with the price above the SMA20. However, the RSI is at 70, indicating a potential overbought condition.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "70",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.5920998155788266,
+      "volume_vs_avg": 1.0,
+      "generated_at": "2026-03-15T19:47:35.689616+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.0,
+      "ml_confidence": "",
+      "ml_agreement": 0.0,
+      "ml_note": "",
+      "top_features": []
+    },
+    {
+      "symbol": "USDINR=X",
+      "display": "USD/INR",
+      "name": "Dollar/Rupee",
+      "type": "FOREX",
+      "icon": "\u20b9",
+      "direction": "BUY",
+      "entry": 92.48999786376953,
+      "target": 94.50868,
+      "stop_loss": 91.278788,
+      "confidence": 70,
+      "sentiment": "BULLISH",
+      "sentiment_score": 0.5,
+      "ai_reasoning": "The USD/INR is showing a bullish trend above the SMA20, and the RSI is at 69, indicating a neutral signal. However, considering the overall market conditions and the news, it's a good opportunity to buy.",
+      "news": [
+        {
+          "headline": "Did Warren Buffett Know Something Wall Street Doesn't? The Former Berkshire Hathaway CEO Left a $373 Billion Warning for",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        },
+        {
+          "headline": "Jefferies Cites Cloud Growth and AI Pipeline in Oracle Corporation (ORCL) Update",
+          "source": "Yahoo Finance",
+          "sentiment": "NEUTRAL"
+        }
+      ],
+      "confluences": [
+        {
+          "name": "RSI",
+          "value": "69",
+          "signal": "NEUTRAL"
+        },
+        {
+          "name": "Trend",
+          "value": "above SMA20",
+          "signal": "BULLISH"
+        }
+      ],
+      "price_change_pct": 0.10834263921182712,
+      "volume_vs_avg": 1.0,
+      "generated_at": "2026-03-15T19:47:42.688799+00:00",
+      "risk_reward": 1.7,
+      "ml_probability": 0.0,
+      "ml_confidence": "",
+      "ml_agreement": 0.0,
+      "ml_note": "",
+      "top_features": []
     }
   ],
-  "generated_at": "2026-03-15T16:03:51.022159"
+  "generated_at": "2026-03-16T01:17:43.209007"
 }
