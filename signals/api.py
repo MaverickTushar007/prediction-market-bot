@@ -88,6 +88,43 @@ def get_backtest():
     return output
 
 
+@router.get("/paper-trades")
+def get_paper_trades():
+    from polymarket.paper_trader import get_pnl_stats
+    return get_pnl_stats()
+
+@router.post("/paper-trades/log")
+def log_paper_trade(data: dict):
+    from polymarket.paper_trader import log_trade
+    return log_trade(**data)
+
+@router.post("/paper-trades/close/{trade_id}")
+def close_paper_trade(trade_id: int, exit_price: float):
+    from polymarket.paper_trader import close_trade
+    return close_trade(trade_id, exit_price)
+
+@router.get("/brier")
+def get_brier():
+    from polymarket.brier import get_calibration_stats
+    return get_calibration_stats()
+
+@router.get("/kill-switch")
+def get_kill_switch():
+    from utils.kill_switch import status
+    return status()
+
+@router.post("/kill-switch/activate")
+def activate_kill_switch(reason: str = "Manual"):
+    from utils.kill_switch import activate
+    activate(reason)
+    return {"status": "activated", "reason": reason}
+
+@router.post("/kill-switch/deactivate")
+def deactivate_kill_switch():
+    from utils.kill_switch import deactivate
+    deactivate()
+    return {"status": "deactivated"}
+
 @router.post("/refresh")
 def refresh_signals(background_tasks: BackgroundTasks):
     background_tasks.add_task(_refresh_signals)

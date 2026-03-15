@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "symbol": "BTC-USD",
+    "direction": "BUY",
+    "entry_price": 70000,
+    "target": 74000,
+    "stop_loss": 66000,
+    "confidence": 0.7,
+    "source": "signals",
+    "notes": "",
+    "status": "CLOSED",
+    "exit_price": 73500,
+    "pnl_pct": 5.0,
+    "pnl_usd": 50.0,
+    "outcome": "WIN",
+    "opened_at": "2026-03-15T22:06:06.063656+00:00",
+    "closed_at": "2026-03-15T22:06:06.064780+00:00"
+  }
+]

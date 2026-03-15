@@ -593,8 +593,13 @@ Return ONLY this JSON (no other text):
 def _process_ticker(args):
     """Process single ticker — price fetch + news + AI + ML signal."""
     import time
+    from utils.kill_switch import is_active
     meta, existing = args
     sym = meta["symbol"]
+    # Check kill switch before processing
+    if is_active():
+        logger.warning(f"Kill switch active — skipping {sym}")
+        return existing.get(sym)
     try:
         price_data = _fetch_price_data(sym)
         if not price_data:
@@ -697,6 +702,22 @@ def _process_ticker(args):
                     sig.confidence = min(95, sig.confidence + 10)
         except Exception as ml_e:
             logger.debug(f"ML skipped for {sym}: {ml_e}")
+
+        # Auto-log as paper trade
+        try:
+            from polymarket.paper_trader import log_trade
+            log_trade(
+                symbol=sym,
+                direction=sig.direction,
+                entry_price=sig.entry,
+                target=sig.target,
+                stop_loss=sig.stop_loss,
+                confidence=sig.confidence/100,
+                source="signals",
+                notes=sig.ai_reasoning[:100] if sig.ai_reasoning else ""
+            )
+        except Exception:
+            pass
 
         return asdict(sig)
 

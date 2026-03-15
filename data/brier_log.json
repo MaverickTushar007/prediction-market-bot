@@ -1,0 +1,13 @@
+[
+  {
+    "market_id": "test-001",
+    "question": "Will BTC hit 100k?",
+    "predicted_prob": 0.65,
+    "market_price": 0.55,
+    "recommendation": "BUY_YES",
+    "logged_at": "2026-03-15T22:06:05.609055+00:00",
+    "resolved": false,
+    "outcome": null,
+    "brier_score": null
+  }
+]
