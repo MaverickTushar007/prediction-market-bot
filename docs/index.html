@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>QUANT SIGNALS</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -110,6 +110,81 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--border2);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
 .error-box{padding:20px;background:rgba(255,71,87,.05);border:1px solid rgba(255,71,87,.2);border-radius:4px;color:var(--red);font-family:var(--mono);font-size:11px;line-height:1.6;margin:16px}
+
+/* ── RESPONSIVE ── */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  .statbar { grid-template-columns: repeat(3, 1fr); }
+  .stat-cell:nth-child(4) { border-top: 1px solid var(--border); }
+  .stat-cell:nth-child(5) { border-top: 1px solid var(--border); grid-column: span 2; }
+  .layout { grid-template-columns: 260px 1fr; }
+  .quant-grid { grid-template-columns: repeat(2, 1fr); }
+  .ml-grid { grid-template-columns: 1fr; }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 768px) {
+  .topbar { padding: 0 12px; }
+  .brand-name { font-size: 9px; letter-spacing: 2px; }
+  .clock { display: none; }
+
+  .statbar { grid-template-columns: repeat(2, 1fr); }
+  .stat-cell { padding: 8px 12px; }
+  .stat-cell:nth-child(5) { display: none; }
+  .stat-value { font-size: 16px; }
+
+  .layout { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: auto; }
+
+  .signal-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    max-height: 40vh;
+  }
+
+  .filter-bar { gap: 3px; padding: 8px; }
+  .filter-btn { font-size: 8px; padding: 3px 6px; }
+
+  .signal-row { padding: 8px 10px; }
+  .sig-icon { width: 28px; height: 28px; font-size: 10px; }
+  .sig-sym { font-size: 11px; }
+
+  .detail-panel { min-height: 60vh; }
+
+  .d-header { padding: 14px 16px 12px; flex-wrap: wrap; gap: 10px; }
+  .d-icon { width: 36px; height: 36px; font-size: 13px; }
+  .d-sym { font-size: 20px; }
+  .d-price { font-size: 22px; }
+
+  .d-body { padding: 0 16px 24px; }
+  .section { margin-top: 16px; }
+
+  .levels-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .levels-grid .level-card:first-child { grid-column: span 2; }
+  .level-val { font-size: 15px; }
+
+  .quant-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .quant-val { font-size: 16px; }
+
+  .ml-grid { grid-template-columns: 1fr; }
+
+  .chart-wrap canvas { height: 160px !important; }
+
+  .conf-row { flex-wrap: wrap; gap: 4px; }
+  .conf-val { font-size: 10px; }
+}
+
+/* Small mobile (< 480px) */
+@media (max-width: 480px) {
+  .statbar { grid-template-columns: repeat(2, 1fr); }
+  .stat-value { font-size: 14px; }
+  .quant-grid { grid-template-columns: 1fr 1fr; }
+  .levels-grid { grid-template-columns: 1fr; }
+  .levels-grid .level-card:first-child { grid-column: span 1; }
+  .d-title-group { flex-wrap: wrap; }
+  .d-header { flex-direction: column; }
+  .d-price-group { text-align: left; }
+}
 </style>
 </head>
 <body>
@@ -118,6 +193,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
   <div class="topbar-right">
     <span class="live-badge">LIVE</span>
     <span class="clock" id="clk">—</span>
+    <button class="refresh-btn" onclick="showTab('signals')" id="tab-signals" style="border-color:var(--blue);color:var(--blue)">Signals</button>
+    <button class="refresh-btn" onclick="showTab('backtest')" id="tab-backtest">Backtest</button>
     <button class="refresh-btn" onclick="loadSignals(true)">↻ Refresh</button>
   </div>
 </div>
@@ -146,6 +223,131 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
   <div class="detail-panel" id="detailCol">
     <div class="detail-empty"><div style="font-size:32px;opacity:.3">◈</div><span style="font-family:var(--mono);font-size:11px;letter-spacing:2px">SELECT A SIGNAL</span></div>
   </div>
+</div>
+
+<!-- Backtest Panel -->
+<div id="backtestPanel" style="display:none;padding:24px;overflow-y:auto;height:calc(100vh - 44px - 54px)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+      <div>
+        <div style="font-family:var(--mono);font-size:18px;font-weight:600;color:var(--text)">Historical Backtest</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px">XGB+LGBM ensemble · 6-month walk-forward · 5-day horizon · 2% threshold</div>
+      </div>
+      <button class="refresh-btn" onclick="loadBacktest(true)">↻ Run Backtest</button>
+    </div>
+
+    <div id="btSummary" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px"></div>
+    <div id="btTable"></div>
+  </div>
+</div>
+
+<script>
+// ── TAB SWITCHING ──
+function showTab(tab) {
+  document.getElementById('tab-signals').style.borderColor = '';
+  document.getElementById('tab-signals').style.color = '';
+  document.getElementById('tab-backtest').style.borderColor = '';
+  document.getElementById('tab-backtest').style.color = '';
+
+  if (tab === 'signals') {
+    document.querySelector('.layout').style.display = 'grid';
+    document.getElementById('backtestPanel').style.display = 'none';
+    document.getElementById('tab-signals').style.borderColor = 'var(--blue)';
+    document.getElementById('tab-signals').style.color = 'var(--blue)';
+  } else {
+    document.querySelector('.layout').style.display = 'none';
+    document.getElementById('backtestPanel').style.display = 'block';
+    document.getElementById('tab-backtest').style.borderColor = 'var(--blue)';
+    document.getElementById('tab-backtest').style.color = 'var(--blue)';
+    loadBacktest(false);
+  }
+}
+
+let btData = null;
+
+async function loadBacktest(force) {
+  if (btData && !force) { renderBacktest(btData); return; }
+  document.getElementById('btTable').innerHTML = '<div class="loading-row"><span class="spinner"></span>Running backtest... (~30 seconds)</div>';
+  document.getElementById('btSummary').innerHTML = '';
+  try {
+    const res = await fetch('http://localhost:8000/signals/backtest');
+    btData = await res.json();
+    renderBacktest(btData);
+  } catch(e) {
+    document.getElementById('btTable').innerHTML = '<div class="error-box">Could not load backtest data</div>';
+  }
+}
+
+function renderBacktest(data) {
+  const results = data.results || [];
+  if (!results.length) {
+    document.getElementById('btTable').innerHTML = '<div class="loading-row">No backtest data</div>';
+    return;
+  }
+
+  // Summary stats
+  const avgWR    = (results.reduce((a,r) => a + r.win_rate, 0) / results.length).toFixed(1);
+  const avgRet   = (results.reduce((a,r) => a + r.avg_ret, 0) / results.length).toFixed(2);
+  const avgSharpe= (results.reduce((a,r) => a + r.sharpe, 0) / results.length).toFixed(2);
+  const avgDD    = (results.reduce((a,r) => a + r.max_dd, 0) / results.length).toFixed(1);
+
+  document.getElementById('btSummary').innerHTML = `
+    <div class="quant-card blue" style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue)"></div>
+      <div class="quant-label">Avg Win Rate</div>
+      <div class="quant-val" style="color:var(--green);font-family:var(--mono);font-size:28px;font-weight:600">${avgWR}%</div>
+      <div class="quant-sub" style="font-family:var(--mono);font-size:9px;color:var(--muted)">across ${results.length} tickers</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--green)"></div>
+      <div class="quant-label" style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">Avg Return/Trade</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:600;color:${parseFloat(avgRet)>=0?'var(--green)':'var(--red)'}">${avgRet>0?'+':''}${avgRet}%</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">5-day hold period</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--amber)"></div>
+      <div class="quant-label" style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">Avg Sharpe Ratio</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:600;color:${parseFloat(avgSharpe)>=1.5?'var(--green)':parseFloat(avgSharpe)>=0?'var(--amber)':'var(--red)'}">${avgSharpe}</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">${parseFloat(avgSharpe)>=1.5?'Exceptional':parseFloat(avgSharpe)>=1?'Strong':'Moderate'}</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--red)"></div>
+      <div class="quant-label" style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">Avg Max Drawdown</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:600;color:var(--red)">${avgDD}%</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">worst peak-to-trough</div>
+    </div>
+  `;
+
+  // Results table
+  const sorted = [...results].sort((a,b) => b.sharpe - a.sharpe);
+  document.getElementById('btTable').innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:120px repeat(6,1fr);padding:10px 16px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase">
+        <div>Ticker</div><div>Win Rate</div><div>Avg Ret</div><div>Sharpe</div><div>Max DD</div><div>Trades</div><div>Total Ret</div>
+      </div>
+      ${sorted.map(r => `
+        <div style="display:grid;grid-template-columns:120px repeat(6,1fr);padding:12px 16px;border-bottom:1px solid var(--border);align-items:center;transition:background .1s" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''">
+          <div style="font-family:var(--mono);font-size:12px;font-weight:600">${r.symbol.replace('-USD','').replace('=X','').replace('=F','')}</div>
+          <div>
+            <div style="font-family:var(--mono);font-size:14px;font-weight:600;color:${r.win_rate>=60?'var(--green)':r.win_rate>=50?'var(--amber)':'var(--red)'}">${r.win_rate}%</div>
+            <div style="height:3px;background:var(--border2);border-radius:2px;margin-top:4px;width:80px">
+              <div style="height:100%;width:${r.win_rate}%;background:${r.win_rate>=60?'var(--green)':r.win_rate>=50?'var(--amber)':'var(--red)'};border-radius:2px"></div>
+            </div>
+          </div>
+          <div style="font-family:var(--mono);font-size:13px;color:${r.avg_ret>=0?'var(--green)':'var(--red)'}">${r.avg_ret>=0?'+':''}${r.avg_ret}%</div>
+          <div style="font-family:var(--mono);font-size:13px;color:${r.sharpe>=1.5?'var(--green)':r.sharpe>=0?'var(--amber)':'var(--red)'}">${r.sharpe}</div>
+          <div style="font-family:var(--mono);font-size:13px;color:var(--red)">${r.max_dd}%</div>
+          <div style="font-family:var(--mono);font-size:13px;color:var(--muted)">${r.n_trades}</div>
+          <div style="font-family:var(--mono);font-size:13px;color:${r.total_ret>=0?'var(--green)':'var(--red)'}">${r.total_ret>=0?'+':''}${r.total_ret}%</div>
+        </div>
+      `).join('')}
+    </div>
+    <div style="margin-top:12px;font-family:var(--mono);font-size:9px;color:var(--muted2);text-align:center">
+      Walk-forward backtest · No lookahead bias · Generated ${new Date(data.generated_at).toLocaleString()}
+    </div>
+  `;
+}
+</script>
 </div>
 <script>
 const API='https://web-production-acfba.up.railway.app/signals/';
@@ -329,7 +531,7 @@ function renderDetail(s){
         </div>
       </div>`:''}
     </div>`;
-  setTimeout(()=>drawChart(s,isBuy,dirColor),60);
+  setTimeout(()=>drawChart(s,isBuy,isBuy?"#00d68f":"#ff4757"),60);
 }
 
 function drawChart(s,isBuy,dirColor){
