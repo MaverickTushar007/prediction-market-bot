@@ -195,6 +195,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
     <span class="clock" id="clk">—</span>
     <button class="refresh-btn" onclick="showTab('signals')" id="tab-signals" style="border-color:var(--blue);color:var(--blue)">Signals</button>
     <button class="refresh-btn" onclick="showTab('backtest')" id="tab-backtest">Backtest</button>
+    <button class="refresh-btn" onclick="showTab('polymarket')" id="tab-polymarket">Polymarket</button>
     <button class="refresh-btn" onclick="loadSignals(true)">↻ Refresh</button>
   </div>
 </div>
@@ -225,6 +226,21 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
   </div>
 </div>
 
+<!-- Polymarket Panel -->
+<div id="polymarketPanel" style="display:none;padding:24px;overflow-y:auto;height:calc(100vh - 44px - 54px)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+      <div>
+        <div style="font-family:var(--mono);font-size:18px;font-weight:600;color:var(--text)">Prediction Markets</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px">Polymarket live markets · AI edge detection · Kelly sizing</div>
+      </div>
+      <button class="refresh-btn" onclick="loadPolymarket(true)">↻ Scan Markets</button>
+    </div>
+    <div id="pmSummary" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px"></div>
+    <div id="pmMarkets"></div>
+  </div>
+</div>
+
 <!-- Backtest Panel -->
 <div id="backtestPanel" style="display:none;padding:24px;overflow-y:auto;height:calc(100vh - 44px - 54px)">
   <div style="max-width:1100px;margin:0 auto">
@@ -249,17 +265,24 @@ function showTab(tab) {
   document.getElementById('tab-backtest').style.borderColor = '';
   document.getElementById('tab-backtest').style.color = '';
 
+  document.getElementById('polymarketPanel').style.display = 'none';
   if (tab === 'signals') {
     document.querySelector('.layout').style.display = 'grid';
     document.getElementById('backtestPanel').style.display = 'none';
     document.getElementById('tab-signals').style.borderColor = 'var(--blue)';
     document.getElementById('tab-signals').style.color = 'var(--blue)';
-  } else {
+  } else if (tab === 'backtest') {
     document.querySelector('.layout').style.display = 'none';
     document.getElementById('backtestPanel').style.display = 'block';
     document.getElementById('tab-backtest').style.borderColor = 'var(--blue)';
     document.getElementById('tab-backtest').style.color = 'var(--blue)';
     loadBacktest(false);
+  } else if (tab === 'polymarket') {
+    document.querySelector('.layout').style.display = 'none';
+    document.getElementById('polymarketPanel').style.display = 'block';
+    document.getElementById('tab-polymarket').style.borderColor = 'var(--blue)';
+    document.getElementById('tab-polymarket').style.color = 'var(--blue)';
+    loadPolymarket(false);
   }
 }
 
@@ -656,6 +679,94 @@ function updateStats(){
 setInterval(()=>{document.getElementById('clk').textContent=new Date().toLocaleTimeString()},1000);
 loadSignals(false);
 setInterval(()=>loadSignals(false),3600000);
+
+// ── POLYMARKET ──
+let pmData = null;
+
+async function loadPolymarket(force) {
+  if (pmData && !force) { renderPolymarket(pmData); return; }
+  document.getElementById('pmMarkets').innerHTML = '<div class="loading-row"><span class="spinner"></span>Scanning Polymarket... (~30 seconds)</div>';
+  document.getElementById('pmSummary').innerHTML = '';
+  try {
+    const res = await fetch('http://localhost:8000/polymarket/scan', {method:'POST'});
+    pmData = await res.json();
+    renderPolymarket(pmData);
+  } catch(e) {
+    document.getElementById('pmMarkets').innerHTML = '<div class="error-box">Could not connect to API</div>';
+  }
+}
+
+function renderPolymarket(data) {
+  const markets = data.markets || [];
+  if (!markets.length) {
+    document.getElementById('pmMarkets').innerHTML = '<div class="loading-row">No markets found</div>';
+    return;
+  }
+
+  // Summary
+  const withEdge = markets.filter(m => Math.abs(m.edge||0) > 0.04);
+  const buyYes   = markets.filter(m => m.recommendation === 'BUY_YES').length;
+  const buyNo    = markets.filter(m => m.recommendation === 'BUY_NO').length;
+  const avgEdge  = withEdge.length ? (withEdge.reduce((a,m)=>a+Math.abs(m.edge||0),0)/withEdge.length*100).toFixed(1) : '0';
+
+  document.getElementById('pmSummary').innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue)"></div>
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">MARKETS SCANNED</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:600;color:var(--blue)">${markets.length}</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--green)"></div>
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">OPPORTUNITIES</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:600;color:var(--green)">${withEdge.length}</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">edge > 4%</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--amber)"></div>
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">BUY YES / NO</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:600;color:var(--amber)">${buyYes} / ${buyNo}</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--purple)"></div>
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">AVG EDGE</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:600;color:var(--purple)">${avgEdge}%</div>
+    </div>
+  `;
+
+  // Markets table
+  const sorted = [...markets].sort((a,b) => Math.abs(b.edge||0) - Math.abs(a.edge||0));
+  document.getElementById('pmMarkets').innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:2fr 80px 80px 80px 80px 100px 120px;padding:10px 16px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase">
+        <div>Question</div><div>Market</div><div>AI Est.</div><div>Edge</div><div>EV</div><div>Signal</div><div>Kelly Size</div>
+      </div>
+      ${sorted.map(m => {
+        const edge = m.edge || 0;
+        const edgeColor = edge > 0.04 ? 'var(--green)' : edge < -0.04 ? 'var(--red)' : 'var(--muted)';
+        const rec = m.recommendation || 'PASS';
+        const recColor = rec === 'BUY_YES' ? 'var(--green)' : rec === 'BUY_NO' ? 'var(--red)' : 'var(--muted)';
+        const sizing = m.sizing || {};
+        return `
+          <div style="display:grid;grid-template-columns:2fr 80px 80px 80px 80px 100px 120px;padding:12px 16px;border-bottom:1px solid var(--border);align-items:center;transition:background .1s" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''">
+            <div>
+              <div style="font-family:var(--sans);font-size:12px;font-weight:500;margin-bottom:3px">${m.question}</div>
+              <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">${m.category||''} · Vol $${((m.volume||0)/1000).toFixed(0)}K</div>
+              ${m.reasoning ? `<div style="font-family:var(--sans);font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4">${m.reasoning.substring(0,120)}...</div>` : ''}
+            </div>
+            <div style="font-family:var(--mono);font-size:12px">${((m.yes_price||0)*100).toFixed(0)}%</div>
+            <div style="font-family:var(--mono);font-size:12px;color:${edgeColor}">${((m.estimated_probability||0)*100).toFixed(0)}%</div>
+            <div style="font-family:var(--mono);font-size:12px;color:${edgeColor}">${edge >= 0 ? '+' : ''}${(edge*100).toFixed(1)}%</div>
+            <div style="font-family:var(--mono);font-size:12px;color:${(m.ev||0)>0?'var(--green)':'var(--red)'}">${(m.ev||0)>=0?'+':''}${(m.ev||0).toFixed(2)}</div>
+            <div style="font-family:var(--mono);font-size:10px;font-weight:700;color:${recColor};letter-spacing:1px">${rec.replace('_',' ')}</div>
+            <div style="font-family:var(--mono);font-size:10px;color:var(--muted)">${sizing.kelly_pct ? sizing.kelly_pct+'% = $'+sizing.position_size : '—'}</div>
+          </div>`;
+      }).join('')}
+    </div>
+    <div style="margin-top:12px;font-family:var(--mono);font-size:9px;color:var(--muted2);text-align:center">
+      Live data from Polymarket · AI probability estimation · Paper trading only · Generated ${new Date(data.generated_at).toLocaleString()}
+    </div>
+  `;
+}
 </script>
 </body>
 </html>
