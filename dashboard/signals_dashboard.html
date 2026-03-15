@@ -528,9 +528,34 @@ function renderDetail(s){
       </div>`:''}
       ${s.confluences&&s.confluences.length?`
       <div class="section">
-        <div class="section-title">Technical Confluences</div>
+        <div class="section-title" style="display:flex;justify-content:space-between;align-items:center">
+          <span>Technical Confluences</span>
+          ${s.confluence_score?`
+          <span style="font-family:var(--mono);font-size:10px;padding:3px 10px;border-radius:3px;background:${
+            parseInt(s.confluence_score)>=6?'rgba(0,214,143,.15)':
+            parseInt(s.confluence_score)>=4?'rgba(255,208,96,.15)':'rgba(255,71,87,.15)'
+          };color:${
+            parseInt(s.confluence_score)>=6?'var(--green)':
+            parseInt(s.confluence_score)>=4?'var(--amber)':'var(--red)'
+          };border:1px solid ${
+            parseInt(s.confluence_score)>=6?'rgba(0,214,143,.3)':
+            parseInt(s.confluence_score)>=4?'rgba(255,208,96,.3)':'rgba(255,71,87,.3)'
+          }">${s.confluence_score}</span>`:''
+          }
+        </div>
         <div class="conf-table">
-          ${s.confluences.map(c=>`<div class="conf-row"><span class="conf-name">${c.name||''}</span><span class="conf-val">${c.value||''}</span><span class="conf-sig" style="color:${c.signal==='BULLISH'?'var(--green)':c.signal==='BEARISH'?'var(--red)':'var(--muted)'}">${c.signal==='BULLISH'?'▲':c.signal==='BEARISH'?'▼':'—'} ${c.signal||''}</span></div>`).join('')}
+          ${s.confluences.map(c=>`
+            <div class="conf-row" style="display:grid;grid-template-columns:140px 1fr auto;gap:12px;padding:10px 14px">
+              <span class="conf-name" style="font-family:var(--mono);font-size:10px;color:var(--muted)">${c.name||''}</span>
+              <span class="conf-val" style="font-family:var(--mono);font-size:11px">${c.value||''}</span>
+              <span style="font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:2px 8px;border-radius:2px;white-space:nowrap;
+                background:${c.signal==='BULLISH'?'rgba(0,214,143,.15)':c.signal==='BEARISH'?'rgba(255,71,87,.15)':'rgba(90,95,122,.15)'};
+                color:${c.signal==='BULLISH'?'var(--green)':c.signal==='BEARISH'?'var(--red)':'var(--muted)'};
+                border:1px solid ${c.signal==='BULLISH'?'rgba(0,214,143,.3)':c.signal==='BEARISH'?'rgba(255,71,87,.3)':'var(--border2)'}">
+                ${c.signal==='BULLISH'?'▲ BULL':c.signal==='BEARISH'?'▼ BEAR':'— NEUT'}
+              </span>
+            </div>
+          `).join('')}
         </div>
       </div>`:''}
     </div>`;

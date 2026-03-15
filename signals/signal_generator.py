@@ -142,6 +142,7 @@ class TradeSignal:
     volume_vs_avg: float
     generated_at: str
     risk_reward: float = 1.0
+    confluence_score: str = ""
     ml_probability: float = 0.0
     ml_confidence: str = ""
     ml_agreement: float = 0.0
@@ -206,17 +207,62 @@ def _fetch_price_data(symbol: str) -> Optional[dict]:
         # 20-day simple moving average
         sma20    = float(hist["Close"].tail(20).mean())
 
+        # MACD
+        ema12 = hist["Close"].ewm(span=12, adjust=False).mean()
+        ema26 = hist["Close"].ewm(span=26, adjust=False).mean()
+        macd_line   = float((ema12 - ema26).iloc[-1])
+        macd_signal = float((ema12 - ema26).ewm(span=9, adjust=False).mean().iloc[-1])
+        macd_hist_v = macd_line - macd_signal
+
+        # Bollinger Bands
+        sma20  = hist["Close"].rolling(20).mean()
+        std20  = hist["Close"].rolling(20).std()
+        bb_upper = float((sma20 + 2*std20).iloc[-1])
+        bb_lower = float((sma20 - 2*std20).iloc[-1])
+        bb_pct   = round((price - bb_lower) / (bb_upper - bb_lower + 1e-9) * 100, 1)
+
+        # Stochastic %K
+        low14  = hist["Low"].rolling(14).min()
+        high14 = hist["High"].rolling(14).max()
+        stoch_k = float(((hist["Close"] - low14) / (high14 - low14 + 1e-9) * 100).iloc[-1])
+
+        # SMA Cross (20 vs 50)
+        sma50 = hist["Close"].rolling(50).mean()
+        sma20_val = float(sma20.iloc[-1])
+        sma50_val = float(sma50.iloc[-1]) if len(hist) >= 50 else price
+        sma_cross = bool(sma20_val > sma50_val)
+
+        # 52-week position
+        high52 = float(hist["Close"].rolling(252).max().iloc[-1]) if len(hist) >= 252 else float(hist["Close"].max())
+        low52  = float(hist["Close"].rolling(252).min().iloc[-1]) if len(hist) >= 252 else float(hist["Close"].min())
+        pos52w = round((price - low52) / (high52 - low52 + 1e-9) * 100, 1)
+
+        # 5-day momentum
+        mom5 = round(hist["Close"].pct_change(5).iloc[-1] * 100, 2)
+
         return {
             "price":       price,
             "atr14":       round(atr14, 6),
             "change_pct":  change,
+            "macd":        round(macd_line, 6),
+            "macd_signal": round(macd_signal, 6),
+            "macd_hist":   round(macd_hist_v, 6),
+            "bb_pct":      bb_pct,
+            "bb_upper":    round(bb_upper, 6),
+            "bb_lower":    round(bb_lower, 6),
+            "stoch_k":     round(stoch_k, 1),
+            "sma20":       round(sma20_val, 6),
+            "sma50":       round(sma50_val, 6),
+            "sma_cross":   sma_cross,
+            "pos52w":      pos52w,
+            "mom5":        mom5,
             "high":        float(latest["High"]),
             "low":         float(latest["Low"]),
             "volume":      float(latest["Volume"]),
             "rsi":         rsi,
             "vol_ratio":   vol_ratio,
             "sma20":       sma20,
-            "above_sma20": price > sma20,
+            "above_sma20": bool(price > float(sma20.iloc[-1]) if hasattr(sma20, "iloc") else sma20),
         }
     except Exception as e:
         logger.warning(f"Price fetch failed for {symbol}: {e}")
@@ -545,27 +591,32 @@ Return ONLY this JSON (no other text):
 
 
 def _process_ticker(args):
-    """Process single ticker in parallel."""
+    """Process single ticker — price fetch + news + AI + ML signal."""
     import time
     meta, existing = args
+    sym = meta["symbol"]
     try:
-        price_data = _fetch_price_data(meta["symbol"])
+        price_data = _fetch_price_data(sym)
         if not price_data:
-            return existing.get(meta["symbol"])
+            return existing.get(sym)
+
         news = _fetch_news_for(meta["name"], meta["display"])
         time.sleep(0.3)
         groq_result = _groq_signal(meta, price_data, news)
+
         if not groq_result:
-            return existing.get(meta["symbol"]) or asdict(TradeSignal(
-                symbol=meta["symbol"], display=meta["display"], name=meta["name"],
+            return existing.get(sym) or asdict(TradeSignal(
+                symbol=sym, display=meta["display"], name=meta["name"],
                 type=meta["type"], icon=meta["icon"], direction="BUY",
                 entry=float(price_data["price"]), target=0.0, stop_loss=0.0,
                 confidence=50, sentiment="NEUTRAL", sentiment_score=0.0,
-                ai_reasoning="", news=news[:2], confluences=[],
+                ai_reasoning="", news=[], confluences=[],
                 price_change_pct=float(price_data.get("change_pct",0)),
                 volume_vs_avg=float(price_data.get("vol_ratio",1)),
-                generated_at=datetime.now(timezone.utc).isoformat(), risk_reward=1.0,
+                generated_at=datetime.now(timezone.utc).isoformat(),
+                risk_reward=1.0, confluence_score="",
             ))
+
         # Merge news
         merged_news = []
         for n in (news[:2] + groq_result.get("news",[])[:2]):
@@ -575,9 +626,11 @@ def _process_ticker(args):
                 h = str(h).strip()
                 if h and not h.startswith("<built"):
                     merged_news.append({"headline": h[:120], "source": str(n.get("source","Unknown")), "sentiment": str(n.get("sentiment","NEUTRAL"))})
+
+        # Price levels
         price = float(price_data["price"])
         atr   = float(price_data.get("atr14", price * 0.02))
-        direction = groq_result.get("direction", "BUY")
+        direction = groq_result.get("direction","BUY")
         m = {"CRYPTO":0.06,"STOCK":0.04,"ETF":0.03,"INDEX":0.03,"COMMODITY":0.05,"FOREX":0.015}.get(meta["type"],0.04)
         if not atr or atr < 1e-9: atr = price * m / 2.5
         raw_tp = float(groq_result.get("target",0) or 0)
@@ -587,23 +640,50 @@ def _process_ticker(args):
         target    = raw_tp if raw_tp > 0.001 else atr_tp
         stop_loss = raw_sl if raw_sl > 0.001 else atr_sl
         rr = round(abs(target-price)/abs(price-stop_loss),1) if price != stop_loss else 1.0
+
+        # Rich confluences
+        _rsi   = float(price_data.get("rsi", 50))
+        _macdh = float(price_data.get("macd_hist", 0))
+        _bbpct = float(price_data.get("bb_pct", 50))
+        _stoch = float(price_data.get("stoch_k", 50))
+        _volr  = float(price_data.get("vol_ratio", 1))
+        _smacx = bool(price_data.get("sma_cross", False))
+        _asma  = price_data.get("above_sma20", True)
+        _p52w  = float(price_data.get("pos52w", 50))
+        _mom5  = float(price_data.get("mom5", 0))
+        rich_conf = [
+            {"name":"RSI-14","value":f"{_rsi:.0f} — {'Oversold' if _rsi<35 else 'Overbought' if _rsi>65 else 'Neutral'}","signal":"BULLISH" if _rsi<35 else "BEARISH" if _rsi>65 else "NEUTRAL"},
+            {"name":"MACD","value":f"{'Bullish' if _macdh>0 else 'Bearish'} ({_macdh:+.4f})","signal":"BULLISH" if _macdh>0 else "BEARISH"},
+            {"name":"Bollinger Band","value":f"{_bbpct:.0f}% ({'Upper' if _bbpct>80 else 'Lower' if _bbpct<20 else 'Mid'})","signal":"BEARISH" if _bbpct>80 else "BULLISH" if _bbpct<20 else "NEUTRAL"},
+            {"name":"Stochastic %K","value":f"{_stoch:.0f} — {'Overbought' if _stoch>80 else 'Oversold' if _stoch<20 else 'Neutral'}","signal":"BEARISH" if _stoch>80 else "BULLISH" if _stoch<20 else "NEUTRAL"},
+            {"name":"Volume","value":f"{_volr:.2f}x avg — {'High' if _volr>1.5 else 'Low' if _volr<0.7 else 'Normal'}","signal":"BULLISH" if _volr>1.5 else "BEARISH" if _volr<0.7 else "NEUTRAL"},
+            {"name":"SMA Cross 20/50","value":f"SMA20 {'above' if _smacx else 'below'} SMA50","signal":"BULLISH" if _smacx else "BEARISH"},
+            {"name":"vs SMA20","value":f"Price {'above' if _asma else 'below'} SMA20","signal":"BULLISH" if _asma else "BEARISH"},
+            {"name":"52W Position","value":f"{_p52w:.0f}% ({'Near high' if _p52w>75 else 'Near low' if _p52w<25 else 'Mid range'})","signal":"BEARISH" if _p52w>75 else "BULLISH" if _p52w<25 else "NEUTRAL"},
+            {"name":"5D Momentum","value":f"{_mom5:+.2f}% ROC","signal":"BULLISH" if _mom5>1 else "BEARISH" if _mom5<-1 else "NEUTRAL"},
+        ]
+        bull_c = sum(1 for c in rich_conf if c["signal"]=="BULLISH")
+        conf_score = f"{bull_c}/{len(rich_conf)} bullish"
+
         sig = TradeSignal(
-            symbol=meta["symbol"], display=meta["display"], name=meta["name"],
+            symbol=sym, display=meta["display"], name=meta["name"],
             type=meta["type"], icon=meta["icon"], direction=direction,
             entry=price, target=target, stop_loss=stop_loss,
             confidence=int(groq_result.get("confidence",60)),
             sentiment=groq_result.get("sentiment","NEUTRAL"),
             sentiment_score=float(groq_result.get("sentimentScore",0)),
             ai_reasoning=str(groq_result.get("aiReasoning","")),
-            news=merged_news, confluences=groq_result.get("confluences",[]),
+            news=merged_news, confluences=rich_conf,
             price_change_pct=float(price_data.get("change_pct",0)),
             volume_vs_avg=float(price_data.get("vol_ratio",1)),
-            generated_at=datetime.now(timezone.utc).isoformat(), risk_reward=rr,
+            generated_at=datetime.now(timezone.utc).isoformat(),
+            risk_reward=rr, confluence_score=conf_score,
         )
+
         # ML prediction
         try:
             from signals.ml_model import predict as ml_predict
-            ml_sig = ml_predict(meta["symbol"], float(groq_result.get("sentimentScore", 0)))
+            ml_sig = ml_predict(sym, float(groq_result.get("sentimentScore", 0)))
             if ml_sig:
                 ai_dir = sig.direction
                 ml_note = f"ML {'confirms' if ml_sig.direction==ai_dir else 'overrides to'} {ml_sig.direction} ({ml_sig.ml_probability:.0%}, {ml_sig.ml_confidence})"
@@ -616,17 +696,21 @@ def _process_ticker(args):
                 if ml_sig.direction == ai_dir:
                     sig.confidence = min(95, sig.confidence + 10)
         except Exception as ml_e:
-            pass
+            logger.debug(f"ML skipped for {sym}: {ml_e}")
+
         return asdict(sig)
+
     except Exception as e:
         logger.warning(f"Signal failed for {meta['display']}: {e}")
-        return existing.get(meta["symbol"])
+        return existing.get(sym)
+
+
 
 
 def generate_signals(max_assets: int = 86) -> List[dict]:
-    """Main entry — parallel processing, ~8x faster."""
-    from concurrent.futures import ThreadPoolExecutor, as_completed
-    import json
+    """Main entry — parallel price fetch + sequential AI calls."""
+    from concurrent.futures import ThreadPoolExecutor
+    import json, time
     from pathlib import Path
 
     # Load existing cache
@@ -643,134 +727,39 @@ def generate_signals(max_assets: int = 86) -> List[dict]:
     _load_rss_cache()
 
     tickers = TICKERS[:max_assets]
-    args = [(meta, existing) for meta in tickers]
     results = {}
 
-    # Phase 1: fetch all prices in parallel (fast, no rate limit)
-    from concurrent.futures import ThreadPoolExecutor, as_completed
-    price_data_map = {}
+    # Phase 1: fetch all prices in parallel
     def fetch_price(meta):
         return meta["symbol"], _fetch_price_data(meta["symbol"])
+
     with ThreadPoolExecutor(max_workers=10) as executor:
         for sym, pd in executor.map(fetch_price, tickers):
             if pd:
-                price_data_map[sym] = pd
+                results[f"price_{sym}"] = pd
 
-    # Phase 2: AI calls sequentially (avoid rate limits)
-    import time
+    # Phase 2: AI + ML sequentially
     for meta in tickers:
         sym = meta["symbol"]
-        if sym not in price_data_map:
+        price_data = results.get(f"price_{sym}")
+        if not price_data:
             if sym in existing:
                 results[sym] = existing[sym]
             continue
-        try:
-            price_data = price_data_map[sym]
-            news = _fetch_news_for(meta["name"], meta["display"])
-            groq_result = _groq_signal(meta, price_data, news)
-            if not groq_result:
-                if sym in existing:
-                    results[sym] = existing[sym]
-                    continue
-                groq_result = _rule_based_signal(meta, price_data, news)
+        result = _process_ticker((meta, existing))
+        if result:
+            results[sym] = result
+        time.sleep(0.4)
 
-            # ML model prediction — blends with AI signal
-            try:
-                from signals.ml_model import predict as ml_predict
-                sentiment_score = float(groq_result.get("sentimentScore", 0))
-                ml_sig = ml_predict(sym, sentiment_score)
-                if ml_sig:
-                    # If ML and AI agree → boost confidence
-                    # If they disagree → use ML direction (more data-driven)
-                    ai_dir = groq_result.get("direction", "BUY")
-                    if ml_sig.direction == ai_dir:
-                        groq_result["confidence"] = min(95, int(groq_result.get("confidence", 60)) + 10)
-                        groq_result["mlNote"] = f"ML confirms {ai_dir} ({ml_sig.ml_probability:.0%} prob, {ml_sig.ml_confidence} confidence)"
-                    else:
-                        groq_result["direction"] = ml_sig.direction
-                        groq_result["mlNote"] = f"ML overrides to {ml_sig.direction} ({ml_sig.ml_probability:.0%} prob, {ml_sig.ml_confidence} confidence)"
-                    groq_result["mlProbability"] = ml_sig.ml_probability
-                    groq_result["mlConfidence"] = ml_sig.ml_confidence
-                    groq_result["mlAgreement"] = ml_sig.model_agreement
-                    groq_result["topFeatures"] = list(ml_sig.feature_importance.keys())[:3]
-            except Exception as e:
-                logger.debug(f"ML prediction skipped for {meta['display']}: {e}")
-            # Build signal
-            merged_news = []
-            for n in (news[:2] + groq_result.get("news",[])[:2]):
-                if isinstance(n, dict):
-                    h = n.get("headline","")
-                    if callable(h): h = ""
-                    h = str(h).strip()
-                    if h and not h.startswith("<built"):
-                        merged_news.append({"headline": h[:120], "source": str(n.get("source","Unknown")), "sentiment": str(n.get("sentiment","NEUTRAL"))})
-            price = float(price_data["price"])
-            atr   = float(price_data.get("atr14", price * 0.02))
-            direction = groq_result.get("direction","BUY")
-            m = {"CRYPTO":0.06,"STOCK":0.04,"ETF":0.03,"INDEX":0.03,"COMMODITY":0.05,"FOREX":0.015}.get(meta["type"],0.04)
-            if not atr or atr < 1e-9: atr = price * m / 2.5
-            raw_tp = float(groq_result.get("target",0) or 0)
-            raw_sl = float(groq_result.get("stopLoss",0) or 0)
-            atr_tp = round(price + 2.5*atr if direction=="BUY" else price - 2.5*atr, 6)
-            atr_sl = round(price - 1.5*atr if direction=="BUY" else price + 1.5*atr, 6)
-            target    = raw_tp if raw_tp > 0.001 else atr_tp
-            stop_loss = raw_sl if raw_sl > 0.001 else atr_sl
-            rr = round(abs(target-price)/abs(price-stop_loss),1) if price != stop_loss else 1.0
-            sig = TradeSignal(
-                symbol=sym, display=meta["display"], name=meta["name"],
-                type=meta["type"], icon=meta["icon"], direction=direction,
-                entry=price, target=target, stop_loss=stop_loss,
-                confidence=int(groq_result.get("confidence",60)),
-                sentiment=groq_result.get("sentiment","NEUTRAL"),
-                sentiment_score=float(groq_result.get("sentimentScore",0)),
-                ai_reasoning=str(groq_result.get("aiReasoning","")),
-                news=merged_news, confluences=groq_result.get("confluences",[]),
-                price_change_pct=float(price_data.get("change_pct",0)),
-                volume_vs_avg=float(price_data.get("vol_ratio",1)),
-                generated_at=datetime.now(timezone.utc).isoformat(),
-                risk_reward=rr,
-                ml_probability=float(groq_result.get("mlProbability",0)),
-                ml_confidence=str(groq_result.get("mlConfidence","")),
-                ml_agreement=float(groq_result.get("mlAgreement",0)),
-                ml_note=str(groq_result.get("mlNote","")),
-                top_features=groq_result.get("topFeatures",[]),
-            )
-            # ML prediction
-            try:
-                from signals.ml_model import predict as ml_predict
-                ml_sig = ml_predict(sym, float(groq_result.get("sentimentScore", 0)))
-                if ml_sig:
-                    ai_dir = sig.direction
-                    if ml_sig.direction == ai_dir:
-                        sig = sig.__class__(**{**sig.__dict__,
-                            "confidence": min(95, sig.confidence + 10),
-                            "ml_probability": ml_sig.ml_probability,
-                            "ml_confidence": ml_sig.ml_confidence,
-                            "ml_agreement": ml_sig.model_agreement,
-                            "ml_note": f"ML confirms {ai_dir} ({ml_sig.ml_probability:.0%}, {ml_sig.ml_confidence})",
-                            "top_features": list(ml_sig.feature_importance.keys())[:3],
-                        })
-                    else:
-                        sig = sig.__class__(**{**sig.__dict__,
-                            "direction": ml_sig.direction,
-                            "ml_probability": ml_sig.ml_probability,
-                            "ml_confidence": ml_sig.ml_confidence,
-                            "ml_agreement": ml_sig.model_agreement,
-                            "ml_note": f"ML overrides to {ml_sig.direction} ({ml_sig.ml_probability:.0%}, {ml_sig.ml_confidence})",
-                            "top_features": list(ml_sig.feature_importance.keys())[:3],
-                        })
-            except Exception as e:
-                logger.debug(f"ML skipped for {sym}: {e}")
-            results[sym] = asdict(sig)
-            time.sleep(0.4)
-        except Exception as e:
-            logger.warning(f"Signal failed for {meta['display']}: {e}")
-            if sym in existing:
-                results[sym] = existing[sym]
+    # Return in original order
+    signals = [results[t["symbol"]] for t in tickers if t["symbol"] in results and not str(t["symbol"]) in results.get(f"price_{t['symbol']}", {})]
+    
+    # Simpler — just collect all dict results
+    signals = []
+    for t in tickers:
+        sym = t["symbol"]
+        if sym in results and isinstance(results[sym], dict) and "display" in results[sym]:
+            signals.append(results[sym])
 
-    # Preserve original order
-    signals = [results[t["symbol"]] for t in tickers if t["symbol"] in results]
-    logger.info(f"Generated {len(signals)} signals (parallel)")
+    logger.info(f"Generated {len(signals)} signals")
     return signals
-
-
