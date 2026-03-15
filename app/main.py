@@ -63,6 +63,7 @@ async def lifespan(app: FastAPI):
 # ── App ────────────────────────────────────────────────────────────────────────
 
 from signals.api import router as signals_router
+from polymarket.api import router as polymarket_router
 
 app = FastAPI(
     title="Prediction Market Trading Bot",
@@ -72,6 +73,7 @@ app = FastAPI(
 )
 
 app.include_router(signals_router)
+app.include_router(polymarket_router)
 
 app.add_middleware(
     CORSMiddleware,
