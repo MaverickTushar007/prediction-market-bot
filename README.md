@@ -178,3 +178,14 @@ prediction-market-bot/
 ---
 
 *Built as a quantitative finance portfolio project — demonstrating ML ensemble modeling, real-time data pipelines, and institutional-grade signal generation.*
+
+
+
+
+
+
+'''
+GROQ_API_KEY = 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
+
+OPENROUTER_API_KEY = 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
+'''
