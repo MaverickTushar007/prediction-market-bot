@@ -744,8 +744,7 @@ loadSignals(false);
 setInterval(()=>loadSignals(false),3600000);
 
 // ── PERFORMANCE ──
-const API_BASE = document.querySelector('script') ? 
-  (window.location.protocol === 'file:' ? 'https://web-production-acfba.up.railway.app' : '') : '';
+const API_BASE = 'https://web-production-acfba.up.railway.app';
 
 async function loadPerformance() {
   try {
