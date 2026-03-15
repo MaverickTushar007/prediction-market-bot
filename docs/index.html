@@ -270,7 +270,7 @@ async function loadBacktest(force) {
   document.getElementById('btTable').innerHTML = '<div class="loading-row"><span class="spinner"></span>Running backtest... (~30 seconds)</div>';
   document.getElementById('btSummary').innerHTML = '';
   try {
-    const res = await fetch('http://localhost:8000/signals/backtest');
+    const res = await fetch('https://web-production-acfba.up.railway.app/signals/backtest');
     btData = await res.json();
     renderBacktest(btData);
   } catch(e) {
