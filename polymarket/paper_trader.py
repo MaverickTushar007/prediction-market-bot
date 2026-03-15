@@ -141,3 +141,34 @@ def get_pnl_stats(source: str = None) -> dict:
         "worst_trade":   min(pnl_pcts) if pnl_pcts else 0,
         "trades":        sorted(trades, key=lambda x: x["opened_at"], reverse=True)[:20],
     }
+
+
+def auto_close_expired_trades(days: int = 5) -> list:
+    """Auto-close trades older than N days using current price from yfinance."""
+    import yfinance as yf
+    from datetime import datetime, timezone, timedelta
+    
+    trades = _load_trades()
+    closed = []
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    
+    for t in trades:
+        if t["status"] != "OPEN":
+            continue
+        opened = datetime.fromisoformat(t["opened_at"].replace("Z", "+00:00"))
+        if opened > cutoff:
+            continue  # not old enough yet
+        try:
+            tk = yf.Ticker(t["symbol"])
+            hist = tk.history(period="1d")
+            if hist.empty:
+                continue
+            exit_price = float(hist["Close"].iloc[-1])
+            result = close_trade(t["id"], exit_price)
+            if result:
+                closed.append(result)
+                logger.info(f"Auto-closed #{t['id']} {t['symbol']}: {result['pnl_pct']:+.2f}%")
+        except Exception as e:
+            logger.warning(f"Auto-close failed for #{t['id']}: {e}")
+    
+    return closed

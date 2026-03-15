@@ -261,6 +261,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       </div>
       <div style="display:flex;gap:8px">
         <button class="refresh-btn" onclick="loadPerformance()">↻ Refresh</button>
+        <button class="refresh-btn" onclick="autoCloseTrades()" style="border-color:var(--amber);color:var(--amber)">⏱ Close Expired</button>
         <button id="killBtn" class="refresh-btn" onclick="toggleKillSwitch()" style="border-color:var(--red);color:var(--red)">🛑 Kill Switch</button>
       </div>
     </div>
@@ -864,6 +865,17 @@ function renderKillSwitch(d) {
     btn.textContent = '🛑 Kill Switch';
     btn.style.borderColor = 'var(--red)';
     btn.style.color = 'var(--red)';
+  }
+}
+
+async function autoCloseTrades() {
+  try {
+    const res = await fetch(API_BASE + '/signals/paper-trades/auto-close', {method:'POST'});
+    const data = await res.json();
+    alert(data.closed + ' trades closed automatically');
+    loadPerformance();
+  } catch(e) {
+    alert('Auto-close failed — make sure API is running');
   }
 }
 

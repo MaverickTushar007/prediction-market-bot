@@ -88,6 +88,12 @@ def get_backtest():
     return output
 
 
+@router.post("/paper-trades/auto-close")
+def auto_close_trades():
+    from polymarket.paper_trader import auto_close_expired_trades
+    closed = auto_close_expired_trades(days=5)
+    return {"closed": len(closed), "trades": closed}
+
 @router.get("/paper-trades")
 def get_paper_trades():
     from polymarket.paper_trader import get_pnl_stats
