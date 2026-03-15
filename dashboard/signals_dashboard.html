@@ -451,8 +451,11 @@ function renderDetail(s){
     </div>
     <div class="d-body">
       <div class="section">
-        <div class="section-title">Simulated Price Path · 30-Day GBM</div>
-        <div class="chart-wrap"><canvas id="priceChart" style="height:200px"></canvas></div>
+        <div class="section-title">Price Chart</div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden">
+          <!-- TradingView Widget -->
+          <div id="tv_widget_${s.symbol.replace(/[^a-zA-Z0-9]/g,'_')}" style="height:400px"></div>
+        </div>
       </div>
       <div class="section">
         <div class="section-title">Trade Levels · ATR-Based</div>
@@ -531,7 +534,60 @@ function renderDetail(s){
         </div>
       </div>`:''}
     </div>`;
-  setTimeout(()=>drawChart(s,isBuy,isBuy?"#00d68f":"#ff4757"),60);
+  // Load TradingView widget
+  setTimeout(() => {
+    const tvMap = {
+      'BTC-USD':'BINANCE:BTCUSDT','ETH-USD':'BINANCE:ETHUSDT','SOL-USD':'BINANCE:SOLUSDT',
+      'BNB-USD':'BINANCE:BNBUSDT','XRP-USD':'BINANCE:XRPUSDT','DOGE-USD':'BINANCE:DOGEUSDT',
+      'ADA-USD':'BINANCE:ADAUSDT','AVAX-USD':'BINANCE:AVAXUSDT','DOT-USD':'BINANCE:DOTUSDT',
+      'LINK-USD':'BINANCE:LINKUSDT','LTC-USD':'BINANCE:LTCUSDT','ATOM-USD':'BINANCE:ATOMUSDT',
+      'NEAR-USD':'BINANCE:NEARUSDT','ARB-USD':'BINANCE:ARBUSDT','OP-USD':'BINANCE:OPUSDT',
+      'INJ-USD':'BINANCE:INJUSDT','FET-USD':'BINANCE:FETUSDT',
+      '^GSPC':'SP:SPX','^IXIC':'NASDAQ:COMP','^DJI':'DJ:DJI','^VIX':'CBOE:VIX',
+      '^FTSE':'FTSE:UKX','^N225':'TVC:NI225','^GDAXI':'XETR:DAX','^RUT':'TVC:RUT','^HSI':'TVC:HSI',
+      'SPY':'AMEX:SPY','QQQ':'NASDAQ:QQQ','IWM':'AMEX:IWM','GLD':'AMEX:GLD',
+      'SLV':'AMEX:SLV','TLT':'NASDAQ:TLT','XLE':'AMEX:XLE','XLF':'AMEX:XLF',
+      'XLK':'AMEX:XLK','XLV':'AMEX:XLV','ARKK':'NASDAQ:ARKK','IEMG':'AMEX:IEMG',
+      'AAPL':'NASDAQ:AAPL','MSFT':'NASDAQ:MSFT','GOOGL':'NASDAQ:GOOGL','AMZN':'NASDAQ:AMZN',
+      'NVDA':'NASDAQ:NVDA','TSLA':'NASDAQ:TSLA','META':'NASDAQ:META','NFLX':'NASDAQ:NFLX',
+      'AMD':'NASDAQ:AMD','PLTR':'NYSE:PLTR','COIN':'NASDAQ:COIN','MSTR':'NASDAQ:MSTR',
+      'JPM':'NYSE:JPM','GS':'NYSE:GS','BAC':'NYSE:BAC','V':'NYSE:V','MA':'NYSE:MA',
+      'DIS':'NYSE:DIS','BABA':'NYSE:BABA','TSM':'NYSE:TSM','UBER':'NYSE:UBER',
+      'ORCL':'NYSE:ORCL','INTC':'NASDAQ:INTC','QCOM':'NASDAQ:QCOM','CRM':'NYSE:CRM',
+      'GC=F':'TVC:GOLD','CL=F':'TVC:USOIL','SI=F':'TVC:SILVER','NG=F':'TVC:NATURALGAS','HG=F':'TVC:COPPER',
+      'EURUSD=X':'FX:EURUSD','GBPUSD=X':'FX:GBPUSD','USDJPY=X':'FX:USDJPY',
+      'AUDUSD=X':'FX:AUDUSD','USDCAD=X':'FX:USDCAD','USDCHF=X':'FX:USDCHF','USDINR=X':'FX:USDINR',
+    };
+    const tvSym = tvMap[s.symbol] || s.display;
+    const containerId = 'tv_widget_' + s.symbol.replace(/[^a-zA-Z0-9]/g,'_');
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    // Remove old widget if exists
+    container.innerHTML = '';
+
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+    script.async = true;
+    script.innerHTML = JSON.stringify({
+      autosize: true,
+      symbol: tvSym,
+      interval: 'D',
+      timezone: 'Etc/UTC',
+      theme: 'dark',
+      style: '1',
+      locale: 'en',
+      backgroundColor: '#0d0f18',
+      gridColor: '#1c1f2e',
+      hide_top_toolbar: false,
+      hide_legend: false,
+      save_image: false,
+      calendar: false,
+      support_host: 'https://www.tradingview.com',
+    });
+    container.appendChild(script);
+  }, 100);
 }
 
 function drawChart(s,isBuy,dirColor){
