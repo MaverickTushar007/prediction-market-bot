@@ -200,6 +200,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
     <button class="refresh-btn" onclick="showTab('signals')" id="tab-signals" style="border-color:var(--blue);color:var(--blue)">Signals</button>
     <button class="refresh-btn" onclick="showTab('backtest')" id="tab-backtest">Backtest</button>
     <button class="refresh-btn" onclick="showTab('polymarket')" id="tab-polymarket">Polymarket</button>
+    <button class="refresh-btn" onclick="showTab('performance')" id="tab-performance">Performance</button>
     <button class="refresh-btn" onclick="loadSignals(true)">↻ Refresh</button>
   </div>
 </div>
@@ -248,6 +249,46 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
   </div>
 </div>
 
+<!-- Performance Panel -->
+<div id="performancePanel" style="display:none;padding:24px;overflow-y:auto;height:calc(100vh - 44px - 54px)">
+  <div style="max-width:1100px;margin:0 auto">
+
+    <!-- Header -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+      <div>
+        <div style="font-family:var(--mono);font-size:18px;font-weight:600">Performance Dashboard</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px">Paper P&L · Brier Score · Kill Switch</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="refresh-btn" onclick="loadPerformance()">↻ Refresh</button>
+        <button id="killBtn" class="refresh-btn" onclick="toggleKillSwitch()" style="border-color:var(--red);color:var(--red)">🛑 Kill Switch</button>
+      </div>
+    </div>
+
+    <!-- Kill Switch Banner -->
+    <div id="killBanner" style="display:none;background:rgba(255,71,87,.1);border:1px solid var(--red);border-radius:4px;padding:12px 16px;margin-bottom:20px;font-family:var(--mono);font-size:12px;color:var(--red)">
+      🛑 KILL SWITCH ACTIVE — All signal generation is halted
+    </div>
+
+    <!-- P&L Stats -->
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px">Paper Trading P&L</div>
+    <div id="pnlSummary" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;text-align:center">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:6px">LOADING</div>
+      </div>
+    </div>
+
+    <!-- Brier Score -->
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px">Brier Score Calibration</div>
+    <div id="brierStats" style="margin-bottom:24px"></div>
+
+    <!-- Trade Log -->
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px">Recent Paper Trades</div>
+    <div id="tradeLog"></div>
+
+  </div>
+</div>
+
 <!-- Backtest Panel -->
 <div id="backtestPanel" style="display:none;padding:24px;overflow-y:auto;height:calc(100vh - 44px - 54px)">
   <div style="max-width:1100px;margin:0 auto">
@@ -273,6 +314,7 @@ function showTab(tab) {
   document.getElementById('tab-backtest').style.color = '';
 
   document.getElementById('polymarketPanel').style.display = 'none';
+  document.getElementById('performancePanel').style.display = 'none';
   if (tab === 'signals') {
     document.querySelector('.layout').style.display = 'grid';
     document.getElementById('backtestPanel').style.display = 'none';
@@ -290,6 +332,12 @@ function showTab(tab) {
     document.getElementById('tab-polymarket').style.borderColor = 'var(--blue)';
     document.getElementById('tab-polymarket').style.color = 'var(--blue)';
     loadPolymarket(false);
+  } else if (tab === 'performance') {
+    document.querySelector('.layout').style.display = 'none';
+    document.getElementById('performancePanel').style.display = 'block';
+    document.getElementById('tab-performance').style.borderColor = 'var(--blue)';
+    document.getElementById('tab-performance').style.color = 'var(--blue)';
+    loadPerformance();
   }
 }
 
@@ -693,6 +741,146 @@ function updateStats(){
 setInterval(()=>{document.getElementById('clk').textContent=new Date().toLocaleTimeString()},1000);
 loadSignals(false);
 setInterval(()=>loadSignals(false),3600000);
+
+// ── PERFORMANCE ──
+const API_BASE = document.querySelector('script') ? 
+  (window.location.protocol === 'file:' ? 'https://web-production-acfba.up.railway.app' : '') : '';
+
+async function loadPerformance() {
+  try {
+    const [pnlRes, brierRes, killRes] = await Promise.all([
+      fetch(API_BASE + '/signals/paper-trades'),
+      fetch(API_BASE + '/signals/brier'),
+      fetch(API_BASE + '/signals/kill-switch'),
+    ]);
+    const pnl   = await pnlRes.json();
+    const brier = await brierRes.json();
+    const kill  = await killRes.json();
+    renderPnL(pnl);
+    renderBrier(brier);
+    renderKillSwitch(kill);
+  } catch(e) {
+    document.getElementById('pnlSummary').innerHTML = '<div class="error-box">Could not connect to API</div>';
+  }
+}
+
+function renderPnL(d) {
+  const winColor  = (d.win_rate||0) >= 60 ? 'var(--green)' : (d.win_rate||0) >= 50 ? 'var(--amber)' : 'var(--red)';
+  const pnlColor  = (d.total_pnl_pct||0) >= 0 ? 'var(--green)' : 'var(--red)';
+  const pfColor   = (d.profit_factor||0) >= 1.5 ? 'var(--green)' : (d.profit_factor||0) >= 1 ? 'var(--amber)' : 'var(--red)';
+
+  document.getElementById('pnlSummary').innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue)"></div>
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">TOTAL TRADES</div>
+      <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:var(--blue)">${d.total_trades||0}</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">${d.open_trades||0} open · ${d.closed_trades||0} closed</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${winColor}"></div>
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">WIN RATE</div>
+      <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:${winColor}">${d.win_rate !== null ? d.win_rate+'%' : '—'}</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">avg win ${d.avg_win||0}% · avg loss ${d.avg_loss||0}%</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${pnlColor}"></div>
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">TOTAL P&L</div>
+      <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:${pnlColor}">${(d.total_pnl_pct||0)>=0?'+':''}${d.total_pnl_pct||0}%</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">$${d.total_pnl_usd||0} paper</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${pfColor}"></div>
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">PROFIT FACTOR</div>
+      <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:${pfColor}">${d.profit_factor||'—'}</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">Sharpe ${d.sharpe||'—'}</div>
+    </div>`;
+
+  // Trade log
+  const trades = d.trades || [];
+  if (!trades.length) {
+    document.getElementById('tradeLog').innerHTML = '<div style="font-family:var(--mono);font-size:11px;color:var(--muted2);text-align:center;padding:24px">No trades logged yet — generate signals to start tracking</div>';
+    return;
+  }
+  document.getElementById('tradeLog').innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:60px 100px 80px 100px 100px 80px 80px 1fr;padding:10px 16px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase">
+        <div>#</div><div>Symbol</div><div>Dir</div><div>Entry</div><div>Exit</div><div>P&L</div><div>Status</div><div>Date</div>
+      </div>
+      ${trades.slice(0,15).map(t => `
+        <div style="display:grid;grid-template-columns:60px 100px 80px 100px 100px 80px 80px 1fr;padding:10px 16px;border-bottom:1px solid var(--border);align-items:center">
+          <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">#${t.id}</div>
+          <div style="font-family:var(--mono);font-size:12px;font-weight:600">${t.symbol.replace('-USD','')}</div>
+          <div><span style="font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 6px;border-radius:2px;background:${t.direction==='BUY'?'rgba(0,214,143,.15)':'rgba(255,71,87,.15)'};color:${t.direction==='BUY'?'var(--green)':'var(--red)'}">${t.direction}</span></div>
+          <div style="font-family:var(--mono);font-size:11px">$${parseFloat(t.entry_price||0).toFixed(2)}</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">${t.exit_price ? '$'+parseFloat(t.exit_price).toFixed(2) : '—'}</div>
+          <div style="font-family:var(--mono);font-size:12px;font-weight:600;color:${(t.pnl_pct||0)>=0?'var(--green)':'var(--red)'}">${t.pnl_pct !== null ? (t.pnl_pct>=0?'+':'')+t.pnl_pct+'%' : '—'}</div>
+          <div style="font-family:var(--mono);font-size:9px;color:${t.status==='OPEN'?'var(--amber)':t.outcome==='WIN'?'var(--green)':'var(--red)'}">${t.status==='OPEN'?'OPEN':t.outcome}</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">${new Date(t.opened_at).toLocaleDateString()}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function renderBrier(d) {
+  const color = !d.brier_score ? 'var(--muted)' : d.brier_score < 0.15 ? 'var(--green)' : d.brier_score < 0.25 ? 'var(--amber)' : 'var(--red)';
+  document.getElementById('brierStats').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:16px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px">
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">BRIER SCORE</div>
+        <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:${color}">${d.brier_score !== null ? d.brier_score : '—'}</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">${d.calibration||'No data yet'}</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px">
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">PREDICTIONS</div>
+        <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:var(--blue)">${d.total_predictions||0}</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">${d.resolved||0} resolved · ${d.pending||0} pending</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px">
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">WIN RATE</div>
+        <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:var(--green)">${d.win_rate !== null ? d.win_rate+'%' : '—'}</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">prediction accuracy</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px">
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">TARGET</div>
+        <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:var(--amber)">< 0.25</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">random baseline = 0.25</div>
+      </div>
+    </div>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--muted);padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:4px">
+      💡 Brier Score measures calibration: 0.0 = perfect · 0.25 = random guessing · higher = worse. 
+      Predictions are logged automatically when you scan Polymarket markets.
+    </div>`;
+}
+
+function renderKillSwitch(d) {
+  const banner = document.getElementById('killBanner');
+  const btn    = document.getElementById('killBtn');
+  if (d.active) {
+    banner.style.display = 'block';
+    btn.textContent = '✅ Resume Trading';
+    btn.style.borderColor = 'var(--green)';
+    btn.style.color = 'var(--green)';
+  } else {
+    banner.style.display = 'none';
+    btn.textContent = '🛑 Kill Switch';
+    btn.style.borderColor = 'var(--red)';
+    btn.style.color = 'var(--red)';
+  }
+}
+
+async function toggleKillSwitch() {
+  try {
+    const statusRes = await fetch(API_BASE + '/signals/kill-switch');
+    const status = await statusRes.json();
+    if (status.active) {
+      await fetch(API_BASE + '/signals/kill-switch/deactivate', {method:'POST'});
+    } else {
+      await fetch(API_BASE + '/signals/kill-switch/activate?reason=Manual+stop', {method:'POST'});
+    }
+    loadPerformance();
+  } catch(e) {
+    console.error('Kill switch toggle failed:', e);
+  }
+}
 
 // ── POLYMARKET ──
 let pmData = null;
