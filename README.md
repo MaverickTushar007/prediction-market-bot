@@ -1,211 +1,187 @@
-# 🤖 Prediction Market Trading Bot
+cat > ~/Downloads/prediction-market-bot/README.md << 'READMEEOF'
+# 📈 AI-Powered Quantitative Trading Signals
 
-An AI-powered prediction market trading system that scans markets, researches events, estimates probabilities with ML + LLM reasoning, manages risk with Kelly Criterion, and simulates paper trades — all in a clean, modular Python pipeline.
+> Real-time trading signals for 86 assets across Crypto, Stocks, ETFs, Indices, Commodities & Forex — powered by an ML ensemble, OpenRouter LLM reasoning, and live RSS news.
 
----
-
-## Features
-
-| Module | What it does |
-|---|---|
-| **Market Scanner** | Fetches Polymarket & Kalshi markets, filters by volume / spread / expiry |
-| **Research Engine** | Scrapes RSS feeds and NewsAPI, classifies sentiment (Bullish / Bearish / Neutral) |
-| **Probability Model** | Ensemble of Logistic Regression + XGBoost + LLM reasoner |
-| **Risk Manager** | Kelly Criterion sizing, max drawdown / daily loss circuit breakers |
-| **Paper Trader** | Simulated limit orders, slippage, position tracking, SQLite logging |
-| **Plotly Dashboard** | Live equity curve, win rate, Brier score, trade table |
-| **FastAPI** | REST API to trigger pipeline runs, query trades, and resolve positions |
+![Python](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square&logo=python)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.135-green?style=flat-square&logo=fastapi)
+![XGBoost](https://img.shields.io/badge/XGBoost-LightGBM-orange?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
 ---
 
-## Project Structure
-
+## 🧠 Architecture
 ```
-prediction-market-bot/
-├── app/
-│   └── main.py               # FastAPI app + pipeline endpoint
-├── scanner/
-│   └── market_scanner.py     # Polymarket / Kalshi / mock market fetch + filter
-├── research/
-│   ├── news_scraper.py       # RSS + NewsAPI article fetcher
-│   └── sentiment_engine.py   # VADER sentiment classifier
-├── prediction/
-│   ├── probability_model.py  # LogisticModel, XGBoostModel, LLMReasoner
-│   └── ensemble_model.py     # Weighted ensemble + signal generation
-├── risk/
-│   ├── kelly.py              # Kelly Criterion position sizing
-│   └── risk_checks.py        # Drawdown / daily loss / concurrent trade limits
-├── execution/
-│   ├── paper_trader.py       # Simulated order execution + position tracking
-│   └── trade_executor.py     # Orchestrates risk → sizing → execution → logging
-├── data/
-│   ├── database.py           # SQLite schema + connection
-│   └── trade_logger.py       # Persistence layer for trades + research
-├── utils/
-│   ├── config.py             # Centralised configuration (env vars)
-│   └── helpers.py            # Logging, metrics, decorators
-├── dashboard/
-│   └── dashboard.py          # Plotly Dash performance dashboard
-├── tests/
-│   └── test_pipeline.py      # pytest test suite (all modules)
-├── run_demo.py               # End-to-end demo (no API keys needed)
-└── requirements.txt
+yfinance (live OHLCV)  +  RSS News (7 feeds)
+           ↓                      ↓
+   Feature Engineering      Sentiment Scoring
+   (21 technical indicators)  (keyword-based)
+           ↓                      ↓
+   XGBoost + LightGBM Ensemble   OpenRouter LLM
+   (5-day swing prediction)      (qualitative reasoning)
+           ↓                      ↓
+        ML Probability  ←→  AI Direction + Reasoning
+                    ↓
+         ATR-Based TP/SL + Quant Metrics
+         (Kelly Criterion, Expected Value, Sharpe)
+                    ↓
+         FastAPI Backend → Bloomberg-style Dashboard
 ```
 
 ---
 
-## Quick Start
+## ✨ Features
 
-### 1. Clone and install
+### Signal Generation
+- **86 tickers** across 6 asset classes: Crypto, Stocks, ETFs, Indices, Commodities, Forex
+- **ATR-14 based Take Profit & Stop Loss** — volatility-adjusted levels, not fixed percentages
+- **5-day swing trade horizon** with BUY/SELL direction and confidence score
 
+### ML Ensemble Model (`signals/ml_model.py`)
+- **XGBoost + LightGBM** trained on 2 years of historical OHLCV data per ticker
+- **21 features**: RSI-14, MACD, Bollinger Bands, ATR%, volume ratio, momentum, Stochastic %K, SMA distances, 52-week position
+- **Sentiment blending**: 10% weight from RSS news sentiment score
+- **Time-series aware split**: no lookahead bias, walk-forward validation
+- Feature importance explained per signal (top 3 drivers shown in dashboard)
+
+### Quant Metrics
+- **Kelly Criterion**: optimal position sizing based on ML probability and R:R ratio
+- **Expected Value**: probability-weighted profit/loss per unit
+- **Sharpe Estimate**: risk-adjusted return proxy per trade setup
+- **Risk/Reward Ratio**: ATR-calibrated per asset class
+
+### AI Reasoning Layer
+- **Primary**: Groq (Llama 3.1) — fastest inference
+- **Fallback 1**: OpenRouter (Gemma 3, free tier) — reliable backup
+- **Fallback 2**: Rule-based technical analysis — always available
+- LLM receives: price data, RSI, MACD, SMA position, top RSS headlines → generates plain-English reasoning
+
+### Live News Pipeline
+- **7 RSS feeds**: Yahoo Finance, CNBC, MarketWatch, CryptoNews, Investing.com, SeekingAlpha, FT Markets
+- **Single fetch, cached per run** — O(1) per ticker instead of O(n) HTTP calls
+- **Keyword + alias matching** per asset (e.g. "bitcoin" → "btc", "ethereum" → "eth")
+- **Sentiment scoring**: keyword-based BULLISH/BEARISH/NEUTRAL tagging
+
+### Dashboard (`dashboard/signals_dashboard.html`)
+- Bloomberg terminal aesthetic — IBM Plex Mono, dark theme
+- **ML probability bar** — visual BUY% vs SELL% split with model agreement
+- **Feature importance bars** — top 3 predictive features per signal
+- **GBM price simulation** — 30-day Monte Carlo path with TP/SL lines
+- Filter by asset class, direction, ML confidence
+- Auto-refresh every hour
+
+---
+
+## 🚀 Quick Start
+
+### 1. Clone & Install
 ```bash
-git clone https://github.com/yourname/prediction-market-bot.git
+git clone https://github.com/MaverickTushar007/prediction-market-bot.git
 cd prediction-market-bot
-python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
+conda create -n trading python=3.10
+conda activate trading
 pip install -r requirements.txt
 ```
 
-### 2. Run the demo (no API keys needed)
-
+### 2. Set API Keys
 ```bash
-python run_demo.py
+export GROQ_API_KEY="your_groq_key"        # Free at console.groq.com
+export OPENROUTER_API_KEY="your_key"        # Free at openrouter.ai
 ```
 
-This uses mock market data and simulated news. You'll see the full pipeline output in the terminal and trades saved to `data/demo_trades.db`.
-
-### 3. Launch the dashboard
-
+### 3. Generate Signals
 ```bash
-python dashboard/dashboard.py
-# Open http://localhost:8050
+python -c "
+from signals.signal_generator import generate_signals
+import json
+from pathlib import Path
+from datetime import datetime
+sigs = generate_signals(max_assets=86)
+Path('data/signals_cache.json').write_text(
+    json.dumps({'signals': sigs, 'generated_at': datetime.now().isoformat()}, indent=2)
+)
+print(f'Generated {len(sigs)} signals')
+"
 ```
 
-### 4. Launch the FastAPI server
-
+### 4. Start API
 ```bash
-uvicorn app.main:app --reload --port 8000
-# Open http://localhost:8000/docs
+uvicorn app.main:app --port 8000
 ```
 
-### 5. Run the test suite
-
-```bash
-pytest tests/ -v
-```
+### 5. Open Dashboard
+Open `dashboard/signals_dashboard.html` in your browser.
 
 ---
 
-## Configuration
-
-All settings can be overridden via environment variables:
-
-```bash
-# API Keys (optional — bot works with mocks if absent)
-export POLYMARKET_API_KEY="your_key"
-export KALSHI_API_KEY="your_key"
-export NEWS_API_KEY="your_key"
-export OPENAI_API_KEY="your_key"       # Enables LLM reasoning step
-
-# Risk parameters
-export BANKROLL="10000"
-export MAX_POSITION_PCT="0.05"
-export MAX_CONCURRENT_TRADES="15"
-export DAILY_LOSS_LIMIT_PCT="0.15"
-export MAX_DRAWDOWN_PCT="0.08"
-export KELLY_FRACTION="0.25"
-
-# Signal threshold
-export MIN_EDGE="0.04"
+## 📁 Project Structure
 ```
-
-Or copy `.env.example` to `.env` and use `python-dotenv`.
-
----
-
-## Pipeline Design
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                    PIPELINE (per run)                    │
-│                                                         │
-│  1. MarketScanner                                       │
-│     └─ Fetch Polymarket + Kalshi (mock if no key)       │
-│     └─ Filter: volume > 200, days < 30, spread < 5%     │
-│     └─ Rank by liquidity × uncertainty score            │
-│                                                         │
-│  2. NewsScraper + SentimentEngine                       │
-│     └─ RSS feeds + NewsAPI                              │
-│     └─ VADER sentiment → Bullish / Bearish / Neutral    │
-│                                                         │
-│  3. EnsembleModel                                       │
-│     └─ LogisticRegression (25%)                         │
-│     └─ XGBoost (35%)                                    │
-│     └─ LLMReasoner / GPT-4o-mini (40%, if key present)  │
-│     └─ Signal if edge > 0.04                            │
-│                                                         │
-│  4. RiskManager                                         │
-│     └─ Kelly Criterion sizing (0.25× fractional)        │
-│     └─ Max position 5% bankroll                         │
-│     └─ Drawdown / daily loss circuit breakers           │
-│                                                         │
-│  5. PaperTrader + TradeLogger                           │
-│     └─ Simulate limit order fill + slippage             │
-│     └─ Persist to SQLite                                │
-└─────────────────────────────────────────────────────────┘
+prediction-market-bot/
+├── signals/
+│   ├── signal_generator.py   # Main pipeline: price → features → ML → AI → signal
+│   ├── ml_model.py           # XGBoost + LightGBM ensemble, ATR features
+│   └── api.py                # FastAPI router for signal endpoints
+├── research/
+│   └── news_scraper.py       # RSS feed aggregator with sentiment scoring
+├── app/
+│   └── main.py               # FastAPI application
+├── dashboard/
+│   └── signals_dashboard.html # Bloomberg-style frontend
+├── prediction/
+│   ├── probability_model.py  # Logistic regression baseline
+│   └── ensemble_model.py     # Model ensemble logic
+├── execution/
+│   └── paper_trader.py       # Paper trading simulation
+└── data/
+    └── database.py           # SQLite trade logging
 ```
 
 ---
 
-## Kelly Criterion
+## 🔬 ML Model Details
 
-```
-f* = (p × b − q) / b
+| Parameter | Value |
+|-----------|-------|
+| Models | XGBoost + LightGBM (soft voting) |
+| Training data | 2 years daily OHLCV |
+| Prediction horizon | 5 days |
+| Label threshold | +2% return = BUY |
+| Train/test split | 80/20 time-series |
+| Features | 21 technical indicators |
+| Sentiment weight | 10% |
 
-p  = model probability of winning
-q  = 1 − p
-b  = net odds = (1 − price) / price
-
-Bet size = f* × 0.25 × bankroll   (fractional Kelly)
-         capped at 5% of bankroll
-```
-
----
-
-## API Endpoints
-
-| Method | Path | Description |
-|---|---|---|
-| `GET` | `/health` | System status + bankroll |
-| `POST` | `/pipeline/run` | Run full pipeline |
-| `GET` | `/trades` | All trades |
-| `GET` | `/trades/open` | Open positions |
-| `POST` | `/trades/{id}/resolve` | Resolve a position |
-| `GET` | `/performance` | Win rate, Sharpe, Brier |
-| `GET` | `/risk` | Risk manager state |
-| `GET` | `/research` | Market research log |
+**Feature set**: `ret_1d, ret_3d, ret_5d, ret_10d, ret_20d, rsi, macd, macd_signal, macd_hist, bb_pct, bb_width, atr_pct, vol_ratio, vol_trend, dist_sma20, dist_sma50, high_52w, low_52w, roc_5, roc_10, stoch_k`
 
 ---
 
-## Metrics Tracked
+## 📊 API Endpoints
 
-- **Win Rate** — % of trades that closed profitably
-- **Sharpe Ratio** — risk-adjusted return (annualised)
-- **Profit Factor** — gross profit / gross loss
-- **Brier Score** — probability calibration (lower = better)
-- **Max Drawdown** — peak-to-trough equity decline
-
----
-
-## Extending the Bot
-
-- **Add a new market source**: implement a client in `scanner/market_scanner.py` returning `List[Market]`
-- **Add a new model**: subclass `BaseModel` in `prediction/probability_model.py`
-- **Adjust risk rules**: edit thresholds in `utils/config.py` or `risk/risk_checks.py`
-- **Live trading**: replace `PaperTrader` with a real API client in `execution/`
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/signals/` | Get all cached signals |
+| POST | `/signals/refresh` | Trigger background refresh |
+| GET | `/health` | API health check |
 
 ---
 
-## Disclaimer
+## 🛠 Tech Stack
 
-This is a research and educational project. It operates in **paper trading mode only** by default. Do not use this for real financial decisions.
+| Component | Technology |
+|-----------|-----------|
+| Data | yfinance, feedparser |
+| ML | XGBoost, LightGBM, scikit-learn |
+| AI | Groq (Llama 3.1), OpenRouter (Gemma 3) |
+| Backend | FastAPI, uvicorn |
+| Frontend | Vanilla JS, Chart.js, IBM Plex Mono |
+| Storage | SQLite, JSON cache |
+
+---
+
+## ⚠️ Disclaimer
+
+This project is for educational and research purposes only. It does not constitute financial advice. All signals are generated algorithmically and should not be used for actual trading without proper risk management.
+
+---
+
+*Built as a quantitative finance portfolio project — demonstrating ML ensemble modeling, real-time data pipelines, and institutional-grade signal generation.*
+READMEEOF
