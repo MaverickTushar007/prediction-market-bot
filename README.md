@@ -177,11 +177,4 @@ prediction-market-bot/
 
 ---
 
-## ⚠️ Disclaimer
-
-This project is for educational and research purposes only. It does not constitute financial advice. All signals are generated algorithmically and should not be used for actual trading without proper risk management.
-
----
-
 *Built as a quantitative finance portfolio project — demonstrating ML ensemble modeling, real-time data pipelines, and institutional-grade signal generation.*
-READMEEOF
