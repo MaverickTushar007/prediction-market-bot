@@ -76,14 +76,10 @@ def get_backtest():
         if age_hours < 24:
             return json.loads(cache_file.read_text())
 
-    # Run backtest on mix of asset types
-    symbols = [
-        "BTC-USD","ETH-USD","SOL-USD",
-        "AAPL","NVDA","TSLA","MSFT",
-        "GC=F","CL=F",
-        "EURUSD=X",
-    ]
-    results = run_backtest(symbols, max_tickers=10)
+    # Run backtest on all tickers
+    from signals.signal_generator import TICKERS
+    symbols = [t["symbol"] for t in TICKERS]
+    results = run_backtest(symbols, max_tickers=len(symbols))
     output = {
         "results": results,
         "generated_at": __import__("datetime").datetime.now().isoformat()
