@@ -43,7 +43,15 @@ def scan_and_analyze():
         scraper = NewsScraper(use_rss=True, news_api_key="")
         results = []
 
-        for m in markets[:15]:
+        # Also fetch Kalshi markets
+        try:
+            from polymarket.kalshi import scan_kalshi
+            kalshi_markets = scan_kalshi(limit=20)
+            markets = markets + kalshi_markets[:10]
+        except Exception as ke:
+            logger.warning(f"Kalshi fetch failed: {ke}")
+
+        for m in markets[:25]:
             # Fetch news for context
             try:
                 articles = scraper.fetch(m["question"][:50], max_articles=3)

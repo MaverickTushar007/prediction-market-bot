@@ -750,7 +750,7 @@ function renderPolymarket(data) {
           <div style="display:grid;grid-template-columns:2fr 80px 80px 80px 80px 100px 120px;padding:12px 16px;border-bottom:1px solid var(--border);align-items:center;transition:background .1s" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''">
             <div>
               <div style="font-family:var(--sans);font-size:12px;font-weight:500;margin-bottom:3px">${m.question}</div>
-              <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">${m.category||''} · Vol $${((m.volume||0)/1000).toFixed(0)}K</div>
+              <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">${(m.source||'polymarket').toUpperCase()} · ${m.category||''} · Vol $${((m.volume||0)/1000).toFixed(0)}K</div>
               ${m.reasoning ? `<div style="font-family:var(--sans);font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4">${m.reasoning.substring(0,120)}...</div>` : ''}
             </div>
             <div style="font-family:var(--mono);font-size:12px">${((m.yes_price||0)*100).toFixed(0)}%</div>
