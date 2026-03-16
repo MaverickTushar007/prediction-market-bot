@@ -111,6 +111,15 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 .refresh-btn{font-family:var(--mono);font-size:9px;letter-spacing:2px;padding:5px 12px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;border-radius:2px;text-transform:uppercase;transition:all .15s}
 .refresh-btn:hover{background:var(--surface2);color:var(--text);border-color:var(--muted2)}
 .loading-row{padding:32px;text-align:center;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:2px}
+.skeleton{background:linear-gradient(90deg,var(--surface) 25%,var(--surface2) 50%,var(--surface) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:3px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.skel-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--border)}
+.skel-icon{width:32px;height:32px;border-radius:4px;flex-shrink:0}
+.skel-text{flex:1;display:flex;flex-direction:column;gap:6px}
+.skel-line{height:10px;border-radius:2px}
+.skel-line.short{width:40%}
+.skel-line.long{width:70%}
+.skel-tag{width:36px;height:18px;border-radius:2px;flex-shrink:0}
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--border2);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
 .error-box{padding:20px;background:rgba(255,71,87,.05);border:1px solid rgba(255,71,87,.2);border-radius:4px;color:var(--red);font-family:var(--mono);font-size:11px;line-height:1.6;margin:16px}
@@ -563,8 +572,38 @@ function calcEV(entry,target,sl,prob){if(!entry||!target||!sl)return 0;const p=p
 function calcSharpe(rr,conf){return((parseFloat(rr)||1)*(parseFloat(conf)||.5)*2-1).toFixed(2)}
 
 async function loadSignals(forceRefresh){
+  if(!forceRefresh){
+    try{
+      const cached = localStorage.getItem('qs_signals');
+      const cachedTime = localStorage.getItem('qs_signals_time');
+      if(cached && cachedTime){
+        const age = (Date.now() - parseInt(cachedTime)) / 60000;
+        if(age < 60){
+          const data = JSON.parse(cached);
+          all = data.signals || data || [];
+          renderList(); updateStats();
+          if(all.length>0 && !activeSym){ renderDetail(all[0]); activeSym=all[0].symbol; }
+          fetch(API).then(r=>r.json()).then(d=>{
+            all=d.signals||d||[];
+            localStorage.setItem('qs_signals',JSON.stringify(d));
+            localStorage.setItem('qs_signals_time',Date.now().toString());
+            renderList(); updateStats();
+          }).catch(()=>{});
+          return;
+        }
+      }
+    }catch(e){}
+  }
   if(forceRefresh){
-    document.getElementById('sigList').innerHTML='<div class="loading-row"><span class="spinner"></span>Refreshing...</div>';
+    document.getElementById('sigList').innerHTML=Array(8).fill(0).map(()=>`
+    <div class="skel-row">
+      <div class="skeleton skel-icon"></div>
+      <div class="skel-text">
+        <div class="skeleton skel-line long"></div>
+        <div class="skeleton skel-line short"></div>
+      </div>
+      <div class="skeleton skel-tag"></div>
+    </div>`).join('');
     await fetch(REFRESH_API,{method:'POST'});
     await new Promise(r=>setTimeout(r,1000));
   }
@@ -572,6 +611,7 @@ async function loadSignals(forceRefresh){
     const res=await fetch(API);
     const data=await res.json();
     all=data.signals||data||[];
+    try{localStorage.setItem('qs_signals',JSON.stringify(data));localStorage.setItem('qs_signals_time',Date.now().toString());}catch(e){}
     renderList();updateStats();
     if(activeSym){const s=all.find(x=>x.symbol===activeSym);if(s)renderDetail(s);}
     else if(all.length>0){renderDetail(all[0]);activeSym=all[0].symbol;}
@@ -855,6 +895,7 @@ function updateStats(){
 }
 
 setInterval(()=>{document.getElementById('clk').textContent=new Date().toLocaleTimeString()},1000);
+fetch('https://web-production-acfba.up.railway.app/health').catch(()=>{});
 loadSignals(false);
 setInterval(()=>loadSignals(false),3600000);
 
