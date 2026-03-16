@@ -1085,7 +1085,10 @@ function renderPolymarket(data) {
             <div style="font-family:var(--mono);font-size:12px;color:${edgeColor}">${((m.estimated_probability||0)*100).toFixed(0)}%</div>
             <div style="font-family:var(--mono);font-size:12px;color:${edgeColor}">${edge >= 0 ? '+' : ''}${(edge*100).toFixed(1)}%</div>
             <div style="font-family:var(--mono);font-size:12px;color:${(m.ev||0)>0?'var(--green)':'var(--red)'}">${(m.ev||0)>=0?'+':''}${(m.ev||0).toFixed(2)}</div>
-            <div style="font-family:var(--mono);font-size:10px;font-weight:700;color:${recColor};letter-spacing:1px">${rec.replace('_',' ')}</div>
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;font-weight:700;color:${recColor};letter-spacing:1px">${rec.replace('_',' ')}</div>
+              ${m.models_voted ? `<div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:2px">${m.models_voted} models · ${Math.round((m.agreement||0)*100)}% agree</div>` : ''}
+            </div>
             <div style="font-family:var(--mono);font-size:10px;color:var(--muted)">${sizing.kelly_pct ? sizing.kelly_pct+'% = $'+sizing.position_size : '—'}</div>
           </div>`;
       }).join('')}
