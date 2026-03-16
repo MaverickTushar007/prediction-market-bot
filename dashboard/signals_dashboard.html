@@ -117,6 +117,121 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 
 /* ── RESPONSIVE ── */
 
+/* Tablet */
+@media (max-width: 1024px) {
+  .statbar { grid-template-columns: repeat(3,1fr); }
+  .layout  { grid-template-columns: 240px 1fr; }
+  .quant-grid { grid-template-columns: repeat(2,1fr); }
+  .ml-grid    { grid-template-columns: 1fr; }
+  .levels-grid { grid-template-columns: repeat(3,1fr); }
+  #performancePanel .quant-grid,
+  #performancePanel [style*="grid-template-columns:repeat(4"] 
+    { grid-template-columns: repeat(2,1fr) !important; }
+  #pmSummary { grid-template-columns: repeat(2,1fr) !important; }
+  #btSummary { grid-template-columns: repeat(2,1fr) !important; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  /* Topbar */
+  .topbar { padding: 0 10px; flex-wrap: wrap; height: auto; min-height: 44px; gap: 6px; }
+  .brand-name { font-size: 9px; letter-spacing: 1px; }
+  .clock { display: none; }
+  .topbar-right { gap: 4px; flex-wrap: wrap; }
+  .refresh-btn { font-size: 8px; padding: 3px 6px; }
+
+  /* Stat bar */
+  .statbar { grid-template-columns: repeat(2,1fr); }
+  .stat-cell:nth-child(5) { display: none; }
+  .stat-value { font-size: 15px; }
+
+  /* Layout — stack vertically */
+  .layout { grid-template-columns: 1fr; grid-template-rows: 45vh 1fr; height: auto; }
+  .signal-panel { border-right: none; border-bottom: 1px solid var(--border); max-height: 45vh; }
+  .detail-panel { min-height: 55vh; }
+
+  /* Filter bar */
+  .filter-bar { gap: 3px; padding: 6px 8px; }
+  .filter-btn  { font-size: 8px; padding: 3px 5px; }
+
+  /* Signal rows */
+  .signal-row { padding: 8px 10px; }
+  .sig-icon   { width: 28px; height: 28px; font-size: 10px; }
+  .sig-sym    { font-size: 11px; }
+
+  /* Detail header */
+  .d-header { padding: 12px 14px; flex-wrap: wrap; gap: 8px; }
+  .d-icon   { width: 36px; height: 36px; font-size: 13px; }
+  .d-sym    { font-size: 18px; }
+  .d-price  { font-size: 20px; }
+  .d-body   { padding: 0 14px 20px; }
+  .section  { margin-top: 14px; }
+
+  /* Levels */
+  .levels-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .levels-grid .level-card:first-child { grid-column: span 2; }
+  .level-val { font-size: 14px; }
+
+  /* Quant metrics */
+  .quant-grid { grid-template-columns: repeat(2,1fr); gap: 6px; }
+  .quant-val  { font-size: 15px; }
+
+  /* ML grid */
+  .ml-grid { grid-template-columns: 1fr; }
+
+  /* Chart */
+  .chart-wrap canvas { height: 160px !important; }
+
+  /* Backtest panel */
+  #backtestPanel { padding: 14px; }
+  #btSummary { grid-template-columns: repeat(2,1fr) !important; gap: 8px; }
+  #btTable [style*="grid-template-columns:120px"] { 
+    grid-template-columns: 1fr 60px 60px 60px !important; 
+  }
+  #btTable [style*="grid-template-columns:120px"] > div:nth-child(5),
+  #btTable [style*="grid-template-columns:120px"] > div:nth-child(6),
+  #btTable [style*="grid-template-columns:120px"] > div:nth-child(7) { display: none; }
+
+  /* Polymarket panel */
+  #polymarketPanel { padding: 14px; }
+  #pmSummary { grid-template-columns: repeat(2,1fr) !important; gap: 8px; }
+  #pmMarkets [style*="grid-template-columns:2fr"] {
+    grid-template-columns: 1fr 60px 60px 70px !important;
+  }
+  #pmMarkets [style*="grid-template-columns:2fr"] > div:nth-child(5),
+  #pmMarkets [style*="grid-template-columns:2fr"] > div:nth-child(6),
+  #pmMarkets [style*="grid-template-columns:2fr"] > div:nth-child(7) { display: none; }
+
+  /* Performance panel */
+  #performancePanel { padding: 14px; }
+  #performancePanel [style*="grid-template-columns:repeat(4"] { 
+    grid-template-columns: repeat(2,1fr) !important; 
+    gap: 8px;
+  }
+  #tradeLog [style*="grid-template-columns:60px"] {
+    grid-template-columns: 40px 80px 60px 80px 60px 1fr !important;
+  }
+  #tradeLog [style*="grid-template-columns:60px"] > div:nth-child(5),
+  #tradeLog [style*="grid-template-columns:60px"] > div:nth-child(8) { display: none; }
+
+  /* Confluence table */
+  .conf-row { grid-template-columns: 110px 1fr auto !important; }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .statbar { grid-template-columns: repeat(2,1fr); }
+  .stat-value { font-size: 13px; }
+  .d-header { flex-direction: column; }
+  .d-price-group { text-align: left; }
+  .levels-grid { grid-template-columns: 1fr !important; }
+  .levels-grid .level-card:first-child { grid-column: span 1 !important; }
+  #btSummary, #pmSummary,
+  #performancePanel [style*="grid-template-columns:repeat(4"] { 
+    grid-template-columns: 1fr 1fr !important; 
+  }
+}
+
 /* Tablet (768px - 1024px) */
 @media (max-width: 1024px) {
   .statbar { grid-template-columns: repeat(3, 1fr); }
