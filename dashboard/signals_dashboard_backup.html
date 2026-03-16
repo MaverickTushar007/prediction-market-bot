@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>QUANT SIGNALS</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#07080d;--surface:#0d0f18;--surface2:#111420;--border:#1c1f2e;--border2:#252840;--text:#e8eaf0;--muted:#5a5f7a;--muted2:#3a3f58;--green:#00d68f;--green2:#00a870;--red:#ff4757;--red2:#cc2f3d;--amber:#ffd060;--blue:#4d9fff;--purple:#8b5cf6;--mono:'IBM Plex Mono',monospace;--sans:'DM Sans',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13px;min-height:100vh;overflow-x:hidden}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:44px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 8px var(--green)}50%{opacity:.6;box-shadow:0 0 16px var(--green)}}
+.brand-name{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:3px;color:var(--text);text-transform:uppercase}
+.topbar-right{display:flex;align-items:center;gap:20px}
+.live-badge{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:2px;color:var(--green);border:1px solid var(--green2);padding:2px 8px;border-radius:2px}
+.clock{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.statbar{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--border);background:var(--surface)}
+.stat-cell{padding:12px 20px;border-right:1px solid var(--border)}
+.stat-cell:last-child{border-right:none}
+.stat-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
+.stat-value{font-family:var(--mono);font-size:22px;font-weight:600;line-height:1}
+.layout{display:grid;grid-template-columns:300px 1fr;height:calc(100vh - 44px - 54px)}
+.signal-panel{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.filter-bar{padding:10px 12px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:4px;background:var(--surface)}
+.filter-btn{font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:4px 8px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;border-radius:2px;text-transform:uppercase;transition:all .15s}
+.filter-btn:hover,.filter-btn.active{background:var(--border2);color:var(--text);border-color:var(--muted2)}
+.signal-list{overflow-y:auto;flex:1}
+.signal-list::-webkit-scrollbar{width:4px}
+.signal-list::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.search-bar{padding:8px 12px;border-bottom:1px solid var(--border);background:var(--surface)}
+.search-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:3px;padding:6px 10px;color:var(--text);font-family:var(--mono);font-size:11px;outline:none;transition:border .15s}
+.search-input:focus{border-color:var(--blue)}
+.search-input::placeholder{color:var(--muted2)}
+.signal-row{display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:10px 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;gap:8px}
+.signal-row:hover{background:var(--surface2)}
+.signal-row.active{background:var(--surface2);border-left:2px solid var(--blue)}
+.sig-icon{width:32px;height:32px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:600;background:var(--surface2);border:1px solid var(--border2);flex-shrink:0}
+.sig-sym{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.5px}
+.sig-name{font-size:10px;color:var(--muted);margin-top:1px}
+.sig-right{text-align:right}
+.dir-tag{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.5px;padding:2px 6px;border-radius:2px;display:inline-block;margin-bottom:3px}
+.dir-tag.buy{background:rgba(0,214,143,.15);color:var(--green);border:1px solid rgba(0,214,143,.3)}
+.dir-tag.sell{background:rgba(255,71,87,.15);color:var(--red);border:1px solid rgba(255,71,87,.3)}
+.dir-tag.neutral{background:rgba(255,208,96,.15);color:var(--amber);border:1px solid rgba(255,208,96,.3)}
+.sig-chg{font-family:var(--mono);font-size:10px}
+.ml-conf-dot{display:inline-block;width:5px;height:5px;border-radius:50%;margin-left:4px;vertical-align:middle}
+.detail-panel{overflow-y:auto;background:var(--bg)}
+.detail-panel::-webkit-scrollbar{width:4px}
+.detail-panel::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.detail-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--muted2);gap:8px}
+.d-header{display:flex;align-items:flex-start;justify-content:space-between;padding:20px 24px 16px;border-bottom:1px solid var(--border);background:var(--surface)}
+.d-title-group{display:flex;align-items:center;gap:14px}
+.d-icon{width:48px;height:48px;border-radius:6px;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:16px;font-weight:700}
+.d-sym{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:1px;line-height:1}
+.d-sub{font-size:11px;color:var(--muted);margin-top:4px;display:flex;align-items:center;gap:8px}
+.type-pill{font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:2px 6px;border-radius:2px;border:1px solid var(--border2);color:var(--muted);text-transform:uppercase}
+.d-price-group{text-align:right}
+.d-price{font-family:var(--mono);font-size:28px;font-weight:600;line-height:1}
+.d-chg{font-family:var(--mono);font-size:11px;margin-top:4px}
+.dir-big{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:2px;padding:4px 12px;border-radius:3px;display:inline-block;margin-top:8px}
+.dir-big.buy{background:rgba(0,214,143,.2);color:var(--green);border:1px solid var(--green2)}
+.dir-big.sell{background:rgba(255,71,87,.2);color:var(--red);border:1px solid var(--red2)}
+.d-body{padding:0 24px 32px}
+.section{margin-top:20px}
+.section-title{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:3px;color:var(--muted);text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.levels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.level-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:12px 14px}
+.level-label{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+.level-val{font-family:var(--mono);font-size:18px;font-weight:600;line-height:1}
+.level-sub{font-family:var(--mono);font-size:10px;margin-top:3px}
+.quant-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.quant-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:12px 14px;position:relative;overflow:hidden}
+.quant-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.quant-card.green::before{background:var(--green)}
+.quant-card.red::before{background:var(--red)}
+.quant-card.amber::before{background:var(--amber)}
+.quant-card.blue::before{background:var(--blue)}
+.quant-card.purple::before{background:var(--purple)}
+.quant-label{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.quant-val{font-family:var(--mono);font-size:20px;font-weight:600;line-height:1}
+.quant-sub{font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px}
+.ml-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ml-prob-bar{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px}
+.ml-feature-chart{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px}
+.feature-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.feature-name{font-family:var(--mono);font-size:9px;color:var(--muted);width:70px;flex-shrink:0;text-transform:uppercase}
+.feature-track{flex:1;height:4px;background:var(--border2);border-radius:2px}
+.feature-fill{height:100%;border-radius:2px}
+.feature-val{font-family:var(--mono);font-size:9px;color:var(--muted);width:30px;text-align:right}
+.ai-box{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:4px;padding:14px 16px}
+.ai-tag{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--blue);text-transform:uppercase;margin-bottom:8px}
+.ai-text{font-size:12px;line-height:1.6;color:var(--text)}
+.news-list{display:flex;flex-direction:column;gap:8px}
+.news-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:4px}
+.news-badge{font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:1px;padding:2px 5px;border-radius:2px;flex-shrink:0;margin-top:1px}
+.news-badge.bull{background:rgba(0,214,143,.2);color:var(--green);border:1px solid rgba(0,214,143,.3)}
+.news-badge.bear{background:rgba(255,71,87,.2);color:var(--red);border:1px solid rgba(255,71,87,.3)}
+.news-badge.neut{background:rgba(90,95,122,.3);color:var(--muted);border:1px solid var(--border2)}
+.news-hl{font-size:12px;line-height:1.4}
+.news-src{font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:3px}
+.conf-table{display:flex;flex-direction:column;gap:4px}
+.conf-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:3px}
+.conf-name{font-family:var(--mono);font-size:10px;color:var(--muted)}
+.conf-val{font-family:var(--mono);font-size:11px;font-weight:500}
+.conf-sig{font-family:var(--mono);font-size:9px;letter-spacing:1px}
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px}
+.refresh-btn{font-family:var(--mono);font-size:9px;letter-spacing:2px;padding:5px 12px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;border-radius:2px;text-transform:uppercase;transition:all .15s}
+.refresh-btn:hover{background:var(--surface2);color:var(--text);border-color:var(--muted2)}
+.loading-row{padding:32px;text-align:center;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:2px}
+.skeleton{background:linear-gradient(90deg,var(--surface) 25%,var(--surface2) 50%,var(--surface) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:3px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.skel-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--border)}
+.skel-icon{width:32px;height:32px;border-radius:4px;flex-shrink:0}
+.skel-text{flex:1;display:flex;flex-direction:column;gap:6px}
+.skel-line{height:10px;border-radius:2px}
+.skel-line.short{width:40%}
+.skel-line.long{width:70%}
+.skel-tag{width:36px;height:18px;border-radius:2px;flex-shrink:0}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--border2);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error-box{padding:20px;background:rgba(255,71,87,.05);border:1px solid rgba(255,71,87,.2);border-radius:4px;color:var(--red);font-family:var(--mono);font-size:11px;line-height:1.6;margin:16px}
+
+/* ── RESPONSIVE ── */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .statbar { grid-template-columns: repeat(3,1fr); }
+  .layout  { grid-template-columns: 240px 1fr; }
+  .quant-grid { grid-template-columns: repeat(2,1fr); }
+  .ml-grid    { grid-template-columns: 1fr; }
+  .levels-grid { grid-template-columns: repeat(3,1fr); }
+  #performancePanel .quant-grid,
+  #performancePanel [style*="grid-template-columns:repeat(4"] 
+    { grid-template-columns: repeat(2,1fr) !important; }
+  #pmSummary { grid-template-columns: repeat(2,1fr) !important; }
+  #btSummary { grid-template-columns: repeat(2,1fr) !important; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  /* Topbar */
+  .topbar { padding: 0 10px; flex-wrap: wrap; height: auto; min-height: 44px; gap: 6px; }
+  .brand-name { font-size: 9px; letter-spacing: 1px; }
+  .clock { display: none; }
+  .topbar-right { gap: 4px; flex-wrap: wrap; }
+  .refresh-btn { font-size: 8px; padding: 3px 6px; }
+
+  /* Stat bar */
+  .statbar { grid-template-columns: repeat(2,1fr); }
+  .stat-cell:nth-child(5) { display: none; }
+  .stat-value { font-size: 15px; }
+
+  /* Layout — stack vertically */
+  .layout { grid-template-columns: 1fr; grid-template-rows: 45vh 1fr; height: auto; }
+  .signal-panel { border-right: none; border-bottom: 1px solid var(--border); max-height: 45vh; }
+  .detail-panel { min-height: 55vh; }
+
+  /* Filter bar */
+  .filter-bar { gap: 3px; padding: 6px 8px; }
+  .filter-btn  { font-size: 8px; padding: 3px 5px; }
+
+  /* Signal rows */
+  .signal-row { padding: 8px 10px; }
+  .sig-icon   { width: 28px; height: 28px; font-size: 10px; }
+  .sig-sym    { font-size: 11px; }
+
+  /* Detail header */
+  .d-header { padding: 12px 14px; flex-wrap: wrap; gap: 8px; }
+  .d-icon   { width: 36px; height: 36px; font-size: 13px; }
+  .d-sym    { font-size: 18px; }
+  .d-price  { font-size: 20px; }
+  .d-body   { padding: 0 14px 20px; }
+  .section  { margin-top: 14px; }
+
+  /* Levels */
+  .levels-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .levels-grid .level-card:first-child { grid-column: span 2; }
+  .level-val { font-size: 14px; }
+
+  /* Quant metrics */
+  .quant-grid { grid-template-columns: repeat(2,1fr); gap: 6px; }
+  .quant-val  { font-size: 15px; }
+
+  /* ML grid */
+  .ml-grid { grid-template-columns: 1fr; }
+
+  /* Chart */
+  .chart-wrap canvas { height: 160px !important; }
+
+  /* Backtest panel */
+  #backtestPanel { padding: 14px; }
+  #btSummary { grid-template-columns: repeat(2,1fr) !important; gap: 8px; }
+  #btTable [style*="grid-template-columns:120px"] { 
+    grid-template-columns: 1fr 60px 60px 60px !important; 
+  }
+  #btTable [style*="grid-template-columns:120px"] > div:nth-child(5),
+  #btTable [style*="grid-template-columns:120px"] > div:nth-child(6),
+  #btTable [style*="grid-template-columns:120px"] > div:nth-child(7) { display: none; }
+
+  /* Polymarket panel */
+  #polymarketPanel { padding: 14px; }
+  #pmSummary { grid-template-columns: repeat(2,1fr) !important; gap: 8px; }
+  #pmMarkets [style*="grid-template-columns:2fr"] {
+    grid-template-columns: 1fr 60px 60px 70px !important;
+  }
+  #pmMarkets [style*="grid-template-columns:2fr"] > div:nth-child(5),
+  #pmMarkets [style*="grid-template-columns:2fr"] > div:nth-child(6),
+  #pmMarkets [style*="grid-template-columns:2fr"] > div:nth-child(7) { display: none; }
+
+  /* Performance panel */
+  #performancePanel { padding: 14px; }
+  #performancePanel [style*="grid-template-columns:repeat(4"] { 
+    grid-template-columns: repeat(2,1fr) !important; 
+    gap: 8px;
+  }
+  #tradeLog [style*="grid-template-columns:60px"] {
+    grid-template-columns: 40px 80px 60px 80px 60px 1fr !important;
+  }
+  #tradeLog [style*="grid-template-columns:60px"] > div:nth-child(5),
+  #tradeLog [style*="grid-template-columns:60px"] > div:nth-child(8) { display: none; }
+
+  /* Confluence table */
+  .conf-row { grid-template-columns: 110px 1fr auto !important; }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .statbar { grid-template-columns: repeat(2,1fr); }
+  .stat-value { font-size: 13px; }
+  .d-header { flex-direction: column; }
+  .d-price-group { text-align: left; }
+  .levels-grid { grid-template-columns: 1fr !important; }
+  .levels-grid .level-card:first-child { grid-column: span 1 !important; }
+  #btSummary, #pmSummary,
+  #performancePanel [style*="grid-template-columns:repeat(4"] { 
+    grid-template-columns: 1fr 1fr !important; 
+  }
+}
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  .statbar { grid-template-columns: repeat(3, 1fr); }
+  .stat-cell:nth-child(4) { border-top: 1px solid var(--border); }
+  .stat-cell:nth-child(5) { border-top: 1px solid var(--border); grid-column: span 2; }
+  .layout { grid-template-columns: 260px 1fr; }
+  .quant-grid { grid-template-columns: repeat(2, 1fr); }
+  .ml-grid { grid-template-columns: 1fr; }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 768px) {
+  .topbar { padding: 0 12px; }
+  .brand-name { font-size: 9px; letter-spacing: 2px; }
+  .clock { display: none; }
+
+  .statbar { grid-template-columns: repeat(2, 1fr); }
+  .stat-cell { padding: 8px 12px; }
+  .stat-cell:nth-child(5) { display: none; }
+  .stat-value { font-size: 16px; }
+
+  .layout { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: auto; }
+
+  .signal-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    max-height: 40vh;
+  }
+
+  .filter-bar { gap: 3px; padding: 8px; }
+  .filter-btn { font-size: 8px; padding: 3px 6px; }
+
+  .signal-row { padding: 8px 10px; }
+  .sig-icon { width: 28px; height: 28px; font-size: 10px; }
+  .sig-sym { font-size: 11px; }
+
+  .detail-panel { min-height: 60vh; }
+
+  .d-header { padding: 14px 16px 12px; flex-wrap: wrap; gap: 10px; }
+  .d-icon { width: 36px; height: 36px; font-size: 13px; }
+  .d-sym { font-size: 20px; }
+  .d-price { font-size: 22px; }
+
+  .d-body { padding: 0 16px 24px; }
+  .section { margin-top: 16px; }
+
+  .levels-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .levels-grid .level-card:first-child { grid-column: span 2; }
+  .level-val { font-size: 15px; }
+
+  .quant-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .quant-val { font-size: 16px; }
+
+  .ml-grid { grid-template-columns: 1fr; }
+
+  .chart-wrap canvas { height: 160px !important; }
+
+  .conf-row { flex-wrap: wrap; gap: 4px; }
+  .conf-val { font-size: 10px; }
+}
+
+/* Small mobile (< 480px) */
+@media (max-width: 480px) {
+  .statbar { grid-template-columns: repeat(2, 1fr); }
+  .stat-value { font-size: 14px; }
+  .quant-grid { grid-template-columns: 1fr 1fr; }
+  .levels-grid { grid-template-columns: 1fr; }
+  .levels-grid .level-card:first-child { grid-column: span 1; }
+  .d-title-group { flex-wrap: wrap; }
+  .d-header { flex-direction: column; }
+  .d-price-group { text-align: left; }
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand"><div class="brand-dot"></div><span class="brand-name">Quant Signals</span></div>
+  <div class="topbar-right">
+    <span class="live-badge">LIVE</span>
+    <span class="clock" id="clk">—</span>
+    <button class="refresh-btn" onclick="showTab('signals')" id="tab-signals" style="border-color:var(--blue);color:var(--blue)">Signals</button>
+    <button class="refresh-btn" onclick="showTab('backtest')" id="tab-backtest">Backtest</button>
+    <button class="refresh-btn" onclick="showTab('polymarket')" id="tab-polymarket">Polymarket</button>
+    <button class="refresh-btn" onclick="showTab('performance')" id="tab-performance">Performance</button>
+    <button class="refresh-btn" onclick="showHelp()" style="border-color:var(--amber);color:var(--amber)">? Help</button>
+    <button class="refresh-btn" onclick="loadSignals(true)">↻ Refresh</button>
+  </div>
+</div>
+<div class="statbar">
+  <div class="stat-cell"><div class="stat-label">Signals</div><div class="stat-value" id="sTotal" style="color:var(--blue)">—</div></div>
+  <div class="stat-cell"><div class="stat-label">Buy / Sell</div><div class="stat-value" id="sBuySell" style="color:var(--green)">—</div></div>
+  <div class="stat-cell"><div class="stat-label">Avg Confidence</div><div class="stat-value" id="sConf" style="color:var(--amber)">—</div></div>
+  <div class="stat-cell"><div class="stat-label">Market Mood</div><div class="stat-value" id="sMood">—</div></div>
+  <div class="stat-cell"><div class="stat-label">Data Source</div><div class="stat-value" style="font-size:11px;color:var(--muted);font-family:var(--mono)">yfinance · OpenRouter · RSS</div></div>
+</div>
+<div class="layout">
+  <div class="signal-panel">
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="setF('all',this)">All</button>
+      <button class="filter-btn" onclick="setF('CRYPTO',this)">Crypto</button>
+      <button class="filter-btn" onclick="setF('STOCK',this)">Stocks</button>
+      <button class="filter-btn" onclick="setF('ETF',this)">ETFs</button>
+      <button class="filter-btn" onclick="setF('INDEX',this)">Indices</button>
+      <button class="filter-btn" onclick="setF('COMMODITY',this)">Commod.</button>
+      <button class="filter-btn" onclick="setF('FOREX',this)">Forex</button>
+      <button class="filter-btn" onclick="setF('BUY',this)">Buy only</button>
+      <button class="filter-btn" onclick="setF('SELL',this)">Sell only</button>
+    </div>
+    <div class="search-bar">
+      <input class="search-input" id="searchInput" type="text" placeholder="Search ticker or name..." oninput="renderList()">
+    </div>
+    <div class="signal-list" id="sigList"><div class="loading-row"><span class="spinner"></span>Loading...</div></div>
+  </div>
+  <div class="detail-panel" id="detailCol">
+    <div class="detail-empty"><div style="font-size:32px;opacity:.3">◈</div><span style="font-family:var(--mono);font-size:11px;letter-spacing:2px">SELECT A SIGNAL</span></div>
+  </div>
+</div>
+
+<!-- Polymarket Panel -->
+<div id="polymarketPanel" style="display:none;padding:24px;overflow-y:auto;height:calc(100vh - 44px - 54px)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+      <div>
+        <div style="font-family:var(--mono);font-size:18px;font-weight:600;color:var(--text)">Prediction Markets</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px">Polymarket live markets · AI edge detection · Kelly sizing</div>
+      </div>
+      <button class="refresh-btn" onclick="loadPolymarket(true)">↻ Scan Markets</button>
+    </div>
+    <div id="pmSummary" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px"></div>
+    <div id="pmMarkets"></div>
+  </div>
+</div>
+
+<!-- Performance Panel -->
+<div id="performancePanel" style="display:none;padding:24px;overflow-y:auto;height:calc(100vh - 44px - 54px)">
+  <div style="max-width:1100px;margin:0 auto">
+
+    <!-- Header -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+      <div>
+        <div style="font-family:var(--mono);font-size:18px;font-weight:600">Performance Dashboard</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px">Paper P&L · Brier Score · Kill Switch</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="refresh-btn" onclick="loadPerformance()">↻ Refresh</button>
+        <button class="refresh-btn" onclick="autoCloseTrades()" style="border-color:var(--amber);color:var(--amber)">⏱ Close Expired</button>
+        <button id="killBtn" class="refresh-btn" onclick="toggleKillSwitch()" style="border-color:var(--red);color:var(--red)">🛑 Kill Switch</button>
+      </div>
+    </div>
+
+    <!-- Kill Switch Banner -->
+    <div id="killBanner" style="display:none;background:rgba(255,71,87,.1);border:1px solid var(--red);border-radius:4px;padding:12px 16px;margin-bottom:20px;font-family:var(--mono);font-size:12px;color:var(--red)">
+      🛑 KILL SWITCH ACTIVE — All signal generation is halted
+    </div>
+
+    <!-- P&L Stats -->
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px">Paper Trading P&L</div>
+    <div id="pnlSummary" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;text-align:center">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:6px">LOADING</div>
+      </div>
+    </div>
+
+    <!-- Brier Score -->
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px">Brier Score Calibration</div>
+    <div id="brierStats" style="margin-bottom:24px"></div>
+
+    <!-- Trade Log -->
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px">Recent Paper Trades</div>
+    <div id="tradeLog"></div>
+
+  </div>
+</div>
+
+<!-- Backtest Panel -->
+<div id="backtestPanel" style="display:none;padding:24px;overflow-y:auto;height:calc(100vh - 44px - 54px)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+      <div>
+        <div style="font-family:var(--mono);font-size:18px;font-weight:600;color:var(--text)">Historical Backtest</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px">XGB+LGBM ensemble · 6-month walk-forward · 5-day horizon · 2% threshold</div>
+      </div>
+      <button class="refresh-btn" onclick="loadBacktest(true)">↻ Run Backtest</button>
+    </div>
+
+    <div id="btSummary" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px"></div>
+    <div id="btTable"></div>
+  </div>
+</div>
+
+<script>
+// ── TAB SWITCHING ──
+function showTab(tab) {
+  document.getElementById('tab-signals').style.borderColor = '';
+  document.getElementById('tab-signals').style.color = '';
+  document.getElementById('tab-backtest').style.borderColor = '';
+  document.getElementById('tab-backtest').style.color = '';
+
+  document.getElementById('polymarketPanel').style.display = 'none';
+  document.getElementById('performancePanel').style.display = 'none';
+  if (tab === 'signals') {
+    document.querySelector('.layout').style.display = 'grid';
+    document.getElementById('backtestPanel').style.display = 'none';
+    document.getElementById('tab-signals').style.borderColor = 'var(--blue)';
+    document.getElementById('tab-signals').style.color = 'var(--blue)';
+  } else if (tab === 'backtest') {
+    document.querySelector('.layout').style.display = 'none';
+    document.getElementById('backtestPanel').style.display = 'block';
+    document.getElementById('tab-backtest').style.borderColor = 'var(--blue)';
+    document.getElementById('tab-backtest').style.color = 'var(--blue)';
+    loadBacktest(false);
+  } else if (tab === 'polymarket') {
+    document.querySelector('.layout').style.display = 'none';
+    document.getElementById('polymarketPanel').style.display = 'block';
+    document.getElementById('tab-polymarket').style.borderColor = 'var(--blue)';
+    document.getElementById('tab-polymarket').style.color = 'var(--blue)';
+    loadPolymarket(false);
+  } else if (tab === 'performance') {
+    document.querySelector('.layout').style.display = 'none';
+    document.getElementById('performancePanel').style.display = 'block';
+    document.getElementById('tab-performance').style.borderColor = 'var(--blue)';
+    document.getElementById('tab-performance').style.color = 'var(--blue)';
+    loadPerformance();
+  }
+}
+
+let btData = null;
+
+async function loadBacktest(force) {
+  if (btData && !force) { renderBacktest(btData); return; }
+  document.getElementById('btTable').innerHTML = '<div class="loading-row"><span class="spinner"></span>Running backtest... (~30 seconds)</div>';
+  document.getElementById('btSummary').innerHTML = '';
+  try {
+    const res = await fetch('https://web-production-acfba.up.railway.app/signals/backtest');
+    btData = await res.json();
+    renderBacktest(btData);
+  } catch(e) {
+    document.getElementById('btTable').innerHTML = '<div class="error-box">Could not load backtest data</div>';
+  }
+}
+
+function renderBacktest(data) {
+  const results = data.results || [];
+  if (!results.length) {
+    document.getElementById('btTable').innerHTML = '<div class="loading-row">No backtest data</div>';
+    return;
+  }
+
+  // Summary stats
+  const avgWR    = (results.reduce((a,r) => a + r.win_rate, 0) / results.length).toFixed(1);
+  const avgRet   = (results.reduce((a,r) => a + r.avg_ret, 0) / results.length).toFixed(2);
+  const avgSharpe= (results.reduce((a,r) => a + r.sharpe, 0) / results.length).toFixed(2);
+  const avgDD    = (results.reduce((a,r) => a + r.max_dd, 0) / results.length).toFixed(1);
+
+  document.getElementById('btSummary').innerHTML = `
+    <div class="quant-card blue" style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue)"></div>
+      <div class="quant-label">Avg Win Rate</div>
+      <div class="quant-val" style="color:var(--green);font-family:var(--mono);font-size:28px;font-weight:600">${avgWR}%</div>
+      <div class="quant-sub" style="font-family:var(--mono);font-size:9px;color:var(--muted)">across ${results.length} tickers</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--green)"></div>
+      <div class="quant-label" style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">Avg Return/Trade</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:600;color:${parseFloat(avgRet)>=0?'var(--green)':'var(--red)'}">${avgRet>0?'+':''}${avgRet}%</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">5-day hold period</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--amber)"></div>
+      <div class="quant-label" style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">Avg Sharpe Ratio</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:600;color:${parseFloat(avgSharpe)>=1.5?'var(--green)':parseFloat(avgSharpe)>=0?'var(--amber)':'var(--red)'}">${avgSharpe}</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">${parseFloat(avgSharpe)>=1.5?'Exceptional':parseFloat(avgSharpe)>=1?'Strong':'Moderate'}</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--red)"></div>
+      <div class="quant-label" style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">Avg Max Drawdown</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:600;color:var(--red)">${avgDD}%</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">worst peak-to-trough</div>
+    </div>
+  `;
+
+  // Results table
+  const sorted = [...results].sort((a,b) => b.sharpe - a.sharpe);
+  document.getElementById('btTable').innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:120px repeat(6,1fr);padding:10px 16px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase">
+        <div>Ticker</div><div>Win Rate</div><div>Avg Ret</div><div>Sharpe</div><div>Max DD</div><div>Trades</div><div>Total Ret</div>
+      </div>
+      ${sorted.map(r => `
+        <div style="display:grid;grid-template-columns:120px repeat(6,1fr);padding:12px 16px;border-bottom:1px solid var(--border);align-items:center;transition:background .1s" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''">
+          <div style="font-family:var(--mono);font-size:12px;font-weight:600">${r.symbol.replace('-USD','').replace('=X','').replace('=F','')}</div>
+          <div>
+            <div style="font-family:var(--mono);font-size:14px;font-weight:600;color:${r.win_rate>=60?'var(--green)':r.win_rate>=50?'var(--amber)':'var(--red)'}">${r.win_rate}%</div>
+            <div style="height:3px;background:var(--border2);border-radius:2px;margin-top:4px;width:80px">
+              <div style="height:100%;width:${r.win_rate}%;background:${r.win_rate>=60?'var(--green)':r.win_rate>=50?'var(--amber)':'var(--red)'};border-radius:2px"></div>
+            </div>
+          </div>
+          <div style="font-family:var(--mono);font-size:13px;color:${r.avg_ret>=0?'var(--green)':'var(--red)'}">${r.avg_ret>=0?'+':''}${r.avg_ret}%</div>
+          <div style="font-family:var(--mono);font-size:13px;color:${r.sharpe>=1.5?'var(--green)':r.sharpe>=0?'var(--amber)':'var(--red)'}">${r.sharpe}</div>
+          <div style="font-family:var(--mono);font-size:13px;color:var(--red)">${r.max_dd}%</div>
+          <div style="font-family:var(--mono);font-size:13px;color:var(--muted)">${r.n_trades}</div>
+          <div style="font-family:var(--mono);font-size:13px;color:${r.total_ret>=0?'var(--green)':'var(--red)'}">${r.total_ret>=0?'+':''}${r.total_ret}%</div>
+        </div>
+      `).join('')}
+    </div>
+    <div style="margin-top:12px;font-family:var(--mono);font-size:9px;color:var(--muted2);text-align:center">
+      Walk-forward backtest · No lookahead bias · Generated ${new Date(data.generated_at).toLocaleString()}
+    </div>
+  `;
+}
+</script>
+</div>
+<script>
+const API='https://web-production-acfba.up.railway.app/signals/';
+const REFRESH_API='https://web-production-acfba.up.railway.app/signals/refresh';
+let all=[],activeFilter='all',activeSym=null;
+
+function fmt(n,type){
+  if(!n&&n!==0)return'—';
+  n=parseFloat(n);
+  if(type==='FOREX')return n.toFixed(4);
+  if(n>=10000)return'$'+n.toLocaleString('en-US',{maximumFractionDigits:0});
+  if(n>=100)return'$'+n.toFixed(2);
+  return'$'+n.toFixed(4);
+}
+function pct(a,b){if(!a||!b)return'';const p=((b-a)/a*100);return(p>=0?'+':'')+p.toFixed(1)+'%'}
+function sb(s){return s==='BULLISH'?'bull':s==='BEARISH'?'bear':'neut'}
+function calcKelly(prob,rr){const p=parseFloat(prob)||.5;const r=parseFloat(rr)||1;return Math.max(0,Math.min((p-(1-p)/r)*100,25))}
+function calcEV(entry,target,sl,prob){if(!entry||!target||!sl)return 0;const p=parseFloat(prob)||.5;const win=Math.abs(target-entry);const loss=Math.abs(entry-sl);return p*win-(1-p)*loss}
+function calcSharpe(rr,conf){return((parseFloat(rr)||1)*(parseFloat(conf)||.5)*2-1).toFixed(2)}
+
+async function loadSignals(forceRefresh){
+  if(!forceRefresh){
+    try{
+      const cached = localStorage.getItem('qs_signals');
+      const cachedTime = localStorage.getItem('qs_signals_time');
+      if(cached && cachedTime){
+        const age = (Date.now() - parseInt(cachedTime)) / 60000;
+        if(age < 60){
+          const data = JSON.parse(cached);
+          all = data.signals || data || [];
+          renderList(); updateStats();
+          if(all.length>0 && !activeSym){ renderDetail(all[0]); activeSym=all[0].symbol; }
+          fetch(API).then(r=>r.json()).then(d=>{
+            all=d.signals||d||[];
+            localStorage.setItem('qs_signals',JSON.stringify(d));
+            localStorage.setItem('qs_signals_time',Date.now().toString());
+            renderList(); updateStats();
+          }).catch(()=>{});
+          return;
+        }
+      }
+    }catch(e){}
+  }
+  if(forceRefresh){
+    document.getElementById('sigList').innerHTML=Array(8).fill(0).map(()=>`
+    <div class="skel-row">
+      <div class="skeleton skel-icon"></div>
+      <div class="skel-text">
+        <div class="skeleton skel-line long"></div>
+        <div class="skeleton skel-line short"></div>
+      </div>
+      <div class="skeleton skel-tag"></div>
+    </div>`).join('');
+    await fetch(REFRESH_API,{method:'POST'});
+    await new Promise(r=>setTimeout(r,1000));
+  }
+  try{
+    const res=await fetch(API);
+    const data=await res.json();
+    all=data.signals||data||[];
+    try{localStorage.setItem('qs_signals',JSON.stringify(data));localStorage.setItem('qs_signals_time',Date.now().toString());}catch(e){}
+    renderList();updateStats();
+    if(activeSym){const s=all.find(x=>x.symbol===activeSym);if(s)renderDetail(s);}
+    else if(all.length>0){renderDetail(all[0]);activeSym=all[0].symbol;}
+  }catch(e){
+    document.getElementById('sigList').innerHTML=`<div class="error-box">Cannot connect to API at ${API}<br><br>Start: <code>uvicorn app.main:app --port 8000</code></div>`;
+  }
+}
+
+function getFiltered(){
+  const query = (document.getElementById('searchInput')?.value||'').toLowerCase().trim();
+  let filtered = all;
+  if(activeFilter==='BUY'||activeFilter==='SELL') filtered=all.filter(s=>s.direction===activeFilter);
+  else if(activeFilter!=='all') filtered=all.filter(s=>s.type===activeFilter);
+  if(query) filtered=filtered.filter(s=>
+    s.display.toLowerCase().includes(query)||
+    s.name.toLowerCase().includes(query)||
+    s.type.toLowerCase().includes(query)
+  );
+  return filtered;
+}
+function setF(f,btn){activeFilter=f;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderList()}
+
+function renderList(){
+  const filtered=getFiltered();
+  const c=document.getElementById('sigList');
+  if(!filtered.length){c.innerHTML='<div class="loading-row" style="color:var(--muted2)">No signals match</div>';return}
+  c.innerHTML=filtered.map(s=>{
+    const isActive=s.symbol===activeSym;
+    const mlColor=s.ml_confidence==='HIGH'?'var(--green)':s.ml_confidence==='MEDIUM'?'var(--amber)':'var(--muted)';
+    const chgColor=s.price_change_pct>=0?'var(--green)':'var(--red)';
+    return`<div class="signal-row${isActive?' active':''}" onclick="selectSig('${s.symbol}')">
+      <div class="sig-icon">${s.icon||s.display[0]}</div>
+      <div class="sig-info">
+        <div class="sig-sym">${s.display}${s.ml_confidence?`<span class="ml-conf-dot" style="background:${mlColor}"></span>`:''}</div>
+        <div class="sig-name">${s.name}</div>
+      </div>
+      <div class="sig-right">
+        <div><span class="dir-tag ${s.direction.toLowerCase()}">${s.direction}</span></div>
+        <div class="sig-chg" style="color:${chgColor}">${s.price_change_pct>=0?'+':''}${(s.price_change_pct||0).toFixed(2)}%</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function selectSig(sym){activeSym=sym;const s=all.find(x=>x.symbol===sym);if(s)renderDetail(s);renderList()}
+
+function renderDetail(s){
+  const isBuy=s.direction==='BUY';
+  const dirColor=isBuy?'var(--green)':'var(--red)';
+  const chgColor=s.price_change_pct>=0?'var(--green)':'var(--red)';
+  const rr=parseFloat(s.risk_reward)||1;
+  const prob=parseFloat(s.ml_probability)||.5;
+  const adjProb=isBuy?prob:1-prob;
+  const kelly=calcKelly(adjProb,rr);
+  const ev=calcEV(s.entry,s.target,s.stop_loss,adjProb);
+  const sharpe=calcSharpe(rr,adjProb);
+  const evColor=ev>=0?'var(--green)':'var(--red)';
+  const sharpeColor=parseFloat(sharpe)>=1?'var(--green)':parseFloat(sharpe)>=0?'var(--amber)':'var(--red)';
+  const mlBuyPct=Math.round(prob*100);
+  const mlSellPct=100-mlBuyPct;
+  const topFeatures=s.top_features||[];
+  const fiWeights=[82,61,44];
+
+  document.getElementById('detailCol').innerHTML=`
+    <div class="d-header">
+      <div class="d-title-group">
+        <div class="d-icon">${s.icon||s.display[0]}</div>
+        <div>
+          <div class="d-sym">${s.display}</div>
+          <div class="d-sub"><span>${s.name}</span><span class="type-pill">${s.type}</span></div>
+        </div>
+      </div>
+      <div class="d-price-group">
+        <div class="d-price" style="color:${dirColor}">${fmt(s.entry,s.type)}</div>
+        <div class="d-chg" style="color:${chgColor}">${s.price_change_pct>=0?'+':''}${(s.price_change_pct||0).toFixed(2)}% today</div>
+        <div><span class="dir-big ${s.direction.toLowerCase()}">${s.direction}</span></div>
+      </div>
+    </div>
+    <div class="d-body">
+      <div class="section">
+        <div class="section-title">Price Chart</div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden">
+          <!-- TradingView Widget -->
+          <div id="tv_widget_${s.symbol.replace(/[^a-zA-Z0-9]/g,'_')}" style="height:400px"></div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Trade Levels · ATR-Based</div>
+        <div class="levels-grid">
+          <div class="level-card"><div class="level-label">Entry</div><div class="level-val">${fmt(s.entry,s.type)}</div><div class="level-sub" style="color:var(--muted)">Current price</div></div>
+          <div class="level-card"><div class="level-label">Take Profit</div><div class="level-val" style="color:var(--green)">${fmt(s.target,s.type)}</div><div class="level-sub" style="color:var(--green)">${pct(s.entry,s.target)}</div></div>
+          <div class="level-card"><div class="level-label">Stop Loss</div><div class="level-val" style="color:var(--red)">${fmt(s.stop_loss,s.type)}</div><div class="level-sub" style="color:var(--red)">${pct(s.entry,s.stop_loss)}</div></div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Quant Metrics</div>
+        <div class="quant-grid">
+          <div class="quant-card blue"><div class="quant-label">Risk / Reward</div><div class="quant-val" style="color:var(--blue)">1 : ${rr.toFixed(1)}</div><div class="quant-sub">per unit risked</div></div>
+          <div class="quant-card ${kelly>=5?'green':'amber'}"><div class="quant-label">Kelly Criterion</div><div class="quant-val" style="color:${kelly>=5?'var(--green)':'var(--amber)'}">${kelly.toFixed(1)}%</div><div class="quant-sub">suggested size</div></div>
+          <div class="quant-card ${ev>=0?'green':'red'}"><div class="quant-label">Expected Value</div><div class="quant-val" style="color:${evColor}">${ev>=0?'+':''}${ev.toFixed(2)}</div><div class="quant-sub">per unit</div></div>
+          <div class="quant-card ${parseFloat(sharpe)>=1?'green':parseFloat(sharpe)>=0?'amber':'red'}"><div class="quant-label">Sharpe Est.</div><div class="quant-val" style="color:${sharpeColor}">${sharpe}</div><div class="quant-sub">${parseFloat(sharpe)>=1?'Strong':parseFloat(sharpe)>=0?'Moderate':'Weak'}</div></div>
+        </div>
+      </div>
+      ${s.ml_note?`
+      <div class="section">
+        <div class="section-title">ML Model · XGBoost + LightGBM Ensemble</div>
+        <div class="ml-grid">
+          <div class="ml-prob-bar">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <span style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase">Direction Probability</span>
+              <span style="font-family:var(--mono);font-size:11px;color:${s.ml_confidence==='HIGH'?'var(--green)':s.ml_confidence==='MEDIUM'?'var(--amber)':'var(--muted)'}">
+                ${s.ml_confidence} · ${Math.round((s.ml_agreement||0)*100)}% agree
+              </span>
+            </div>
+            <div style="display:flex;gap:2px;margin:10px 0;height:24px">
+              <div style="width:${mlBuyPct}%;background:rgba(0,214,143,.4);border-radius:2px 0 0 2px;display:flex;align-items:center;justify-content:center">
+                <span style="font-family:var(--mono);font-size:9px;color:var(--green)">${mlBuyPct>15?mlBuyPct+'%':''}</span>
+              </div>
+              <div style="width:${mlSellPct}%;background:rgba(255,71,87,.4);border-radius:0 2px 2px 0;display:flex;align-items:center;justify-content:center">
+                <span style="font-family:var(--mono);font-size:9px;color:var(--red)">${mlSellPct>15?mlSellPct+'%':''}</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px">
+              <span style="color:var(--green)">▲ BUY ${mlBuyPct}%</span>
+              <span style="color:var(--red)">SELL ${mlSellPct}% ▼</span>
+            </div>
+            <div style="margin-top:10px;padding:8px;background:var(--surface2);border-radius:3px;font-family:var(--mono);font-size:9px;color:var(--muted)">${s.ml_note}</div>
+          </div>
+          <div class="ml-feature-chart">
+            <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:12px">Top Predictive Features</div>
+            ${topFeatures.map((f,i)=>`
+              <div class="feature-bar-row">
+                <div class="feature-name">${f}</div>
+                <div class="feature-track"><div class="feature-fill" style="width:${fiWeights[i]}%;background:${i===0?'var(--blue)':i===1?'var(--purple)':'var(--amber)'}"></div></div>
+                <div class="feature-val">${fiWeights[i]}%</div>
+              </div>
+            `).join('')}
+            <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-family:var(--mono);font-size:9px;color:var(--muted)">2yr OHLCV · 5-day horizon · 21 features</div>
+          </div>
+        </div>
+      </div>`:'' }
+      <div class="section">
+        <div class="section-title">AI Reasoning</div>
+        <div class="ai-box">
+          <div class="ai-tag">OpenRouter · Gemma 3 · RSS-augmented</div>
+          <div class="ai-text">${s.ai_reasoning||'No reasoning available.'}</div>
+        </div>
+      </div>
+      ${s.news&&s.news.length?`
+      <div class="section">
+        <div class="section-title">News & Sentiment</div>
+        <div class="news-list">
+          ${s.news.map(n=>`<div class="news-item"><span class="news-badge ${sb(n.sentiment)}">${n.sentiment==='BULLISH'?'BULL':n.sentiment==='BEARISH'?'BEAR':'NEUT'}</span><div><div class="news-hl">${n.headline||'Market update'}</div><div class="news-src">${n.source||''}</div></div></div>`).join('')}
+        </div>
+      </div>`:''}
+      ${s.confluences&&s.confluences.length?`
+      <div class="section">
+        <div class="section-title" style="display:flex;justify-content:space-between;align-items:center">
+          <span>Technical Confluences</span>
+          ${s.confluence_score?`
+          <span style="font-family:var(--mono);font-size:10px;padding:3px 10px;border-radius:3px;background:${
+            parseInt(s.confluence_score)>=6?'rgba(0,214,143,.15)':
+            parseInt(s.confluence_score)>=4?'rgba(255,208,96,.15)':'rgba(255,71,87,.15)'
+          };color:${
+            parseInt(s.confluence_score)>=6?'var(--green)':
+            parseInt(s.confluence_score)>=4?'var(--amber)':'var(--red)'
+          };border:1px solid ${
+            parseInt(s.confluence_score)>=6?'rgba(0,214,143,.3)':
+            parseInt(s.confluence_score)>=4?'rgba(255,208,96,.3)':'rgba(255,71,87,.3)'
+          }">${s.confluence_score}</span>`:''
+          }
+        </div>
+        <div class="conf-table">
+          ${s.confluences.map(c=>`
+            <div class="conf-row" style="display:grid;grid-template-columns:140px 1fr auto;gap:12px;padding:10px 14px">
+              <span class="conf-name" style="font-family:var(--mono);font-size:10px;color:var(--muted)">${c.name||''}</span>
+              <span class="conf-val" style="font-family:var(--mono);font-size:11px">${c.value||''}</span>
+              <span style="font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:2px 8px;border-radius:2px;white-space:nowrap;
+                background:${c.signal==='BULLISH'?'rgba(0,214,143,.15)':c.signal==='BEARISH'?'rgba(255,71,87,.15)':'rgba(90,95,122,.15)'};
+                color:${c.signal==='BULLISH'?'var(--green)':c.signal==='BEARISH'?'var(--red)':'var(--muted)'};
+                border:1px solid ${c.signal==='BULLISH'?'rgba(0,214,143,.3)':c.signal==='BEARISH'?'rgba(255,71,87,.3)':'var(--border2)'}">
+                ${c.signal==='BULLISH'?'▲ BULL':c.signal==='BEARISH'?'▼ BEAR':'— NEUT'}
+              </span>
+            </div>
+          `).join('')}
+        </div>
+      </div>`:''}
+    </div>`;
+  // Load TradingView widget
+  setTimeout(() => {
+    const tvMap = {
+      'BTC-USD':'BINANCE:BTCUSDT','ETH-USD':'BINANCE:ETHUSDT','SOL-USD':'BINANCE:SOLUSDT',
+      'BNB-USD':'BINANCE:BNBUSDT','XRP-USD':'BINANCE:XRPUSDT','DOGE-USD':'BINANCE:DOGEUSDT',
+      'ADA-USD':'BINANCE:ADAUSDT','AVAX-USD':'BINANCE:AVAXUSDT','DOT-USD':'BINANCE:DOTUSDT',
+      'LINK-USD':'BINANCE:LINKUSDT','LTC-USD':'BINANCE:LTCUSDT','ATOM-USD':'BINANCE:ATOMUSDT',
+      'NEAR-USD':'BINANCE:NEARUSDT','ARB-USD':'BINANCE:ARBUSDT','OP-USD':'BINANCE:OPUSDT',
+      'INJ-USD':'BINANCE:INJUSDT','FET-USD':'BINANCE:FETUSDT',
+      '^GSPC':'SP:SPX','^IXIC':'NASDAQ:COMP','^DJI':'DJ:DJI','^VIX':'CBOE:VIX',
+      '^FTSE':'FTSE:UKX','^N225':'TVC:NI225','^GDAXI':'XETR:DAX','^RUT':'TVC:RUT','^HSI':'TVC:HSI',
+      'SPY':'AMEX:SPY','QQQ':'NASDAQ:QQQ','IWM':'AMEX:IWM','GLD':'AMEX:GLD',
+      'SLV':'AMEX:SLV','TLT':'NASDAQ:TLT','XLE':'AMEX:XLE','XLF':'AMEX:XLF',
+      'XLK':'AMEX:XLK','XLV':'AMEX:XLV','ARKK':'NASDAQ:ARKK','IEMG':'AMEX:IEMG',
+      'AAPL':'NASDAQ:AAPL','MSFT':'NASDAQ:MSFT','GOOGL':'NASDAQ:GOOGL','AMZN':'NASDAQ:AMZN',
+      'NVDA':'NASDAQ:NVDA','TSLA':'NASDAQ:TSLA','META':'NASDAQ:META','NFLX':'NASDAQ:NFLX',
+      'AMD':'NASDAQ:AMD','PLTR':'NYSE:PLTR','COIN':'NASDAQ:COIN','MSTR':'NASDAQ:MSTR',
+      'JPM':'NYSE:JPM','GS':'NYSE:GS','BAC':'NYSE:BAC','V':'NYSE:V','MA':'NYSE:MA',
+      'DIS':'NYSE:DIS','BABA':'NYSE:BABA','TSM':'NYSE:TSM','UBER':'NYSE:UBER',
+      'ORCL':'NYSE:ORCL','INTC':'NASDAQ:INTC','QCOM':'NASDAQ:QCOM','CRM':'NYSE:CRM',
+      'GC=F':'TVC:GOLD','CL=F':'TVC:USOIL','SI=F':'TVC:SILVER','NG=F':'TVC:NATURALGAS','HG=F':'TVC:COPPER',
+      'EURUSD=X':'FX:EURUSD','GBPUSD=X':'FX:GBPUSD','USDJPY=X':'FX:USDJPY',
+      'AUDUSD=X':'FX:AUDUSD','USDCAD=X':'FX:USDCAD','USDCHF=X':'FX:USDCHF','USDINR=X':'FX:USDINR',
+    };
+    const tvSym = tvMap[s.symbol] || s.display;
+    const containerId = 'tv_widget_' + s.symbol.replace(/[^a-zA-Z0-9]/g,'_');
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    // Remove old widget if exists
+    container.innerHTML = '';
+
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+    script.async = true;
+    script.innerHTML = JSON.stringify({
+      autosize: true,
+      symbol: tvSym,
+      interval: 'D',
+      timezone: 'Etc/UTC',
+      theme: 'dark',
+      style: '1',
+      locale: 'en',
+      backgroundColor: '#0d0f18',
+      gridColor: '#1c1f2e',
+      hide_top_toolbar: false,
+      hide_legend: false,
+      save_image: false,
+      calendar: false,
+      support_host: 'https://www.tradingview.com',
+    });
+    container.appendChild(script);
+  }, 100);
+}
+
+function drawChart(s,isBuy,dirColor){
+  const canvas=document.getElementById('priceChart');
+  if(!canvas||!window.Chart)return;
+  const entry=s.entry,tp=s.target,sl=s.stop_loss;
+  const prices=[entry];const vol=entry*.018;
+  for(let i=1;i<30;i++){const drift=isBuy?.0008:-.0008;prices.push(Math.max(0,prices[i-1]*(1+drift)+(Math.random()-.5)*vol))}
+  const labels=prices.map((_,i)=>i===0?'Now':i%4===0?'+'+i+'d':'');
+  if(canvas._chart)canvas._chart.destroy();
+  canvas._chart=new Chart(canvas,{
+    type:'line',
+    data:{labels,datasets:[
+      {data:prices,borderColor:dirColor,borderWidth:2,pointRadius:0,fill:false,tension:.4},
+      {data:Array(30).fill(tp),borderColor:'rgba(0,214,143,.6)',borderWidth:1,borderDash:[6,4],pointRadius:0,fill:false},
+      {data:Array(30).fill(sl),borderColor:'rgba(255,71,87,.6)',borderWidth:1,borderDash:[6,4],pointRadius:0,fill:false},
+      {data:Array(30).fill(entry),borderColor:'rgba(90,95,122,.5)',borderWidth:1,borderDash:[2,4],pointRadius:0,fill:false},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{ticks:{color:'#5a5f7a',font:{family:'IBM Plex Mono',size:9}},grid:{color:'#1c1f2e'}},
+              y:{ticks:{color:'#5a5f7a',font:{family:'IBM Plex Mono',size:9}},grid:{color:'#1c1f2e'}}}}
+  });
+}
+
+function updateStats(){
+  if(!all.length)return;
+  const buys=all.filter(s=>s.direction==='BUY').length;
+  const sells=all.filter(s=>s.direction==='SELL').length;
+  const avgConf=Math.round(all.reduce((a,s)=>a+(s.confidence||70),0)/all.length);
+  const bull=all.filter(s=>s.sentiment==='BULLISH').length;
+  const bear=all.filter(s=>s.sentiment==='BEARISH').length;
+  const mood=bull>bear?'BULLISH':bear>bull?'BEARISH':'NEUTRAL';
+  const moodColor=mood==='BULLISH'?'var(--green)':mood==='BEARISH'?'var(--red)':'var(--amber)';
+  document.getElementById('sTotal').textContent=all.length;
+  document.getElementById('sBuySell').textContent=buys+' / '+sells;
+  document.getElementById('sConf').textContent=avgConf+'%';
+  document.getElementById('sMood').textContent=mood;
+  document.getElementById('sMood').style.color=moodColor;
+}
+
+setInterval(()=>{document.getElementById('clk').textContent=new Date().toLocaleTimeString()},1000);
+fetch('https://web-production-acfba.up.railway.app/health').catch(()=>{});
+loadSignals(false);
+setInterval(()=>loadSignals(false),3600000);
+
+// ── PERFORMANCE ──
+const API_BASE = 'https://web-production-acfba.up.railway.app';
+
+async function loadPerformance() {
+  try {
+    const [pnlRes, brierRes, killRes] = await Promise.all([
+      fetch(API_BASE + '/signals/paper-trades'),
+      fetch(API_BASE + '/signals/brier'),
+      fetch(API_BASE + '/signals/kill-switch'),
+    ]);
+    const pnl   = await pnlRes.json();
+    const brier = await brierRes.json();
+    const kill  = await killRes.json();
+    renderPnL(pnl);
+    renderBrier(brier);
+    renderKillSwitch(kill);
+  } catch(e) {
+    document.getElementById('pnlSummary').innerHTML = '<div class="error-box">Could not connect to API</div>';
+  }
+}
+
+function renderPnL(d) {
+  const winColor  = (d.win_rate||0) >= 60 ? 'var(--green)' : (d.win_rate||0) >= 50 ? 'var(--amber)' : 'var(--red)';
+  const pnlColor  = (d.total_pnl_pct||0) >= 0 ? 'var(--green)' : 'var(--red)';
+  const pfColor   = (d.profit_factor||0) >= 1.5 ? 'var(--green)' : (d.profit_factor||0) >= 1 ? 'var(--amber)' : 'var(--red)';
+
+  document.getElementById('pnlSummary').innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue)"></div>
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">TOTAL TRADES</div>
+      <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:var(--blue)">${d.total_trades||0}</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">${d.open_trades||0} open · ${d.closed_trades||0} closed</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${winColor}"></div>
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">WIN RATE</div>
+      <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:${winColor}">${d.win_rate !== null ? d.win_rate+'%' : '—'}</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">avg win ${d.avg_win||0}% · avg loss ${d.avg_loss||0}%</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${pnlColor}"></div>
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">TOTAL P&L</div>
+      <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:${pnlColor}">${(d.total_pnl_pct||0)>=0?'+':''}${d.total_pnl_pct||0}%</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">$${d.total_pnl_usd||0} paper</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${pfColor}"></div>
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">PROFIT FACTOR</div>
+      <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:${pfColor}">${d.profit_factor||'—'}</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">Sharpe ${d.sharpe||'—'}</div>
+    </div>`;
+
+  // Trade log
+  const trades = d.trades || [];
+  if (!trades.length) {
+    document.getElementById('tradeLog').innerHTML = '<div style="font-family:var(--mono);font-size:11px;color:var(--muted2);text-align:center;padding:24px">No trades logged yet — generate signals to start tracking</div>';
+    return;
+  }
+  document.getElementById('tradeLog').innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:60px 100px 80px 100px 100px 80px 80px 1fr;padding:10px 16px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase">
+        <div>#</div><div>Symbol</div><div>Dir</div><div>Entry</div><div>Exit</div><div>P&L</div><div>Status</div><div>Date</div>
+      </div>
+      ${trades.slice(0,15).map(t => `
+        <div style="display:grid;grid-template-columns:60px 100px 80px 100px 100px 80px 80px 1fr;padding:10px 16px;border-bottom:1px solid var(--border);align-items:center">
+          <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">#${t.id}</div>
+          <div style="font-family:var(--mono);font-size:12px;font-weight:600">${t.symbol.replace('-USD','')}</div>
+          <div><span style="font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 6px;border-radius:2px;background:${t.direction==='BUY'?'rgba(0,214,143,.15)':'rgba(255,71,87,.15)'};color:${t.direction==='BUY'?'var(--green)':'var(--red)'}">${t.direction}</span></div>
+          <div style="font-family:var(--mono);font-size:11px">$${parseFloat(t.entry_price||0).toFixed(2)}</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">${t.exit_price ? '$'+parseFloat(t.exit_price).toFixed(2) : '—'}</div>
+          <div style="font-family:var(--mono);font-size:12px;font-weight:600;color:${(t.pnl_pct||0)>=0?'var(--green)':'var(--red)'}">${t.pnl_pct !== null ? (t.pnl_pct>=0?'+':'')+t.pnl_pct+'%' : '—'}</div>
+          <div style="font-family:var(--mono);font-size:9px;color:${t.status==='OPEN'?'var(--amber)':t.outcome==='WIN'?'var(--green)':'var(--red)'}">${t.status==='OPEN'?'OPEN':t.outcome}</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">${new Date(t.opened_at).toLocaleDateString()}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function renderBrier(d) {
+  const color = !d.brier_score ? 'var(--muted)' : d.brier_score < 0.15 ? 'var(--green)' : d.brier_score < 0.25 ? 'var(--amber)' : 'var(--red)';
+  document.getElementById('brierStats').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:16px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px">
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">BRIER SCORE</div>
+        <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:${color}">${d.brier_score !== null ? d.brier_score : '—'}</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">${d.calibration||'No data yet'}</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px">
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">PREDICTIONS</div>
+        <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:var(--blue)">${d.total_predictions||0}</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">${d.resolved||0} resolved · ${d.pending||0} pending</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px">
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">WIN RATE</div>
+        <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:var(--green)">${d.win_rate !== null ? d.win_rate+'%' : '—'}</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">prediction accuracy</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px">
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">TARGET</div>
+        <div style="font-family:var(--mono);font-size:26px;font-weight:600;color:var(--amber)">< 0.25</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">random baseline = 0.25</div>
+      </div>
+    </div>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--muted);padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:4px">
+      💡 Brier Score measures calibration: 0.0 = perfect · 0.25 = random guessing · higher = worse. 
+      Predictions are logged automatically when you scan Polymarket markets.
+    </div>`;
+}
+
+function renderKillSwitch(d) {
+  const banner = document.getElementById('killBanner');
+  const btn    = document.getElementById('killBtn');
+  if (d.active) {
+    banner.style.display = 'block';
+    btn.textContent = '✅ Resume Trading';
+    btn.style.borderColor = 'var(--green)';
+    btn.style.color = 'var(--green)';
+  } else {
+    banner.style.display = 'none';
+    btn.textContent = '🛑 Kill Switch';
+    btn.style.borderColor = 'var(--red)';
+    btn.style.color = 'var(--red)';
+  }
+}
+
+async function autoCloseTrades() {
+  try {
+    const res = await fetch(API_BASE + '/signals/paper-trades/auto-close', {method:'POST'});
+    const data = await res.json();
+    alert(data.closed + ' trades closed automatically');
+    loadPerformance();
+  } catch(e) {
+    alert('Auto-close failed — make sure API is running');
+  }
+}
+
+async function toggleKillSwitch() {
+  try {
+    const statusRes = await fetch(API_BASE + '/signals/kill-switch');
+    const status = await statusRes.json();
+    if (status.active) {
+      await fetch(API_BASE + '/signals/kill-switch/deactivate', {method:'POST'});
+    } else {
+      await fetch(API_BASE + '/signals/kill-switch/activate?reason=Manual+stop', {method:'POST'});
+    }
+    loadPerformance();
+  } catch(e) {
+    console.error('Kill switch toggle failed:', e);
+  }
+}
+
+// ── POLYMARKET ──
+let pmData = null;
+
+async function loadPolymarket(force) {
+  if (pmData && !force) { renderPolymarket(pmData); return; }
+  document.getElementById('pmMarkets').innerHTML = '<div class="loading-row"><span class="spinner"></span>Scanning Polymarket... (~30 seconds)</div>';
+  document.getElementById('pmSummary').innerHTML = '';
+  try {
+    const res = await fetch('https://web-production-acfba.up.railway.app/polymarket/scan', {method:'POST'});
+    pmData = await res.json();
+    renderPolymarket(pmData);
+  } catch(e) {
+    document.getElementById('pmMarkets').innerHTML = '<div class="error-box">Could not connect to API</div>';
+  }
+}
+
+function renderPolymarket(data) {
+  const markets = data.markets || [];
+  if (!markets.length) {
+    document.getElementById('pmMarkets').innerHTML = '<div class="loading-row">No markets found</div>';
+    return;
+  }
+
+  // Summary
+  const withEdge = markets.filter(m => Math.abs(m.edge||0) > 0.04);
+  const buyYes   = markets.filter(m => m.recommendation === 'BUY_YES').length;
+  const buyNo    = markets.filter(m => m.recommendation === 'BUY_NO').length;
+  const avgEdge  = withEdge.length ? (withEdge.reduce((a,m)=>a+Math.abs(m.edge||0),0)/withEdge.length*100).toFixed(1) : '0';
+
+  document.getElementById('pmSummary').innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue)"></div>
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">MARKETS SCANNED</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:600;color:var(--blue)">${markets.length}</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--green)"></div>
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">OPPORTUNITIES</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:600;color:var(--green)">${withEdge.length}</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">edge > 4%</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--amber)"></div>
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">BUY YES / NO</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:600;color:var(--amber)">${buyYes} / ${buyNo}</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--purple)"></div>
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">AVG EDGE</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:600;color:var(--purple)">${avgEdge}%</div>
+    </div>
+  `;
+
+  // Markets table
+  const sorted = [...markets].sort((a,b) => Math.abs(b.edge||0) - Math.abs(a.edge||0));
+  document.getElementById('pmMarkets').innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:2fr 80px 80px 80px 80px 100px 120px;padding:10px 16px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase">
+        <div>Question</div><div>Market</div><div>AI Est.</div><div>Edge</div><div>EV</div><div>Signal</div><div>Kelly Size</div>
+      </div>
+      ${sorted.map(m => {
+        const edge = m.edge || 0;
+        const edgeColor = edge > 0.04 ? 'var(--green)' : edge < -0.04 ? 'var(--red)' : 'var(--muted)';
+        const rec = m.recommendation || 'PASS';
+        const recColor = rec === 'BUY_YES' ? 'var(--green)' : rec === 'BUY_NO' ? 'var(--red)' : 'var(--muted)';
+        const sizing = m.sizing || {};
+        return `
+          <div style="display:grid;grid-template-columns:2fr 80px 80px 80px 80px 100px 120px;padding:12px 16px;border-bottom:1px solid var(--border);align-items:center;transition:background .1s" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''">
+            <div>
+              <div style="font-family:var(--sans);font-size:12px;font-weight:500;margin-bottom:3px">${m.question}</div>
+              <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">${(m.source||'polymarket').toUpperCase()} · ${m.category||''} · Vol $${((m.volume||0)/1000).toFixed(0)}K</div>
+              ${m.reasoning ? `<div style="font-family:var(--sans);font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4">${m.reasoning.substring(0,120)}...</div>` : ''}
+            </div>
+            <div style="font-family:var(--mono);font-size:12px">${((m.yes_price||0)*100).toFixed(0)}%</div>
+            <div style="font-family:var(--mono);font-size:12px;color:${edgeColor}">${((m.estimated_probability||0)*100).toFixed(0)}%</div>
+            <div style="font-family:var(--mono);font-size:12px;color:${edgeColor}">${edge >= 0 ? '+' : ''}${(edge*100).toFixed(1)}%</div>
+            <div style="font-family:var(--mono);font-size:12px;color:${(m.ev||0)>0?'var(--green)':'var(--red)'}">${(m.ev||0)>=0?'+':''}${(m.ev||0).toFixed(2)}</div>
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;font-weight:700;color:${recColor};letter-spacing:1px">${rec.replace('_',' ')}</div>
+              ${m.models_voted ? `<div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:2px">${m.models_voted} models · ${Math.round((m.agreement||0)*100)}% agree</div>` : ''}
+            </div>
+            <div style="font-family:var(--mono);font-size:10px;color:var(--muted)">${sizing.kelly_pct ? sizing.kelly_pct+'% = $'+sizing.position_size : '—'}</div>
+          </div>`;
+      }).join('')}
+    </div>
+    <div style="margin-top:12px;font-family:var(--mono);font-size:9px;color:var(--muted2);text-align:center">
+      Live data from Polymarket · AI probability estimation · Paper trading only · Generated ${new Date(data.generated_at).toLocaleString()}
+    </div>
+  `;
+}
+</script>
+<!-- Help Modal -->
+<div id="helpModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.9);backdrop-filter:blur(12px);overflow-y:auto">
+  <div style="max-width:680px;margin:40px auto;padding:0 24px 60px">
+
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;padding-top:8px">
+      <div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:10px">Documentation</div>
+        <div style="font-size:26px;font-weight:700;letter-spacing:-0.5px">How to use QuantSignals</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:6px">A plain-English guide for everyone</div>
+      </div>
+      <button onclick="hideHelp()" style="background:var(--surface);border:1px solid var(--border2);color:var(--muted);font-family:var(--mono);font-size:11px;padding:8px 16px;border-radius:3px;cursor:pointer;margin-top:8px;white-space:nowrap">Close</button>
+    </div>
+
+    <!-- Tab nav -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:24px">
+      <button onclick="helpTab('basics')" id="ht-basics" class="htab active-tab">What is this</button>
+      <button onclick="helpTab('signals')" id="ht-signals" class="htab">Reading signals</button>
+      <button onclick="helpTab('quant')" id="ht-quant" class="htab">The numbers</button>
+      <button onclick="helpTab('poly')" id="ht-poly" class="htab">Polymarket</button>
+    </div>
+
+    <!-- BASICS -->
+    <div id="hc-basics">
+      <div class="hcard">
+        <div class="hcard-title">What is QuantSignals?</div>
+        <div class="hcard-body">An AI-powered system that watches 86 financial assets — including Bitcoin, Apple, Gold, EUR/USD — and tells you whether the price is likely to go up or down over the next 5 days, and at what price to enter, take profit, or cut losses.</div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">Who is it for?</div>
+        <div class="hcard-body">Anyone curious about markets. You do not need to be a trader or know any finance. The signals, charts, and AI explanations are designed to be readable by anyone. That said — always do your own research before making any financial decision.</div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">The 4 tabs</div>
+        <div class="hcard-body">
+          <div class="hrow"><span class="hlabel">Signals</span><span class="hval">Live buy/sell recommendations for 86 assets with AI reasoning</span></div>
+          <div class="hrow"><span class="hlabel">Backtest</span><span class="hval">Proof that the model actually works — tested on 6 months of real history</span></div>
+          <div class="hrow"><span class="hlabel">Polymarket</span><span class="hval">Scans prediction markets for mispricings — events where AI disagrees with the crowd</span></div>
+          <div class="hrow"><span class="hlabel">Performance</span><span class="hval">Tracks every virtual trade logged by the system and its running P&amp;L</span></div>
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">How to use it — step by step</div>
+        <div class="hcard-body">
+          <div class="hstep"><span class="hnum">1</span><span>Click any ticker on the left (e.g. BTC/USD, NVDA, Gold)</span></div>
+          <div class="hstep"><span class="hnum">2</span><span>Look at the BUY or SELL signal at the top right</span></div>
+          <div class="hstep"><span class="hnum">3</span><span>Check the Entry, Take Profit, and Stop Loss price levels below the chart</span></div>
+          <div class="hstep"><span class="hnum">4</span><span>Read the AI Reasoning section — it explains why in plain English</span></div>
+          <div class="hstep"><span class="hnum">5</span><span>Check the Confluence Score — more green badges means a stronger signal</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIGNALS -->
+    <div id="hc-signals" style="display:none">
+      <div class="hcard">
+        <div class="hcard-title">BUY vs SELL</div>
+        <div class="hcard-body">BUY means the AI predicts the price will rise more than 2% over the next 5 days. SELL means it predicts a decline. This is generated by two machine learning models (XGBoost and LightGBM) trained on 2 years of historical price data.</div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">Entry, Take Profit, Stop Loss</div>
+        <div class="hcard-body">
+          <div class="hrow"><span class="hlabel">Entry</span><span class="hval">The current price — where you would open the trade</span></div>
+          <div class="hrow"><span class="hlabel">Take Profit</span><span class="hval">The target price — where you close to lock in gains</span></div>
+          <div class="hrow"><span class="hlabel">Stop Loss</span><span class="hval">The safety net price — where you close to limit losses</span></div>
+          <div style="margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--muted)">These are calculated using ATR (Average True Range) — a measure of how volatile the asset has been recently. More volatile assets get wider levels.</div>
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">Confluence Score (e.g. 6/9 bullish)</div>
+        <div class="hcard-body">Think of it as a vote count. The system checks 9 technical indicators (RSI, MACD, Bollinger Bands, etc.) and counts how many agree with the signal direction.
+          <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:60px;height:6px;background:var(--green);border-radius:3px"></div><span style="font-family:var(--mono);font-size:11px;color:var(--muted)">7-9 / 9 — Strong signal, high conviction</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:40px;height:6px;background:var(--amber);border-radius:3px"></div><span style="font-family:var(--mono);font-size:11px;color:var(--muted)">4-6 / 9 — Mixed signals, proceed carefully</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:6px;background:var(--red);border-radius:3px"></div><span style="font-family:var(--mono);font-size:11px;color:var(--muted)">1-3 / 9 — Weak signal, most indicators disagree</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">ML Probability Bar</div>
+        <div class="hcard-body">The green/red bar shows the raw machine learning probability. If green is 70%, the model thinks there is a 70% chance the price goes up. If model agreement is 97%, both XGBoost and LightGBM agree almost perfectly.</div>
+      </div>
+    </div>
+
+    <!-- QUANT METRICS -->
+    <div id="hc-quant" style="display:none">
+      <div class="hcard">
+        <div class="hcard-title">Risk / Reward Ratio</div>
+        <div class="hcard-body">Compares how much you could win vs how much you could lose. A ratio of 1:2 means you risk $1 to potentially make $2. Professional traders generally only take trades with at least 1:1.5 ratio.</div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">Kelly Criterion</div>
+        <div class="hcard-body">A mathematical formula that tells you the optimal percentage of your money to put into one trade — based on your win probability and the reward/risk ratio.
+          <div style="margin-top:10px;background:var(--surface2);border-radius:3px;padding:10px;font-family:var(--mono);font-size:11px;color:var(--muted)">Example: Kelly = 5% means if you have $1,000 total, the math says bet $50 on this trade. Betting more increases your risk of losing everything.</div>
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">Expected Value (EV)</div>
+        <div class="hcard-body">The average outcome if you made the same trade 1,000 times. Positive EV means you profit on average. Negative EV means you lose on average — even if you win sometimes.
+          <div style="margin-top:10px;background:var(--surface2);border-radius:3px;padding:10px;font-family:var(--mono);font-size:11px;color:var(--muted)">Only trade when EV is positive. This is the foundation of all professional trading.</div>
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">Sharpe Ratio</div>
+        <div class="hcard-body">Measures return relative to risk. Higher is better.
+          <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
+            <div class="hrow"><span class="hlabel" style="color:var(--red)">Below 1.0</span><span class="hval">Poor — not worth the risk</span></div>
+            <div class="hrow"><span class="hlabel" style="color:var(--amber)">1.0 - 2.0</span><span class="hval">Good — respectable performance</span></div>
+            <div class="hrow"><span class="hlabel" style="color:var(--green)">Above 2.0</span><span class="hval">Excellent — our backtest shows 2.87</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POLYMARKET -->
+    <div id="hc-poly" style="display:none">
+      <div class="hcard">
+        <div class="hcard-title">What is Polymarket?</div>
+        <div class="hcard-body">A prediction market where people bet on real-world events using real money. For example: "Will Argentina win the 2026 FIFA World Cup?" might trade at 11% — meaning the crowd thinks there is an 11% chance. If you think the real probability is higher, you can buy YES contracts and profit if it happens.</div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">How we find opportunities</div>
+        <div class="hcard-body">Three AI models independently estimate the true probability of each event, then vote with different weights. If the AI consensus says 35% but the market only shows 11% — that is a potential +24% edge, meaning the market may be underpricing the event.
+          <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+            <div class="hrow"><span class="hlabel">Groq / Llama</span><span class="hval">40% of the vote — fastest and most reliable</span></div>
+            <div class="hrow"><span class="hlabel">OpenRouter</span><span class="hval">35% of the vote — backup AI model</span></div>
+            <div class="hrow"><span class="hlabel">Rule-based</span><span class="hval">25% of the vote — deterministic, never fails</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">When does it recommend trading?</div>
+        <div class="hcard-body">Only when all three conditions are met: Edge greater than 4%, at least 60% model agreement on direction, and positive Expected Value. If models disagree, the system says PASS — no trade.</div>
+      </div>
+    </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<style>
+.htab{font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:8px 4px;border:1px solid var(--border2);background:var(--surface);color:var(--muted);border-radius:3px;cursor:pointer;text-transform:uppercase;transition:all .15s}
+.htab:hover{color:var(--text);border-color:var(--muted)}
+.active-tab{background:var(--blue) !important;color:white !important;border-color:var(--blue) !important}
+.hcard{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px 22px;margin-bottom:10px}
+.hcard-title{font-size:14px;font-weight:600;letter-spacing:-0.3px;margin-bottom:10px;color:var(--text)}
+.hcard-body{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.8}
+.hrow{display:flex;gap:12px;padding:6px 0;border-bottom:1px solid var(--border)}
+.hrow:last-child{border-bottom:none}
+.hlabel{font-weight:500;color:var(--text);flex-shrink:0;min-width:100px}
+.hval{color:var(--muted)}
+.hstep{display:flex;align-items:flex-start;gap:12px;padding:7px 0;border-bottom:1px solid var(--border)}
+.hstep:last-child{border-bottom:none}
+.hnum{background:var(--blue);color:white;font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+</style>
+
+<script>
+function showHelp(){ document.getElementById('helpModal').style.display='block'; document.body.style.overflow='hidden'; }
+function hideHelp(){ document.getElementById('helpModal').style.display='none'; document.body.style.overflow=''; }
+function helpTab(tab){
+  ['basics','signals','quant','poly'].forEach(t=>{
+    document.getElementById('hc-'+t).style.display = t===tab?'block':'none';
+    const btn = document.getElementById('ht-'+t);
+    btn.classList.toggle('active-tab', t===tab);
+  });
+}
+document.getElementById('helpModal').addEventListener('click',function(e){ if(e.target===this) hideHelp(); });
+</script>
+
+</body>
+</html>
