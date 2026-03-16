@@ -1142,159 +1142,176 @@ function renderPolymarket(data) {
 }
 </script>
 <!-- Help Modal -->
-<div id="helpModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);overflow-y:auto">
-  <div style="max-width:720px;margin:40px auto;padding:0 20px 40px">
+<div id="helpModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.9);backdrop-filter:blur(12px);overflow-y:auto">
+  <div style="max-width:680px;margin:40px auto;padding:0 24px 60px">
 
-    <!-- Header -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;padding-top:8px">
       <div>
-        <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:8px">Getting Started</div>
-        <div style="font-size:28px;font-weight:700;letter-spacing:-1px">How to use QuantSignals</div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:10px">Documentation</div>
+        <div style="font-size:26px;font-weight:700;letter-spacing:-0.5px">How to use QuantSignals</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:6px">A plain-English guide for everyone</div>
       </div>
-      <button onclick="hideHelp()" style="background:var(--surface);border:1px solid var(--border2);color:var(--muted);font-family:var(--mono);font-size:12px;padding:8px 16px;border-radius:3px;cursor:pointer">✕ Close</button>
+      <button onclick="hideHelp()" style="background:var(--surface);border:1px solid var(--border2);color:var(--muted);font-family:var(--mono);font-size:11px;padding:8px 16px;border-radius:3px;cursor:pointer;margin-top:8px;white-space:nowrap">Close</button>
     </div>
 
     <!-- Tab nav -->
-    <div style="display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:4px;margin-bottom:24px">
-      <button onclick="helpTab('basics')" id="ht-basics" style="flex:1;font-family:var(--mono);font-size:10px;letter-spacing:1px;padding:8px;border:none;border-radius:3px;cursor:pointer;background:var(--blue);color:white;text-transform:uppercase">Basics</button>
-      <button onclick="helpTab('signals')" id="ht-signals" style="flex:1;font-family:var(--mono);font-size:10px;letter-spacing:1px;padding:8px;border:none;border-radius:3px;cursor:pointer;background:transparent;color:var(--muted);text-transform:uppercase">Signals</button>
-      <button onclick="helpTab('quant')" id="ht-quant" style="flex:1;font-family:var(--mono);font-size:10px;letter-spacing:1px;padding:8px;border:none;border-radius:3px;cursor:pointer;background:transparent;color:var(--muted);text-transform:uppercase">Quant Metrics</button>
-      <button onclick="helpTab('polymarket')" id="ht-polymarket" style="flex:1;font-family:var(--mono);font-size:10px;letter-spacing:1px;padding:8px;border:none;border-radius:3px;cursor:pointer;background:transparent;color:var(--muted);text-transform:uppercase">Polymarket</button>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:24px">
+      <button onclick="helpTab('basics')" id="ht-basics" class="htab active-tab">What is this</button>
+      <button onclick="helpTab('signals')" id="ht-signals" class="htab">Reading signals</button>
+      <button onclick="helpTab('quant')" id="ht-quant" class="htab">The numbers</button>
+      <button onclick="helpTab('poly')" id="ht-poly" class="htab">Polymarket</button>
     </div>
 
-    <!-- Basics -->
+    <!-- BASICS -->
     <div id="hc-basics">
-      ${[
-        ['🏠', 'What is this?', 'QuantSignals is an AI-powered trading signal system. It scans 86 assets across crypto, stocks, ETFs, indices, commodities and forex — and tells you whether to BUY or SELL each one, and at what price.'],
-        ['📊', '4 Tabs explained', 'SIGNALS → Live trading signals for 86 assets
-BACKTEST → Historical accuracy of the ML model
-POLYMARKET → Prediction market opportunities
-PERFORMANCE → Your paper trading track record'],
-        ['🔄', 'How to use it', '1. Click any ticker on the left panel
-2. Read the BUY/SELL signal and price levels
-3. Check ML confidence and confluence score
-4. Read the AI reasoning at the bottom
-5. Make your own decision — this is not financial advice'],
-        ['⏱', 'How often does it update?', 'Signals are cached and update every hour automatically. Click ↻ Refresh to force a fresh update. First load may take 10-15 seconds as the server wakes up.'],
-      ].map(([icon,title,desc])=>`
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px;margin-bottom:12px;display:flex;gap:16px">
-          <div style="font-size:24px;flex-shrink:0">${icon}</div>
-          <div>
-            <div style="font-weight:600;font-size:15px;margin-bottom:8px">${title}</div>
-            <div style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.7;white-space:pre-line">${desc}</div>
-          </div>
-        </div>`).join('')}
+      <div class="hcard">
+        <div class="hcard-title">What is QuantSignals?</div>
+        <div class="hcard-body">An AI-powered system that watches 86 financial assets — including Bitcoin, Apple, Gold, EUR/USD — and tells you whether the price is likely to go up or down over the next 5 days, and at what price to enter, take profit, or cut losses.</div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">Who is it for?</div>
+        <div class="hcard-body">Anyone curious about markets. You do not need to be a trader or know any finance. The signals, charts, and AI explanations are designed to be readable by anyone. That said — always do your own research before making any financial decision.</div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">The 4 tabs</div>
+        <div class="hcard-body">
+          <div class="hrow"><span class="hlabel">Signals</span><span class="hval">Live buy/sell recommendations for 86 assets with AI reasoning</span></div>
+          <div class="hrow"><span class="hlabel">Backtest</span><span class="hval">Proof that the model actually works — tested on 6 months of real history</span></div>
+          <div class="hrow"><span class="hlabel">Polymarket</span><span class="hval">Scans prediction markets for mispricings — events where AI disagrees with the crowd</span></div>
+          <div class="hrow"><span class="hlabel">Performance</span><span class="hval">Tracks every virtual trade logged by the system and its running P&amp;L</span></div>
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">How to use it — step by step</div>
+        <div class="hcard-body">
+          <div class="hstep"><span class="hnum">1</span><span>Click any ticker on the left (e.g. BTC/USD, NVDA, Gold)</span></div>
+          <div class="hstep"><span class="hnum">2</span><span>Look at the BUY or SELL signal at the top right</span></div>
+          <div class="hstep"><span class="hnum">3</span><span>Check the Entry, Take Profit, and Stop Loss price levels below the chart</span></div>
+          <div class="hstep"><span class="hnum">4</span><span>Read the AI Reasoning section — it explains why in plain English</span></div>
+          <div class="hstep"><span class="hnum">5</span><span>Check the Confluence Score — more green badges means a stronger signal</span></div>
+        </div>
+      </div>
     </div>
 
-    <!-- Signals -->
+    <!-- SIGNALS -->
     <div id="hc-signals" style="display:none">
-      ${[
-        ['🎯', 'BUY / SELL Signal', 'The main direction recommendation. BUY means the ML model predicts the price will rise >2% in the next 5 days. SELL means it predicts a decline. Generated by XGBoost + LightGBM ensemble.'],
-        ['📈', 'Entry / Take Profit / Stop Loss', 'Entry = current price
-Take Profit = target price if trade goes right
-Stop Loss = exit price if trade goes wrong
-
-These are calculated using ATR-14 (Average True Range) — a volatility-based measure. Not fixed percentages.'],
-        ['🔢', 'Confluence Score (e.g. 3/9 bullish)', 'Shows how many of 9 technical indicators agree with the signal direction. Higher = stronger signal.
-
-9/9 = all indicators aligned → very strong
-5/9 = mixed signals → use caution
-2/9 = most indicators disagree → weak signal'],
-        ['🤖', 'ML Probability Bar', 'Shows the raw XGBoost + LightGBM probability. Green = probability of going UP. Red = probability of going DOWN. 97% model agreement means both models strongly agree.'],
-        ['📰', 'News & Sentiment', 'Real headlines from CNBC, Yahoo Finance, MarketWatch. BULL badge = positive news. BEAR badge = negative news. NEUT = neutral. This context is fed to the AI for its reasoning.'],
-      ].map(([icon,title,desc])=>`
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px;margin-bottom:12px;display:flex;gap:16px">
-          <div style="font-size:24px;flex-shrink:0">${icon}</div>
-          <div>
-            <div style="font-weight:600;font-size:15px;margin-bottom:8px">${title}</div>
-            <div style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.7;white-space:pre-line">${desc}</div>
+      <div class="hcard">
+        <div class="hcard-title">BUY vs SELL</div>
+        <div class="hcard-body">BUY means the AI predicts the price will rise more than 2% over the next 5 days. SELL means it predicts a decline. This is generated by two machine learning models (XGBoost and LightGBM) trained on 2 years of historical price data.</div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">Entry, Take Profit, Stop Loss</div>
+        <div class="hcard-body">
+          <div class="hrow"><span class="hlabel">Entry</span><span class="hval">The current price — where you would open the trade</span></div>
+          <div class="hrow"><span class="hlabel">Take Profit</span><span class="hval">The target price — where you close to lock in gains</span></div>
+          <div class="hrow"><span class="hlabel">Stop Loss</span><span class="hval">The safety net price — where you close to limit losses</span></div>
+          <div style="margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--muted)">These are calculated using ATR (Average True Range) — a measure of how volatile the asset has been recently. More volatile assets get wider levels.</div>
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">Confluence Score (e.g. 6/9 bullish)</div>
+        <div class="hcard-body">Think of it as a vote count. The system checks 9 technical indicators (RSI, MACD, Bollinger Bands, etc.) and counts how many agree with the signal direction.
+          <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:60px;height:6px;background:var(--green);border-radius:3px"></div><span style="font-family:var(--mono);font-size:11px;color:var(--muted)">7-9 / 9 — Strong signal, high conviction</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:40px;height:6px;background:var(--amber);border-radius:3px"></div><span style="font-family:var(--mono);font-size:11px;color:var(--muted)">4-6 / 9 — Mixed signals, proceed carefully</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:6px;background:var(--red);border-radius:3px"></div><span style="font-family:var(--mono);font-size:11px;color:var(--muted)">1-3 / 9 — Weak signal, most indicators disagree</span></div>
           </div>
-        </div>`).join('')}
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">ML Probability Bar</div>
+        <div class="hcard-body">The green/red bar shows the raw machine learning probability. If green is 70%, the model thinks there is a 70% chance the price goes up. If model agreement is 97%, both XGBoost and LightGBM agree almost perfectly.</div>
+      </div>
     </div>
 
-    <!-- Quant Metrics -->
+    <!-- QUANT METRICS -->
     <div id="hc-quant" style="display:none">
-      ${[
-        ['⚖️', 'Risk / Reward Ratio', 'How much you can make vs how much you risk. A 1:2 ratio means for every $1 you risk, you could make $2. Professional traders target at least 1:1.5 minimum.'],
-        ['🎲', 'Kelly Criterion %', 'The mathematically optimal percentage of your bankroll to bet on this trade. Based on your win probability and the risk/reward ratio.
-
-Example: Kelly 5% means if you have $1,000, bet $50 on this trade. Never bet more than Kelly suggests.'],
-        ['💰', 'Expected Value (EV)', 'The average profit or loss per trade if you made this trade 100 times. Positive EV = profitable edge. Negative EV = losing trade on average.
-
-Only trade when EV is positive.'],
-        ['📐', 'Sharpe Ratio', 'Risk-adjusted return. Measures return relative to risk taken.
-
-Below 1.0 = poor
-1.0 - 2.0 = good
-Above 2.0 = excellent
-Our backtest: 2.87 ✅'],
-        ['🏆', 'Brier Score', 'Measures how well-calibrated the AI predictions are. Lower = better.
-
-0.0 = perfect predictions
-0.25 = random guessing
-Target: below 0.20'],
-      ].map(([icon,title,desc])=>`
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px;margin-bottom:12px;display:flex;gap:16px">
-          <div style="font-size:24px;flex-shrink:0">${icon}</div>
-          <div>
-            <div style="font-weight:600;font-size:15px;margin-bottom:8px">${title}</div>
-            <div style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.7;white-space:pre-line">${desc}</div>
+      <div class="hcard">
+        <div class="hcard-title">Risk / Reward Ratio</div>
+        <div class="hcard-body">Compares how much you could win vs how much you could lose. A ratio of 1:2 means you risk $1 to potentially make $2. Professional traders generally only take trades with at least 1:1.5 ratio.</div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">Kelly Criterion</div>
+        <div class="hcard-body">A mathematical formula that tells you the optimal percentage of your money to put into one trade — based on your win probability and the reward/risk ratio.
+          <div style="margin-top:10px;background:var(--surface2);border-radius:3px;padding:10px;font-family:var(--mono);font-size:11px;color:var(--muted)">Example: Kelly = 5% means if you have $1,000 total, the math says bet $50 on this trade. Betting more increases your risk of losing everything.</div>
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">Expected Value (EV)</div>
+        <div class="hcard-body">The average outcome if you made the same trade 1,000 times. Positive EV means you profit on average. Negative EV means you lose on average — even if you win sometimes.
+          <div style="margin-top:10px;background:var(--surface2);border-radius:3px;padding:10px;font-family:var(--mono);font-size:11px;color:var(--muted)">Only trade when EV is positive. This is the foundation of all professional trading.</div>
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">Sharpe Ratio</div>
+        <div class="hcard-body">Measures return relative to risk. Higher is better.
+          <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
+            <div class="hrow"><span class="hlabel" style="color:var(--red)">Below 1.0</span><span class="hval">Poor — not worth the risk</span></div>
+            <div class="hrow"><span class="hlabel" style="color:var(--amber)">1.0 - 2.0</span><span class="hval">Good — respectable performance</span></div>
+            <div class="hrow"><span class="hlabel" style="color:var(--green)">Above 2.0</span><span class="hval">Excellent — our backtest shows 2.87</span></div>
           </div>
-        </div>`).join('')}
+        </div>
+      </div>
     </div>
 
-    <!-- Polymarket -->
-    <div id="hc-polymarket" style="display:none">
-      ${[
-        ['🎯', 'What is Polymarket?', 'A prediction market where you bet on real-world events. Example: "Will Bitcoin hit $1M before GTA VI?" trades at 48% — meaning the crowd thinks there is a 48% chance.'],
-        ['📊', 'AI Est. vs Market Price', 'AI Est. = what our 3 AI models think the true probability is
-Market = what Polymarket is currently pricing
-
-If AI says 65% but market says 48% → potential +17% edge'],
-        ['⚡', 'Edge', 'The difference between AI estimate and market price. Only trade when edge > 4%.
-
-Positive edge = AI thinks event is MORE likely than market
-Negative edge = AI thinks event is LESS likely than market'],
-        ['🗳️', 'Multi-Model Voting', 'Three models vote independently:
-Groq/Llama (40% weight)
-OpenRouter/Gemma (35% weight)
-Rule-based logic (25% weight)
-
-Only recommends trading when models AGREE. Low consensus = PASS.'],
-        ['🛑', 'Kill Switch', 'Emergency stop button on the Performance tab. Activating it blocks all signal generation instantly. Use if markets are crashing or something looks wrong.'],
-      ].map(([icon,title,desc])=>`
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px;margin-bottom:12px;display:flex;gap:16px">
-          <div style="font-size:24px;flex-shrink:0">${icon}</div>
-          <div>
-            <div style="font-weight:600;font-size:15px;margin-bottom:8px">${title}</div>
-            <div style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.7;white-space:pre-line">${desc}</div>
+    <!-- POLYMARKET -->
+    <div id="hc-poly" style="display:none">
+      <div class="hcard">
+        <div class="hcard-title">What is Polymarket?</div>
+        <div class="hcard-body">A prediction market where people bet on real-world events using real money. For example: "Will Argentina win the 2026 FIFA World Cup?" might trade at 11% — meaning the crowd thinks there is an 11% chance. If you think the real probability is higher, you can buy YES contracts and profit if it happens.</div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">How we find opportunities</div>
+        <div class="hcard-body">Three AI models independently estimate the true probability of each event, then vote with different weights. If the AI consensus says 35% but the market only shows 11% — that is a potential +24% edge, meaning the market may be underpricing the event.
+          <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+            <div class="hrow"><span class="hlabel">Groq / Llama</span><span class="hval">40% of the vote — fastest and most reliable</span></div>
+            <div class="hrow"><span class="hlabel">OpenRouter</span><span class="hval">35% of the vote — backup AI model</span></div>
+            <div class="hrow"><span class="hlabel">Rule-based</span><span class="hval">25% of the vote — deterministic, never fails</span></div>
           </div>
-        </div>`).join('')}
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-title">When does it recommend trading?</div>
+        <div class="hcard-body">Only when all three conditions are met: Edge greater than 4%, at least 60% model agreement on direction, and positive Expected Value. If models disagree, the system says PASS — no trade.</div>
+      </div>
     </div>
 
     <!-- Disclaimer -->
-    <div style="background:rgba(255,71,87,0.05);border:1px solid rgba(255,71,87,0.2);border-radius:6px;padding:16px;margin-top:8px">
-      <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:8px">⚠️ Disclaimer</div>
-      <div style="font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.7">This is an educational project. All signals are for research purposes only and do not constitute financial advice. Past performance does not guarantee future results. Never invest money you cannot afford to lose.</div>
+    <div style="background:rgba(255,71,87,0.05);border:1px solid rgba(255,71,87,0.2);border-radius:4px;padding:16px;margin-top:16px">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:8px">Disclaimer</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.7">This is an educational project built for research purposes. Nothing here is financial advice. Past performance does not guarantee future results. Never invest money you cannot afford to lose.</div>
     </div>
 
   </div>
 </div>
 
+<style>
+.htab{font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:8px 4px;border:1px solid var(--border2);background:var(--surface);color:var(--muted);border-radius:3px;cursor:pointer;text-transform:uppercase;transition:all .15s}
+.htab:hover{color:var(--text);border-color:var(--muted)}
+.active-tab{background:var(--blue) !important;color:white !important;border-color:var(--blue) !important}
+.hcard{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px 22px;margin-bottom:10px}
+.hcard-title{font-size:14px;font-weight:600;letter-spacing:-0.3px;margin-bottom:10px;color:var(--text)}
+.hcard-body{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.8}
+.hrow{display:flex;gap:12px;padding:6px 0;border-bottom:1px solid var(--border)}
+.hrow:last-child{border-bottom:none}
+.hlabel{font-weight:500;color:var(--text);flex-shrink:0;min-width:100px}
+.hval{color:var(--muted)}
+.hstep{display:flex;align-items:flex-start;gap:12px;padding:7px 0;border-bottom:1px solid var(--border)}
+.hstep:last-child{border-bottom:none}
+.hnum{background:var(--blue);color:white;font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+</style>
+
 <script>
 function showHelp(){ document.getElementById('helpModal').style.display='block'; document.body.style.overflow='hidden'; }
 function hideHelp(){ document.getElementById('helpModal').style.display='none'; document.body.style.overflow=''; }
 function helpTab(tab){
-  ['basics','signals','quant','polymarket'].forEach(t=>{
-    document.getElementById('hc-'+t).style.display = t===tab ? 'block' : 'none';
+  ['basics','signals','quant','poly'].forEach(t=>{
+    document.getElementById('hc-'+t).style.display = t===tab?'block':'none';
     const btn = document.getElementById('ht-'+t);
-    btn.style.background = t===tab ? 'var(--blue)' : 'transparent';
-    btn.style.color = t===tab ? 'white' : 'var(--muted)';
+    btn.classList.toggle('active-tab', t===tab);
   });
 }
-document.getElementById('helpModal').addEventListener('click', function(e){
-  if(e.target === this) hideHelp();
-});
+document.getElementById('helpModal').addEventListener('click',function(e){ if(e.target===this) hideHelp(); });
 </script>
 
 </body>
