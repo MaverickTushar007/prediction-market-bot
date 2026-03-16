@@ -1,4 +1,4 @@
-cat > ~/Downloads/prediction-market-bot/README.md << 'READMEEOF'
+
 # 📈 AI-Powered Quantitative Trading Signals
 
 > Real-time trading signals for 86 assets across Crypto, Stocks, ETFs, Indices, Commodities & Forex — powered by an ML ensemble, OpenRouter LLM reasoning, and live RSS news.
